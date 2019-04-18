@@ -1,34 +1,34 @@
 # Game
 UnityScripts
 
-# 해야 할 일
+## 해야 할 일
 
-+ ## EditorWindow
++ ### EditorWindow
 
-+ ##Raycast
++ ### Raycast
 - Raycast
 - ScreenPointToRay
 
-+ ##API
++ ### API
 - Distance
 - Random
 - FindChild
 
-+ ##Coroutine
++ ### Coroutine
 - Subroutine
 - ThreadSleep
 - AsyncOperation
 - AnswerCheck
 
-+ ##Scene
++ ### Scene
 - LifeCycle
 
-+ ##PlayerPrefs
++ ### PlayerPrefs
 - Static functions
 
 
 
-+ ##UI
++ ### UI
 - 토글
 - 슬라이더
 + Rect Transform
@@ -38,7 +38,7 @@ UnityScripts
 - 앵커 포인트 (더)
 - Mask
 
-+ ##Animation
++ ### Animation
 - Legacy Animation
 - Mecanim Animation
 - TitleScreen
