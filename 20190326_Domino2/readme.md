@@ -2,6 +2,6 @@
 개발 기간 : 20190326 ~ 20190327
 설명 : 더 꾸며봄
 
-![실행화면](./picture.png)
-![실행화면2](./picture2.png)
-![실행화면3](./picture3.png)
+![실행화면](./picture.PNG)
+![실행화면2](./picture2.PNG)
+![실행화면3](./picture3.PNG)
