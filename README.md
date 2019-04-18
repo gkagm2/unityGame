@@ -1,5 +1,6 @@
 # Game
-UnityScripts
+Unity Scripts
+Version : 2018.2.21f1
 
 ## 해야 할 일
 
@@ -26,11 +27,10 @@ UnityScripts
 + ### PlayerPrefs
 - Static functions
 
-
-
 + ### UI
 - 토글
 - 슬라이더
+
 + Rect Transform
 - UI 렉트 툴 조작
 - UI Rect Transform
