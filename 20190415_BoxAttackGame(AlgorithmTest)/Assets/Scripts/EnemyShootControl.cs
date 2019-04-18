@@ -24,7 +24,13 @@ public class EnemyShootControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Shoot();
+        if (!GameManager.isGameOver)
+        {
+            Shoot();
+        }
+        else
+        {
+        }
     }
 
     public void Shoot()

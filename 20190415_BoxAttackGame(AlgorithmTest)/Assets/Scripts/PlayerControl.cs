@@ -66,6 +66,7 @@ public class PlayerControl : MonoBehaviour {
             playerInfo.hp -= 1;
             if(playerInfo.hp <= 0)
             {
+                GameManager.isGameOver = true; //게임종료 후
                 Destroy(gameObject);
             }
 
@@ -81,7 +82,7 @@ public class PlayerControl : MonoBehaviour {
     public void DoSmallScaleY(float ySize)
     {
 
-        Debug.Log("ySize :" + ySize);
+        //Debug.Log("ySize :" + ySize);
         transform.localScale -= new Vector3(0, ySize, 0);
     }
 }

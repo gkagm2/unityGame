@@ -25,11 +25,11 @@ public class EnemyControl : MonoBehaviour
     public float limitDownpositionY;
 
 
-    GameManager gameManager;
+    //GameManager gameManager;
     // Use this for initialization
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        //gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         enemyInfo = GetComponent<EnemyInfo>();
         speed = Random.Range(3.0f, 5.0f);
 

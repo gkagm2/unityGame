@@ -21,9 +21,11 @@ public class SideEnemyRespawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        SetRespawnPosition(); ///리스폰할 곳을 랜덤으로 지정해줌
-
-        RespawnEnemy();
+        if (!GameManager.isGameOver)
+        {
+            SetRespawnPosition(); ///리스폰할 곳을 랜덤으로 지정해줌
+            RespawnEnemy();
+        }
     }
     //TODO : 뭔가 이 코드가 안먹히는 것 같음.
     public void SetRespawnPosition()

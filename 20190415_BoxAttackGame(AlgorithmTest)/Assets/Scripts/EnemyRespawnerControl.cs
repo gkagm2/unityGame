@@ -15,7 +15,6 @@ public class EnemyRespawnerControl : MonoBehaviour {
     public float randomXPosition;
 
     public GameObject enemyObject;
-    public GameObject sideEnemyObject;
 	// Use this for initialization
 	void Start () {
         tempTime = coolTime;

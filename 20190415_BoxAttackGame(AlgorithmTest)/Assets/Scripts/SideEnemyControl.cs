@@ -21,12 +21,14 @@ public class SideEnemyControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (!GameManager.isGameOver)
+        {
+            //움직여라
+            Move(sideEnemyRespawner.direction);
 
-        //움직여라
-        Move(sideEnemyRespawner.direction);
-
-        //제한 거리까지 가면 없애기
-        DestroyWhenLimitDistanceX(sideEnemyRespawner.direction);
+            //제한 거리까지 가면 없애기
+            DestroyWhenLimitDistanceX(sideEnemyRespawner.direction);
+        }
     }
     public void Move(bool direction)
     {
