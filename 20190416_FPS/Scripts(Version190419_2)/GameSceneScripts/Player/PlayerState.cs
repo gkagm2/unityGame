@@ -51,4 +51,10 @@ public class PlayerState : MonoBehaviour {
 
         }
     }
+
+    public void GetHp()
+    {
+        hp = maxhp;
+        //Debug.Log("Hp is full! : " + hp);       
+    }
 }

@@ -12,7 +12,7 @@ public class EnemyManager : MonoBehaviour {
 
     //enemy spawn count
     int spawnCnt = 1;
-    int maxSpawnCnt = 10;
+    //int maxSpawnCnt = 10;
 
     //적 매니저 최적화 풀링 시스템 구현
     GameObject[] enemyPool;

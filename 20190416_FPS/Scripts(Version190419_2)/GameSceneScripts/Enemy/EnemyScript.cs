@@ -93,7 +93,6 @@ public class EnemyScript : MonoBehaviour {
                     stateTime = 0.0f;
                     //Enemy가 공격후 플레이어를 따라와서 공격하는 코드 구현
                     float distance1 = (target.position - transform.position).magnitude; //벡터의 길이를 반환한다.
-                    Debug.Log("Distance 1 : " + distance1);
                     if (distance1 > attackableRange)
                     {
                         enemyState = EnemyState.move;
@@ -179,10 +178,10 @@ public class EnemyScript : MonoBehaviour {
     private void OnCollisionEnter(Collision collision)
     {
 
-        Debug.Log("폭탄에 맞았다" + collision.gameObject.name);
+        //Debug.Log("폭탄에 맞았다" + collision.gameObject.name);
         if (enemyState == EnemyState.dead) //죽으면 끝
         {
-            Debug.Log("죽었다!");
+            //Debug.Log("죽었다!");
             return;
         }
 
@@ -190,7 +189,7 @@ public class EnemyScript : MonoBehaviour {
         int layerIndex = collision.gameObject.layer; //Bomb
         if (layerIndex != 10)  //이것도 같다.
             return;
-        Debug.Log("데미지 받음!");
+        //Debug.Log("데미지 받음!");
         enemyState = EnemyState.damage; //damage 상태로 바꾼다.
     }
     public void ApplyHitEffect(RaycastHit hit)
