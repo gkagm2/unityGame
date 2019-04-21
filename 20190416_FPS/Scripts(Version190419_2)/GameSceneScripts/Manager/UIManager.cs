@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour {
     void UpdateScore()
     {
         ScoreManager score = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-        scoreText.text = score.myScore.ToString();
+        scoreText.text = "Score : " +  score.myScore.ToString();
         ScoreManager.Instance();
     }
 

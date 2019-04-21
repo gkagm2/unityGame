@@ -17,14 +17,16 @@ public class EnemyScript : MonoBehaviour {
     }
     public EnemyState enemyState;            //상태 선언(열거형)
 
+
     float stateTime = 0.0f; // 상태 쿨타임
     public float idleStatemaxTime = 2.0f; //상태 최대 쿨타임
-
+    public float damageStateMaxTime = 2.0f;
 
     /// Component
     Transform target; // 적의 이동 상태를 구현하기위한 멤버 변수
     CharacterController characterController;//캐릭터 컨트롤러
     PlayerState playerState;                //PlayerState 가져옴
+    PlayerSound playerSound;                //PlayerSound 가져옴
     
 
     /// Prefebs
@@ -32,6 +34,7 @@ public class EnemyScript : MonoBehaviour {
 
     /// Sound
     public AudioClip hitSound;          // 맞을때 나는 소리
+
 
     private void Awake()
     {
@@ -44,6 +47,7 @@ public class EnemyScript : MonoBehaviour {
         target = GameObject.Find("Player").transform;             //Player의 Transform을 가져옴
         characterController = GetComponent<CharacterController>();//캐릭터 컨트롤러를 가져옴
         playerState = target.GetComponent<PlayerState>();         //Player State 가져옴
+        playerSound = target.GetComponent<PlayerSound>();         //Player Sound 가져옴 
     }
 	
 	// Update is called once per frame
@@ -61,7 +65,6 @@ public class EnemyScript : MonoBehaviour {
             case EnemyState.move: // move일 경우
                 GetComponent<Animation>().Play("walk03"); //걷는 애니메이션으로
                 GetComponent<Animation>()["walk03"].speed = 4.0f;
-
 
                 float distance = Vector3.Distance(target.position, transform.position); // Player와 Enemy의 거리를 구함.
 
@@ -101,41 +104,58 @@ public class EnemyScript : MonoBehaviour {
                         GetComponent<Animation>().Play("atack02");
                         GetComponent<Animation>().PlayQueued("idle02", QueueMode.CompleteOthers); //idle상태가 끝나고 나서 atack02 돌려라
 
-                        //플레이어 피격함수 호출
-                        playerState.DamageByEnemy();
+                        playerState.DamageByEnemy(); //플레이어 피격함수 호출
+                        playerSound.HitSoundByEnemy(); //맞을 때 플레이어의 소리 호출
 
                     }
                 }
         
                 break;
             case EnemyState.damage:
-
-                AudioManager.Instance().PlaySfx(hitSound);
-
+                
                 --hp;
-
-                GetComponent<Animation>()["damage"].speed = 0.5f;
-                GetComponent<Animation>().Play("damage");
-
-                GetComponent<Animation>().PlayQueued("idle02", QueueMode.CompleteOthers);
-
-                stateTime = 0.0f;
-                enemyState = EnemyState.idle;
-
                 if (hp <= 0)
                 {
+                    AudioManager.Instance().PlaySfx(hitSound); //맞는 소리
                     enemyState = EnemyState.dead;
+                    break;
                 }
+                stateTime += Time.deltaTime;
+                if (stateTime > damageStateMaxTime)
+                {
+
+                    AudioManager.Instance().PlaySfx(hitSound); //맞는 소리
+                    Debug.Log("hp : " + hp);
+                    // TOOD :   애니메이션이 씹힌다..
+                    //GetComponent<Animation>()["damage"].speed = 0.5f;
+                    GetComponent<Animation>().Play("damage");
+
+
+                    stateTime = 0.0f;
+                    enemyState = EnemyState.idle;
+
+                }
+                
                 break;
             case EnemyState.dead:
-                StartCoroutine(IDeadProcess());
+
+
+                GetComponent<AudioSource>().Stop(); // 비명을 멈춤
+                StartCoroutine(DeadProcess());
                 enemyState = EnemyState.none;
 
                 ScoreManager.Instance().myScore += score;
                 break;
         }
 	}
-    IEnumerator IDeadProcess()
+    IEnumerator DamageProcess()
+    {
+
+
+        yield return new WaitForSeconds(GetComponent<Animation>()["damage"].length);
+    }
+
+    IEnumerator DeadProcess()
     {
         GetComponent<Animation>()["death02"].speed = 0.5f;
         GetComponent<Animation>()["death02"].wrapMode = WrapMode.ClampForever; //한번 플레이하고 애니메이션 마지막 유지 // (1)
@@ -159,14 +179,18 @@ public class EnemyScript : MonoBehaviour {
     private void OnCollisionEnter(Collision collision)
     {
 
-        Debug.Log("맞았다!!!!!!!!" + collision.gameObject.name);
-        if (enemyState == EnemyState.dead)  //죽으면 끝
+        Debug.Log("폭탄에 맞았다" + collision.gameObject.name);
+        if (enemyState == EnemyState.dead) //죽으면 끝
+        {
+            Debug.Log("죽었다!");
             return;
+        }
 
         //Bomb일때
         int layerIndex = collision.gameObject.layer; //Bomb
-        if (layerIndex != 10)                                          //이것도 같다.
+        if (layerIndex != 10)  //이것도 같다.
             return;
+        Debug.Log("데미지 받음!");
         enemyState = EnemyState.damage; //damage 상태로 바꾼다.
     }
     public void ApplyHitEffect(RaycastHit hit)

@@ -21,11 +21,17 @@ public class AudioManager : MonoBehaviour {
             GetComponent<AudioSource>().clip = music;
             GetComponent<AudioSource>().loop = true;
             GetComponent<AudioSource>().Play();
+                
         }
 	}
 	
     public void PlaySfx(AudioClip clip)
     {
         GetComponent<AudioSource>().PlayOneShot(clip);
+    }
+
+    public void Volume(float vol)
+    {
+        GetComponent<AudioSource>().volume = vol;
     }
 }

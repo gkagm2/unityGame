@@ -18,9 +18,9 @@ public class MouseLook : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (playerHelth.isDead) //플레이어가 죽으면
-            return;
-        
+        if (playerHelth.isDead)
+            return;//플레이어가 죽으면
+
         float mouseMoveValueX = Input.GetAxis("Mouse X");
         //Debug.Log("X  : "+ mouseMoveValueX);
         float mouseMoveValueY = Input.GetAxis("Mouse Y");

@@ -10,7 +10,7 @@ public class RayCastEx : MonoBehaviour {
     void OnDrawGizmos()
     {
 
-        float maxDistance = 100;
+        float maxDistance = 1200;
         RaycastHit hit;
         // Physics.Raycast (레이저를 발사할 위치, 발사 방향, 충돌 결과, 최대 거리)
         bool isHit = Physics.Raycast(transform.position, transform.forward, out hit, maxDistance);

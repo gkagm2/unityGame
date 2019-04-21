@@ -37,12 +37,12 @@ public class FireManager : MonoBehaviour {
             AudioManager.Instance().PlaySfx(gunshootSoundClip); //발사 소리
 
             // 총구 반짝임 시작
-            GameObject muzzle = Instantiate(muzzleFlash, transform.position, transform.rotation) as GameObject;
+            GameObject muzzle = Instantiate(muzzleFlash, transform.position , transform.rotation) as GameObject;
             Destroy(muzzle,2f);
 
 
             //Raycast 사용하기
-            float maxDistance = 100;
+            float maxDistance = 1200;
             RaycastHit hit;
             bool isHit = Physics.Raycast(transform.position, transform.forward, out hit, maxDistance);
             Gizmos.color = Color.yellow;
@@ -51,11 +51,16 @@ public class FireManager : MonoBehaviour {
 
                 if (hit.transform.gameObject.tag == "Enemy") //Enemy를 맞췄으면
                 {
-                    HitEnemy(hit); //적을 맞춤
+                    if (!hit.transform.gameObject.GetComponent<EnemyScript>().enemyState.Equals("dead"))
+                    {
+                        HitEnemy(hit); //적을 맞춤
+                    }
                 }
                 else //다른곳을 맞추면
                 {
-                    AudioManager.Instance().PlaySfx(bulletBounceSound[Random.Range(0, 3)]);
+                    // 벽 튕김 Sound
+                    GetComponent<AudioSource>().clip = bulletBounceSound[Random.Range(0, 3)];
+                    GetComponent<AudioSource>().Play();
 
                     GameObject gunholdEffectTemp = Instantiate(gunHoldEffect, hit.point, Quaternion.LookRotation(hit.normal)) as GameObject;
                     Destroy(gunholdEffectTemp, 3f);
@@ -67,6 +72,7 @@ public class FireManager : MonoBehaviour {
         if (Input.GetButtonDown("Fire2"))
         {
             AudioManager.Instance().PlaySfx(gunshootSoundClip); //발사소리
+
 
 
             // 총구 반짝임 시작
@@ -85,13 +91,7 @@ public class FireManager : MonoBehaviour {
     {
         EnemyScript enemy = hit.transform.gameObject.GetComponent<EnemyScript>(); //상대방의 EnemyScript컴포넌트를 가져온다.
 
-        if (enemy.enemyState == EnemyScript.EnemyState.dead) //죽은 상태면 return
-        {
-            Debug.Log("죽은 상태");
-            return;
-        }
-        Debug.Log("살아있는 상태");
-
+      
         Debug.Log("Enemy hp :  "+ enemy.hp);
 
         enemy.ApplyHitEffect(hit);

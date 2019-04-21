@@ -32,7 +32,6 @@ public class BombProcess : MonoBehaviour {
             GameObject particleObj = Instantiate(airExplosioObject) as GameObject;
             particleObj.transform.position = transform.position;
         }
-
         AudioManager.Instance().PlaySfx(clip);
         Destroy(gameObject);
     }

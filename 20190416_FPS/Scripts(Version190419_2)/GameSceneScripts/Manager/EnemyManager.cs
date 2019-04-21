@@ -46,7 +46,7 @@ public class EnemyManager : MonoBehaviour {
                 }
                 int x = Random.Range(-20, 20);
                 int z = Random.Range(-20, 20);
-                enemyPool[i].transform.position = new Vector3(x, transform.position.y, z);
+                enemyPool[i].transform.position = new Vector3(x + transform.position.x, transform.position.y, z + transform.position.z);
                 enemyPool[i].SetActive(true);
 
                 enemyPool[i].name = "Enemy_" + spawnCnt;
