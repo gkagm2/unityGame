@@ -16,17 +16,6 @@
 - Raycast
 - ScreenPointToRay
 
-+ ### API
-- Distance
-- Random
-- FindChild
-
-+ ### Coroutine
-- Subroutine
-- ThreadSleep
-- AsyncOperation
-- AnswerCheck
-
 + ### Scene
 - LifeCycle
 
@@ -36,6 +25,8 @@
 + ### UI
 - 토글
 - 슬라이더
+
++ ### GUI
 
 + Rect Transform
 - UI 렉트 툴 조작
@@ -50,4 +41,5 @@
 - TitleScreen
 - Keyframe Animation
 - Joystick
+
 
