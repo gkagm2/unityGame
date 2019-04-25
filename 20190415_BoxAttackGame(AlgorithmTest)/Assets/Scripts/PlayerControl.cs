@@ -20,6 +20,11 @@ public class PlayerControl : MonoBehaviour {
         {
             MyPlayerControl();
         }
+
+
+        //TODO Mobile
+        InputMobile();
+
     }
     public void MyPlayerControl()
     {
@@ -84,5 +89,22 @@ public class PlayerControl : MonoBehaviour {
 
         //Debug.Log("ySize :" + ySize);
         transform.localScale -= new Vector3(0, ySize, 0);
+    }
+
+    //모바일 입력
+    public void InputMobile()
+    {
+        var fingerCount = 0;
+        foreach(Touch touch in Input.touches)
+        {
+            if(touch.phase != TouchPhase.Ended && touch.phase != TouchPhase.Canceled)
+            {
+                fingerCount++;
+            }
+        }
+        if(fingerCount > 0)
+        {
+            print("User has " + fingerCount + " finger(s) touching the screen");
+        }
     }
 }
