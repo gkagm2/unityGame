@@ -24,8 +24,7 @@
 - 슬라이더
 
 + ### GUI
-- ScrollView
-- Tween
+- Input field
 
 
 + Rect Transform
