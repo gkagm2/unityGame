@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
             for (int j = 0; j < currentStage ; j++)
             {
                 LevelStageInfo.levelStage[i, j] = true; //초기화 한다.
-                Debug.Log("level : " +i + " stage : " + j);
+                //Debug.Log("level : " +i + " stage : " + j);
             }
         }
     }
@@ -79,7 +79,8 @@ public class GameManager : MonoBehaviour
     {
         currentLevel = PlayerPrefs.GetInt("PlayerLevel"); //플레이어의 레벨을 불러온다.
         currentStage = PlayerPrefs.GetInt("PlayerStage"); //플레이어의 스테이지를 불러온다. 
-        Debug.Log("currentLevel : " + currentLevel + " currentStage : " + currentStage);
+        //TODO
+        //Debug.Log("currentLevel : " + currentLevel + " currentStage : " + currentStage); 
         LevelStageInfo.levelStage[currentLevel, currentStage] = true; // 플레이어가 했었던 레벨과 스테이지 상태를 true로 바꿈.
         InitLevelStageUntilCurrentState(); // 플레이어의 현재 상태까지 초기화
     }
