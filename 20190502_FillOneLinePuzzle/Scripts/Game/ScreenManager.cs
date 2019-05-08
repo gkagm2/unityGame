@@ -3,111 +3,203 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ScreenManager : MonoBehaviour {
+
+    /// <summary>
+    /// ///////////////나중에 지우기////////////////////////////////////////////
+    /// </summary>
     GameManager gameManager;
     // Main button control
     public Camera camera; //현재 보고있는 화면
 
     // Screen (Scene)
-    public GameObject mainScreen; // main scene
-    public GameObject[] levelScreen; // level scene
-    public GameObject[] stages; // stages
+    
 
     public GameObject gameScreen;
     short screenNumber;
 
-    GameObject currentScreen;
+    
     public  class LevelStageInfo
     {
         string level;
         string stage;
     }
     LevelStageInfo levelStageInfo;
+    /// <summary>
+    /// //////////////////////////////////////////////////////////////////////
+    /// </summary>
+
+
+
+    public GameObject mainScreen; // main scene의 Object를 가져옴
+
+    Stack<GameObject> screenStack = new Stack<GameObject>(); // 씬을 저장할 Stack 생성
+
 
 
     // Use this for initialization
     void Start () {
-        currentScreen = mainScreen;
+
+        //////////////////////////////////// 나중에 지우기///////////////////////
 
         // 게임 매니저 스크립트를 불러옴.
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        ////////////////////////////////////////////////////////////////////////////
+
+        screenStack.Push(mainScreen); // mainScreen을 push 함. (최초로 켜지는 씬)
+    }
+
+    // Update is called once per frame
+    void Update () {
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
-    public int GetCurrentLevel()
+
+    /// <summary>
+    /// MainScreen Buttons
+    /// </summary>
+    /// 
+    // ShareScreen Buttons
+    public void GotoShopScreen() //shopScreen으로 가는 버튼
     {
-        string level = "Level";
-        for (short tlevel = 1; tlevel <= 10; tlevel++) //
+        if(screenStack.Peek().name != "ShopScreen") //현재 씬이 ShopScreen이 아니면
         {
-            if (currentScreen.name == level + tlevel.ToString())
+            GameObject shopScreen = gameObject.transform.Find("ShopScreen").gameObject;//shopScreen을 찾아라
+            if (shopScreen) // shopScreen이 존재하면
             {
-                return tlevel; //level을 알려줌
-                
+                Debug.Log("ShopScreen이 SetActive true 됨");
+                ChangeScreen(shopScreen); //화면에 보여주는 스크린을 바꿈
+            }
+            else
+            {
+                Debug.Log("shopScreen을 찾지 못했습니다.");
             }
         }
-        return 0; //0이면 못찾은 것.
     }
-
-
-    public void OnClickBackbtn()
+    public void GotoLevelsScreen() //levelsScreen으로 가는 버튼
     {
-        currentScreen.SetActive(false);
-        mainScreen.SetActive(true);
+        GameObject levelsScreen = gameObject.transform.Find("LevelsScreen").gameObject; // levelsScreen을 찾아라
+        if (levelsScreen) // levelsScreen이 존재하면
+        {
+            Debug.Log("LevelsScreen이 SetActive true됨");
+            ChangeScreen(levelsScreen); //화면에 보여주는 스크린을 바꿈
+        }
     }
+    public void GotoStageScreen() // stageScreen으로 가는 버튼
+    {
+        GameObject stageScreen = gameObject.transform.Find("StageScreen").gameObject; // stageScreen을 찾아라
+        if (stageScreen) // stageScreen이 존재하면
+        {
+            //TODO : 여기 해야 함
+            Debug.Log("stageScreen이 SetActive true됨");
+            ChangeScreen(stageScreen); //화면에 보여주는 스크린을 바꿈
+        }
+    }
+
+
+    void ChangeScreen(GameObject obj) // 화면에 보여주는 스크린을 파라미터 오브젝트(스크린으)로 바꿈
+    {
+        screenStack.Peek().SetActive(false); // 현재 스크린을 안보이게 하고
+        screenStack.Push(obj); // Screen을 Push 함
+        screenStack.Peek().SetActive(true); //이후 shopScreen을 보이게 함.
+    }
+
+    // ShareScreen Buttons
+    public void BackBtn() //뒤로 가는 버튼
+    {
+        GameObject scene = screenStack.Pop(); //현재 스크린을 Pop하고
+        scene.SetActive(false); // 현재 스크린을 안보이게 한다.
+        screenStack.Peek().SetActive(true); // 이전 스크린을 보이게 한다.
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void ClickTestBtn()
+    {
+        Debug.Log("잘 찍힌다.");
+    }
+
+    //public int GetCurrentLevel()
+    //{
+    //    string level = "Level";
+    //    for (short tlevel = 1; tlevel <= 10; tlevel++) //
+    //    {
+    //        if (currentScreen.name == level + tlevel.ToString())
+    //        {
+    //            return tlevel; //level을 알려줌
+
+    //        }
+    //    }
+    //    return 0; //0이면 못찾은 것.
+    //}
+
+
+    //public void OnClickBackbtn()
+    //{
+    //    currentScreen.SetActive(false);
+    //    mainScreen.SetActive(true);
+    //}
 
     //Main Button Control
-    public void MainOnClickLevelsBtn()
-    {
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+    //public void MainOnClickLevelsBtn()
+    //{
+    //    Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+    //    RaycastHit hit;
 
-        
-        for (int i = 0; i < levelScreen.Length; i++)
-        {
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.collider.name.Equals("LevelBtn" + (i+1)))
-                {
-                    
-                    mainScreen.SetActive(false);
-                    currentScreen = levelScreen[i];
-                    levelScreen[i].SetActive(true);
-                    gameManager.currentPlayLevel = GetCurrentLevel(); //현재 레벨을 가져와 설정
-                    Debug.Log("현재 선택한 레벨 : " + gameManager.currentPlayLevel);
-                    if(gameManager.currentPlayLevel == 0)
-                    {
-                        Debug.Log("현재 Level을 담지 못했습니다.");
-                    }
-                    break;
-                }
-            }
-        }
-    }
 
-    // Level 스크린에서 Stage버튼을 눌렀을 경우.
-    public void LevelOnClickStagesBtn()
-    {
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        
-        if (Physics.Raycast(ray, out hit)) //레이캐스트를 쏴서 충돌시킴.
-        {
-            Debug.Log(hit.collider.name);
-            for(int i=0; i< 100; i++) //모든 스테이지를 검색한다. 
-            {
-                
-                if (hit.collider.name.Equals("Stage (" + i + ")")) //스테이지의 이름과 같으면
-                {
-                    levelScreen[screenNumber].SetActive(false); //현재 레벨 스크린을 사라지게 하고
-                    currentScreen = gameScreen;
-                    gameScreen.SetActive(true); //게임 스크린을 킨다. 
-                    
-                    
-                    break;
-                }
-            }
-            
-        }
-    }
+    //    for (int i = 0; i < levelScreen.Length; i++)
+    //    {
+    //        if (Physics.Raycast(ray, out hit))
+    //        {
+    //            if (hit.collider.name.Equals("LevelBtn" + (i+1)))
+    //            {
+
+    //                mainScreen.SetActive(false);
+    //                currentScreen = levelScreen[i];
+    //                levelScreen[i].SetActive(true);
+    //                gameManager.currentPlayLevel = GetCurrentLevel(); //현재 레벨을 가져와 설정
+    //                Debug.Log("현재 선택한 레벨 : " + gameManager.currentPlayLevel);
+    //                if(gameManager.currentPlayLevel == 0)
+    //                {
+    //                    Debug.Log("현재 Level을 담지 못했습니다.");
+    //                }
+    //                break;
+    //            }
+    //        }
+    //    }
+    //}
+
+    //// Level 스크린에서 Stage버튼을 눌렀을 경우.
+    //public void LevelOnClickStagesBtn()
+    //{
+    //    Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+    //    RaycastHit hit;
+
+    //    if (Physics.Raycast(ray, out hit)) //레이캐스트를 쏴서 충돌시킴.
+    //    {
+    //        Debug.Log(hit.collider.name);
+    //        for(int i=0; i< 100; i++) //모든 스테이지를 검색한다. 
+    //        {
+
+    //            if (hit.collider.name.Equals("Stage (" + i + ")")) //스테이지의 이름과 같으면
+    //            {
+    //                levelScreen[screenNumber].SetActive(false); //현재 레벨 스크린을 사라지게 하고
+    //                currentScreen = gameScreen;
+    //                gameScreen.SetActive(true); //게임 스크린을 킨다. 
+
+
+    //                break;
+    //            }
+    //        }
+
+    //    }
+    //}
+
 }
