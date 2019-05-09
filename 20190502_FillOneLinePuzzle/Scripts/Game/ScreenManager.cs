@@ -109,11 +109,61 @@ public class ScreenManager : MonoBehaviour {
         screenStack.Peek().SetActive(true); // 이전 스크린을 보이게 한다.
     }
 
+    // 팝업창을 없앤다.
+    public void ClosePopup(GameObject obj)
+    {
+        obj.SetActive(false);
+    }
+
+    // 팝업창을 띄운다.
+    public void OpenPopup(GameObject obj)
+    {
+        obj.SetActive(true);
+    }
+    public void OpenMenuPopup()
+    {
+        GameObject menuPopup = gameObject.transform.Find("MenuPopup").gameObject; // menuPopup을 찾아라
+        if (menuPopup) // menuPopup이 존재하면
+        {
+            Debug.Log("menuPopup 이 뜬다.!");
+            OpenPopup(menuPopup); // 팝업창을 띄운다.
+        }
+    }
+
+    /// 메뉴 팝업창의 버튼
+
+    // Menu Popup창을 종료한다.
+    public void MenuPopup_OnClickResumeBtn()
+    {
+        GameObject menuPopup = gameObject.transform.Find("MenuPopup").gameObject; // menuPopup을 찾아라
+        if (menuPopup)
+        {
+            ClosePopup(menuPopup);
+        }
+    }
+
+    // Menu Popup 창에서 Stage 선택창으로 돌아간다.
+    public void MenuPopup_OnClickSelectStageBtn()
+    {
+        GameObject menuPopup = gameObject.transform.Find("MenuPopup").gameObject; // menuPopup을 찾아라
+        if (menuPopup)
+        {
+            //TODO : 스테이지 선택창.
+        }
+    }
 
 
+    // Menu Popup 창에서 Main Menu창으로 넘어간다.
+    public void MenuPopup_OnClickMainMenu()
+    {
+        GotoMainMenuScreen(); // 메인메뉴 창으로 간다.
+    }
 
 
-
+    public void GotoMainMenuScreen()
+    {
+        //TODO : 스택에 있는 것들을 모두 다 빼고 MainMenu창인 스택만 남기는 것을 구현해야 함.
+    }
 
 
 
