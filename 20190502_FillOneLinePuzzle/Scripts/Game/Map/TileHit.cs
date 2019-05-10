@@ -5,6 +5,9 @@ using UnityEngine;
 public class TileHit : MonoBehaviour {
     public Camera camera;
     
+
+    public 
+        
 	// Use this for initialization
 	void Start () {
 		
