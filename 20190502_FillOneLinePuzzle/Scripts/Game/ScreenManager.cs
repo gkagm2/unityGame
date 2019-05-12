@@ -46,6 +46,7 @@ public class ScreenManager : MonoBehaviour {
         ////////////////////////////////////////////////////////////////////////////
 
         screenStack.Push(mainScreen); // mainScreen을 push 함. (최초로 켜지는 씬)
+        
     }
 
     // Update is called once per frame
@@ -93,6 +94,128 @@ public class ScreenManager : MonoBehaviour {
         }
     }
 
+    // 레벨 스크린에서 레벨1 버튼을 눌렸을 경우
+    public void LevelsScreen_LevelBtn1()
+    {
+        GameObject levelBtnLock = GameObject.Find("UI Root/Screens/LevelsScreen/Scroll View/Grid/Level1/Score/Lock");// 레벨 버튼의 Lock을 찾는다
+        if (levelBtnLock) // 레벨 버튼의 Lock을 찾았으면
+        {
+
+            if (levelBtnLock.activeSelf == true) // 잠겨있으면
+            {
+                return; //실행 중단.
+            }
+        }
+        PlayerInfo playerInfo = GetComponent<PlayerInfo>(); //플레이어 정보를 가져온다
+        if (playerInfo) // 가져왔으면
+        {
+            playerInfo.currentLevel = 1; //현재 선택한 레벨을 설정해줌
+            GotoStageScreen(); // stageScreen으로 가는 버튼
+            StageScreen_LevelActive(playerInfo.currentLevel); //스테이지 스크린에서 클릭된 레벨의 Stage를 설정한다.
+
+
+        }
+    }
+
+    // 레벨 스크린에서 레벨2 버튼을 눌렸을 경우
+    public void LevelsScreen_LevelBtn2()
+    {
+        GameObject levelBtnLock = GameObject.Find("UI Root/Screens/LevelsScreen/Scroll View/Grid/Level2/Score/Lock");// 레벨 버튼의 Lock을 찾는다
+        if (levelBtnLock) // 레벨 버튼의 Lock을 찾았으면
+        {
+
+            if (levelBtnLock.activeSelf == true) // 잠겨있으면
+            {
+                return; //실행 중단.
+            }
+        }
+        PlayerInfo playerInfo = GetComponent<PlayerInfo>(); //플레이어 정보를 가져온다
+        if (playerInfo) // 가져왔으면
+        {
+            playerInfo.currentLevel = 2; //현재 선택한 레벨을 설정해줌
+            GotoStageScreen(); // stageScreen으로 가는 버튼
+            StageScreen_LevelActive(playerInfo.currentLevel); //스테이지 스크린에서 클릭된 레벨의 Stage를 설정한다.
+        }
+    }
+
+    // 레벨 스크린에서 레벨3 버튼을 눌렸을 경우
+    public void LevelsScreen_LevelBtn3()
+    {
+        GameObject levelBtnLock = GameObject.Find("UI Root/Screens/LevelsScreen/Scroll View/Grid/Level3/Score/Lock");// 레벨 버튼의 Lock을 찾는다
+        if (levelBtnLock) // 레벨 버튼의 Lock을 찾았으면
+        {
+
+            if (levelBtnLock.activeSelf == true) // 잠겨있으면
+            {
+                return; //실행 중단.
+            }
+        }
+        PlayerInfo playerInfo = GetComponent<PlayerInfo>(); //플레이어 정보를 가져온다
+        if (playerInfo) // 가져왔으면
+        {
+            playerInfo.currentLevel = 3; //현재 선택한 레벨을 설정해줌
+            GotoStageScreen(); // stageScreen으로 가는 버튼
+            StageScreen_LevelActive(playerInfo.currentLevel); //스테이지 스크린에서 클릭된 레벨의 Stage를 설정한다.
+        }
+    }
+
+    // 레벨 스크린에서 레벨4 버튼을 눌렸을 경우
+    public void LevelsScreen_LevelBtn4()
+    {
+        GameObject levelBtnLock = GameObject.Find("UI Root/Screens/LevelsScreen/Scroll View/Grid/Level4/Score/Lock");// 레벨 버튼의 Lock을 찾는다
+        if (levelBtnLock) // 레벨 버튼의 Lock을 찾았으면
+        {
+
+            if (levelBtnLock.activeSelf == true) // 잠겨있으면
+            {
+                return; //실행 중단.
+            }
+        }
+        PlayerInfo playerInfo = GetComponent<PlayerInfo>(); //플레이어 정보를 가져온다
+        if (playerInfo) // 가져왔으면
+        {
+            playerInfo.currentLevel = 4; //현재 선택한 레벨을 설정해줌
+            GotoStageScreen(); // stageScreen으로 가는 버튼
+            StageScreen_LevelActive(playerInfo.currentLevel); //스테이지 스크린에서 클릭된 레벨의 Stage를 설정한다.
+        }
+    }
+
+    // 레벨 스크린에서 레벨5 버튼을 눌렸을 경우
+    public void LevelsScreen_LevelBtn5()
+    {
+        GameObject levelBtnLock = GameObject.Find("UI Root/Screens/LevelsScreen/Scroll View/Grid/Level5/Score/Lock");// 레벨 버튼의 Lock을 찾는다
+        if (levelBtnLock) // 레벨 버튼의 Lock을 찾았으면
+        {
+
+            if (levelBtnLock.activeSelf == true) // 잠겨있으면
+            {
+                return; //실행 중단.
+            }
+        }
+        PlayerInfo playerInfo = GetComponent<PlayerInfo>(); //플레이어 정보를 가져온다
+        if (playerInfo) // 가져왔으면
+        {
+            playerInfo.currentLevel = 5; //현재 선택한 레벨을 설정해줌
+            GotoStageScreen(); // stageScreen으로 가는 버튼
+            StageScreen_LevelActive(playerInfo.currentLevel); //스테이지 스크린에서 클릭된 레벨의 Stage를 설정한다.
+        }
+    }
+
+    // 스테이지 스크린에서 클릭된 레벨의 Stage를 설정한다.
+    public void StageScreen_LevelActive(short choicedStageLevel)
+    {
+        Debug.Log("choiced Stage Level : " + choicedStageLevel);
+        GameObject stageScreen_levelObj = GameObject.Find(Path.stageScreen_levels + choicedStageLevel);
+        if (stageScreen_levelObj)
+        {
+            stageScreen_levelObj.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("못찾음");
+        }
+    }
+
 
     void ChangeScreen(GameObject obj) // 화면에 보여주는 스크린을 파라미터 오브젝트(스크린으)로 바꿈
     {
@@ -108,6 +231,8 @@ public class ScreenManager : MonoBehaviour {
         scene.SetActive(false); // 현재 스크린을 안보이게 한다.
         screenStack.Peek().SetActive(true); // 이전 스크린을 보이게 한다.
     }
+
+
 
     // 팝업창을 없앤다.
     public void ClosePopup(GameObject obj)
@@ -158,17 +283,40 @@ public class ScreenManager : MonoBehaviour {
     {
         GotoMainMenuScreen(); // 메인메뉴 창으로 간다.
     }
-
-
+    
     public void GotoMainMenuScreen()
     {
         //TODO : 스택에 있는 것들을 모두 다 빼고 MainMenu창인 스택만 남기는 것을 구현해야 함.
+        
+        while(screenStack.Count > 1) //Main창만 남기고 다 Pop한다.
+        {
+            GameObject obj = screenStack.Pop(); //pop 한뒤
+            Debug.Log("Pop한 Obj의 이름 : " + obj.name);
+            obj.SetActive(false);  // 모두 setActive false로 바꿈.
+        }
     }
 
+    // Success 창에서 Main Menu창으로 넘어간다.
+    public void SuccessScreen_OnClickMainMenuBtn()
+    {
+        GotoMainMenuScreen(); // 메인메뉴 창으로 간다.
+    }
+    // Success 창에서 Share 버튼을 클릭 시
+    public void SuccessScreen_OnClickShareBtn()
+    {
+        Share();
+    }
+    // Success 창에서 NextStage 버튼을 클릭 시
+    public void SuccessScreen_OnClickNextStageBtn()
+    {
+        Debug.Log("NextStage button을 클릭했음. (코드작성 해야 함)");
+    }
 
-
-
-
+    // 공유 하기 
+    public void Share()
+    {
+        Debug.Log("공유하기~");
+    }
 
 
     public void ClickTestBtn()
