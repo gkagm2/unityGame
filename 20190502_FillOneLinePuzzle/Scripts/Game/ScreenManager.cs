@@ -46,7 +46,29 @@ public class ScreenManager : MonoBehaviour {
         ////////////////////////////////////////////////////////////////////////////
 
         screenStack.Push(mainScreen); // mainScreen을 push 함. (최초로 켜지는 씬)
+<<<<<<< HEAD
         
+=======
+
+        StartCoroutine("Loading");
+
+    }
+    IEnumerator Loading()
+    {
+        Debug.Log("sdfsdf");
+        yield return new WaitForSeconds(0.2f);
+        GameObject gameScreen = gameObject.transform.Find("GameScreen").gameObject; // gameScreen을 찾음.
+        if (gameScreen)
+        {
+        gameScreen.SetActive(false); // 종료 시킴
+
+        }
+        else
+        {
+            Debug.Log("dsfsdf");
+        }
+
+>>>>>>> f9f39abfc1c605ebaec945526c7b4623d0bcee21
     }
 
     // Update is called once per frame
@@ -111,9 +133,13 @@ public class ScreenManager : MonoBehaviour {
         {
             playerInfo.currentLevel = 1; //현재 선택한 레벨을 설정해줌
             GotoStageScreen(); // stageScreen으로 가는 버튼
+<<<<<<< HEAD
             StageScreen_LevelActive(playerInfo.currentLevel); //스테이지 스크린에서 클릭된 레벨의 Stage를 설정한다.
 
 
+=======
+            
+>>>>>>> f9f39abfc1c605ebaec945526c7b4623d0bcee21
         }
     }
 
@@ -134,7 +160,10 @@ public class ScreenManager : MonoBehaviour {
         {
             playerInfo.currentLevel = 2; //현재 선택한 레벨을 설정해줌
             GotoStageScreen(); // stageScreen으로 가는 버튼
+<<<<<<< HEAD
             StageScreen_LevelActive(playerInfo.currentLevel); //스테이지 스크린에서 클릭된 레벨의 Stage를 설정한다.
+=======
+>>>>>>> f9f39abfc1c605ebaec945526c7b4623d0bcee21
         }
     }
 
@@ -155,7 +184,10 @@ public class ScreenManager : MonoBehaviour {
         {
             playerInfo.currentLevel = 3; //현재 선택한 레벨을 설정해줌
             GotoStageScreen(); // stageScreen으로 가는 버튼
+<<<<<<< HEAD
             StageScreen_LevelActive(playerInfo.currentLevel); //스테이지 스크린에서 클릭된 레벨의 Stage를 설정한다.
+=======
+>>>>>>> f9f39abfc1c605ebaec945526c7b4623d0bcee21
         }
     }
 
@@ -176,7 +208,10 @@ public class ScreenManager : MonoBehaviour {
         {
             playerInfo.currentLevel = 4; //현재 선택한 레벨을 설정해줌
             GotoStageScreen(); // stageScreen으로 가는 버튼
+<<<<<<< HEAD
             StageScreen_LevelActive(playerInfo.currentLevel); //스테이지 스크린에서 클릭된 레벨의 Stage를 설정한다.
+=======
+>>>>>>> f9f39abfc1c605ebaec945526c7b4623d0bcee21
         }
     }
 
@@ -197,6 +232,7 @@ public class ScreenManager : MonoBehaviour {
         {
             playerInfo.currentLevel = 5; //현재 선택한 레벨을 설정해줌
             GotoStageScreen(); // stageScreen으로 가는 버튼
+<<<<<<< HEAD
             StageScreen_LevelActive(playerInfo.currentLevel); //스테이지 스크린에서 클릭된 레벨의 Stage를 설정한다.
         }
     }
@@ -215,6 +251,12 @@ public class ScreenManager : MonoBehaviour {
             Debug.Log("못찾음");
         }
     }
+=======
+        }
+    }
+
+
+>>>>>>> f9f39abfc1c605ebaec945526c7b4623d0bcee21
 
 
     void ChangeScreen(GameObject obj) // 화면에 보여주는 스크린을 파라미터 오브젝트(스크린으)로 바꿈
@@ -255,6 +297,26 @@ public class ScreenManager : MonoBehaviour {
         }
     }
 
+<<<<<<< HEAD
+    // 팝업창을 없앤다.
+    public void ClosePopup(GameObject obj)
+    {
+        obj.SetActive(false);
+    }
+
+    // 팝업창을 띄운다.
+    public void OpenPopup(GameObject obj)
+    {
+        obj.SetActive(true);
+    }
+    public void OpenMenuPopup()
+    {
+        GameObject menuPopup = gameObject.transform.Find("MenuPopup").gameObject; // menuPopup을 찾아라
+        if (menuPopup) // menuPopup이 존재하면
+        {
+            Debug.Log("menuPopup 이 뜬다.!");
+            OpenPopup(menuPopup); // 팝업창을 띄운다.
+=======
     /// 메뉴 팝업창의 버튼
 
     // Menu Popup창을 종료한다.
@@ -265,6 +327,68 @@ public class ScreenManager : MonoBehaviour {
         {
             ClosePopup(menuPopup);
         }
+    }
+
+    // Menu Popup 창에서 Stage 선택창으로 돌아간다.
+    public void MenuPopup_OnClickSelectStageBtn()
+    {
+        GameObject menuPopup = gameObject.transform.Find("MenuPopup").gameObject; // menuPopup을 찾아라
+        if (menuPopup)
+        {
+            //TODO : 스테이지 선택창.
+>>>>>>> 01e911dfa5aca94627c8a9d4b1800470a923721b
+        }
+    }
+
+    /// 메뉴 팝업창의 버튼
+
+<<<<<<< HEAD
+    // Menu Popup창을 종료한다.
+    public void MenuPopup_OnClickResumeBtn()
+    {
+        GameObject menuPopup = gameObject.transform.Find("MenuPopup").gameObject; // menuPopup을 찾아라
+        if (menuPopup)
+        {
+            ClosePopup(menuPopup);
+        }
+=======
+    // Menu Popup 창에서 Main Menu창으로 넘어간다.
+    public void MenuPopup_OnClickMainMenu()
+    {
+        GotoMainMenuScreen(); // 메인메뉴 창으로 간다.
+    }
+    
+    public void GotoMainMenuScreen()
+    {
+        //TODO : 스택에 있는 것들을 모두 다 빼고 MainMenu창인 스택만 남기는 것을 구현해야 함.
+<<<<<<< HEAD
+        
+        while(screenStack.Count > 1) //Main창만 남기고 다 Pop한다.
+        {
+            GameObject obj = screenStack.Pop(); //pop 한뒤
+            Debug.Log("Pop한 Obj의 이름 : " + obj.name);
+            obj.SetActive(false);  // 모두 setActive false로 바꿈.
+        }
+    }
+
+    // Success 창에서 Main Menu창으로 넘어간다.
+    public void SuccessScreen_OnClickMainMenuBtn()
+    {
+        GotoMainMenuScreen(); // 메인메뉴 창으로 간다.
+    }
+    // Success 창에서 Share 버튼을 클릭 시
+    public void SuccessScreen_OnClickShareBtn()
+    {
+        Share();
+    }
+    // Success 창에서 NextStage 버튼을 클릭 시
+    public void SuccessScreen_OnClickNextStageBtn()
+    {
+        Debug.Log("NextStage button을 클릭했음. (코드작성 해야 함)");
+    }
+
+=======
+>>>>>>> 01e911dfa5aca94627c8a9d4b1800470a923721b
     }
 
     // Menu Popup 창에서 Stage 선택창으로 돌아간다.
@@ -312,6 +436,7 @@ public class ScreenManager : MonoBehaviour {
         Debug.Log("NextStage button을 클릭했음. (코드작성 해야 함)");
     }
 
+>>>>>>> f9f39abfc1c605ebaec945526c7b4623d0bcee21
     // 공유 하기 
     public void Share()
     {

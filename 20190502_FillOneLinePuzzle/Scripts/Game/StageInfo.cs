@@ -6,8 +6,13 @@ using System.Text.RegularExpressions;
 public class StageInfo : MonoBehaviour {
 
     
+<<<<<<< HEAD
     public short myLevel;
     public short myStage;
+=======
+    public int myLevel;
+    public int myStage;
+>>>>>>> f9f39abfc1c605ebaec945526c7b4623d0bcee21
     public GameObject currentStageNumber;   // 현재 스테이지의 번호
     public GameObject coinPresentImage;     // 선물박스 이미지
     public GameObject backgroundLock;       // 스테이지가 잠긴 이미지
@@ -17,6 +22,7 @@ public class StageInfo : MonoBehaviour {
     //TODO : 이거 해야 하는데..?
     public UIButton myBtn;                  // 자기 자신을 클릭했을 때의 버튼
 
+<<<<<<< HEAD
     public PlayerInfo playerInfo;           // 플레이어 정보
 
     public int presentStage = 20;           // 선물을 받을 수 있는 스테이지
@@ -117,5 +123,27 @@ public class StageInfo : MonoBehaviour {
         {
             SetLockState(); // 풀린 상태로 바꿈
         }
+=======
+
+	// Use this for initialization
+	void Start () {
+
+        Debug.Log(GameObject.Find(Path.gameScreen_Maps));
+        
+
+        //TODO 버튼 클릭 어떻게 하냐.
+        //myBtn.onClick = 
+        
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+
+    public void Click()
+    {
+        Debug.Log("클릭했음");
+>>>>>>> f9f39abfc1c605ebaec945526c7b4623d0bcee21
     }
 }

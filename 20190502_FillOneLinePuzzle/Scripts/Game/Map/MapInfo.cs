@@ -9,7 +9,11 @@ public class MapInfo : MonoBehaviour {
 
     [Tooltip("맵의 스테이지 정보")]
     public short myStage; // 스테이지 정보
+<<<<<<< HEAD
     void Awake()
+=======
+    void Start()
+>>>>>>> f9f39abfc1c605ebaec945526c7b4623d0bcee21
     {
         string LevelAndStageName = gameObject.name;
 
@@ -17,5 +21,9 @@ public class MapInfo : MonoBehaviour {
         string[] splitLevelAndStage = LevelAndStageName.Split('_');
         myLevel = short.Parse(splitLevelAndStage[0]); // 첫 번째 자리 (Level)을 myLevel에 대입
         myStage = short.Parse(splitLevelAndStage[1]); // 두 번째 자리 (Stage)를 myStage에 대입
+<<<<<<< HEAD
+=======
+        Debug.Log("myLevel : " + myLevel + "," + " myStage : " + myStage);
+>>>>>>> f9f39abfc1c605ebaec945526c7b4623d0bcee21
     }
 }
