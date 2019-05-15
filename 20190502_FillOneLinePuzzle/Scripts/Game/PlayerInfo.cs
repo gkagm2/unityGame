@@ -34,39 +34,20 @@ public class PlayerInfo : MonoBehaviour {
     
 
 
-    //Stage와 Level
+    // 현재 하고있는 레벨과 스테이지
     public short currentLevel = 1;
     public short currentStage = 1;
 
+    // 현재까지 진행된 레벨과 스테이지
     public short myProgressLevel = 1;
     public short myProgressStage = 1;
 
-    // 불러온 모든 레벨의 모든 스테이지의 총 개수
-    int allStagesCount = 0;
 
     // Use this for initialization
     void Start () {
-        Debug.Log("PlayerInfo.cs 스크립트 시작");
-
-
-        // 현재 진도 정보 세팅
-        CurrentProgressLevelAndStageSetting();
-
-
-        LevelStageInfoSetting(); // 레벨과 스테이지의 정보를 세팅한다.
-
-
-
-
-
-        // 별을 얻을 수 있는 최대 개수 구하기
-        maxStars = GetSumInArray(maxStarsPerLevel); //배열 안에 있는 값을 모두 더하여 리턴
-        Debug.Log("별 최대 개수 : " + maxStars);
-
-        // 모든 레벨에서 가지고 있는 별들을 합친 개수 구하기
-        currentHaveStarsTotalNumber = GetSumInArray(currentHaveStarsPerLevel); //배열 안에 있는 값을 모두 더하여 리턴
-        Debug.Log("별 합친 개수 :  " + currentHaveStarsTotalNumber);
-        
+        CurrentProgressLevelAndStageSetting();  // 현재 진도 정보 세팅
+        LevelStageInfoSetting();                // 레벨과 스테이지의 정보를 세팅한다.
+        InitStarSetting();                      //별의 개수 초기화.
     }
 
    
@@ -75,8 +56,9 @@ public class PlayerInfo : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Debug.Log("현재 레벨 : " + currentLevel + ", 현재 스테이지 : " + currentStage);
-        
-	}
+        Debug.Log("진행 레벨 : " + myProgressLevel + ", 진행 스테이지 : " + myProgressStage);
+        UpdateStars(); //별들의 개수를 업데이트.
+    }
 
 
 
@@ -134,8 +116,8 @@ public class PlayerInfo : MonoBehaviour {
         {
             if (level == levelStageInfo[i].level && stage == levelStageInfo[i].stage)
             {
-                return levelStageInfo[i].isSuccess;
                 Debug.Log("LevelStageInfo " + levelStageInfo[i].obj.name + "의 플레그를 : " + levelStageInfo[i].isSuccess + "로 바꿈");
+                return levelStageInfo[i].isSuccess;
             }
         }
 
@@ -159,16 +141,16 @@ public class PlayerInfo : MonoBehaviour {
     public int GetLevelCount()
     {
         int levelCount = transform.Find("LevelsScreen/Scroll View/Grid/").childCount;
-        Debug.Log("지워라!~~: levelCount : " + levelCount);
-        Debug.Log("지워라2!!: " + levelStageInfo.Length);
         return levelCount;
     }
 
     // 레벨과 스테이지의 정보를 세팅한다.
     public void LevelStageInfoSetting()
     {
+        // 스테이지의 개수를 가져온다. (자식 오브젝트들의 개수를 구함)
+        int childCount = GameObject.Find(Path.gameScreen_Maps).gameObject.transform.childCount; 
 
-        GameObject[] maps = new GameObject[GetAllStagesCount()];
+        GameObject[] maps = new GameObject[childCount]; 
         maps = GameObject.FindGameObjectsWithTag("Map"); // 존재 하고 있는 스테이지의 GameObject를 가져옴.
         for(int i = 0; i < maps.Length; i++)
         {
@@ -199,29 +181,91 @@ public class PlayerInfo : MonoBehaviour {
         }
     }
 
-
-    // 스테이지의 개수를 가져온다.
-    public int GetAllStagesCount()
+    //별의 개수를 업데이트한다.
+    public void UpdateStars()
     {
-        //자식 오브젝트들의 개수를 구한다
-        int count = GameObject.Find(Path.gameScreen_Maps).gameObject.transform.childCount;
 
-        // TODO : 해당 레벨의 자식 오브젝트 수를 구하는 것을 구현.
-        return count;
+        currentHaveStarsTotalNumber = 0; // 현재 모든 레벨에서 깬 별의 개수를 초기화한다.
 
-    }
-
-
-    //배열 안에 있는 값을 모두 더하기
-    public int GetSumInArray(int[] array)
-    {
-        int sum = 0;
-        for(int i = 0; i < array.Length; i++)
+        // 현재 가지고 있는 각 레벨마다 별의 개수를 0으로 초기화한다.
+        for (int i=0; i < GetLevelCount(); i++)
         {
-            sum += array[i];
+            currentHaveStarsPerLevel[i] = 0; //현재 가지고있는 각 레벨마다 별의 개수를 0으로 초기화한다.
+            
         }
-        return sum;
 
+        // 각 레벨에 얻은 별의 개수를 가져옴
+        for(int i=0; i < GetLevelCount(); i++)
+        {
+            currentHaveStarsPerLevel[i] = GetLevelSuccessStageNumber((short)(i+1)); // 해당 레벨의 성공한 스테이지의 개수를 반환받음.
+        }
+
+        // 현재 모든 레벨에서 깬 별의 개수를 가져옴
+        for(int i=0; i < GetLevelCount(); i++)
+        {
+            currentHaveStarsTotalNumber += currentHaveStarsPerLevel[i];
+        }
     }
 
+    // 모든 별의 개수를 가져옴.
+    public void InitStarSetting()
+    {
+        // 각 레벨에 깰 수 있는 별의 개수를 가져옴
+        for (int i = 0; i < GetLevelCount(); i++)
+        {
+            maxStarsPerLevel[i] = GetLevelMaxStageNumber((short)(i + 1)); // 해당 레벨의 모든 스테이지의 개수를 반환받음.
+        }
+
+        // 모든 별의 개수를 가져옴
+        for (int i = 0; i < GetLevelCount(); i++)
+        {
+            maxStars += maxStarsPerLevel[i];
+        }
+        for(int i=0; i< GetLevelCount(); i++)
+        {
+            currentHaveStarsPerLevel[i] = GetLevelSuccessStageNumber((short)(i + 1)); // 해당 레벨의 성공한 스테이지의 개수를 반환받음.
+        }
+    }
+
+
+    // 해당 레벨의 성공한 스테이지의 개수를 반환한다.
+    public short GetLevelSuccessStageNumber(short level)
+    {
+        short count = 0;
+        for(int i=0; i < levelStageInfo.Length; i++)
+        {
+            if(levelStageInfo[i].level == level)
+            {
+                if(levelStageInfo[i].isSuccess == true)
+                {
+                    ++count;
+                }
+            }
+        }
+        return count;
+    }
+
+    // 해당 레벨의 모든 스테이지의 개수를 반환한다.
+    public short GetLevelMaxStageNumber(short level)
+    {
+        short count = 0;
+        for(int i=0; i< levelStageInfo.Length; i++)
+        {
+            if(levelStageInfo[i].level == level)
+            {
+                ++count;
+            }
+        }
+        return count;
+    }
+
+    // 레벨이 언락 될 경우 
+    public void LevelUnLockSetting()
+    {
+        //  현재까지 진행된 레벨과 스테이지를 바꿈
+        if(GetLevelCount() >= myProgressLevel+1)
+            ++myProgressLevel;
+        myProgressStage = 1;
+        Debug.Log("myProgressSage가 1로 바뀜 :  " + myProgressStage);
+    }
 }

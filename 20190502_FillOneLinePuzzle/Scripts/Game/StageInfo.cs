@@ -58,7 +58,8 @@ public class StageInfo : MonoBehaviour {
         {
             if(myLevel == playerInfo.levelStageInfo[i].level && myStage == playerInfo.levelStageInfo[i].stage) // 스테이지 정보의 레벨과 스테이지와 PlayerInfo의 레벨과 스테이지가 같다면
             {
-                Debug.Log(playerInfo.myProgressLevel + " , ,,, " + playerInfo.myProgressStage);
+                
+                //Debug.Log(playerInfo.myProgressLevel + " , ,,, " + playerInfo.myProgressStage + "myLevel : " + myLevel + " myStage : " + myStage);
                 if (playerInfo.levelStageInfo[i].isSuccess == true) //성공했다면 
                 {
                     // Unlock 이미지로 바꿈
@@ -83,46 +84,46 @@ public class StageInfo : MonoBehaviour {
     // 레벨과 스테이지의 정보를 UI에 보여준다.
     public void SettingLevelAndStageInfo()
     {
-        Debug.Log("스테이지 : " + myStage);
+        //Debug.Log("스테이지 : " + myStage);
         currentStageNumber.GetComponent<UILabel>().text = myStage.ToString();
     }
 
     // 현재 해야되는 상태로 이미지를 바꿈
     public void SetNextState()
     {
-        currentStageNumber.SetActive(true); // 현재 스테이지의 번호를 보이게 한다.
-        backgroundNext.SetActive(true); // 다음 스테이지 이미지를 보이게 한다.
-        coinPresentImage.SetActive(false); // 선물박스 이미지를 안보이게 한다.
-        backgroundLock.SetActive(false); // 잠김 이미지를 안보이게 한다.
-        backgroundUnLock.SetActive(false); // 풀림 이미지를 안보이게 한다.
+        currentStageNumber.SetActive(true);     // 현재 스테이지의 번호를 보이게 한다.
+        backgroundNext.SetActive(true);         // 다음 스테이지 이미지를 보이게 한다.
+        coinPresentImage.SetActive(false);      // 선물박스 이미지를 안보이게 한다.
+        backgroundLock.SetActive(false);        // 잠김 이미지를 안보이게 한다.
+        backgroundUnLock.SetActive(false);      // 풀림 이미지를 안보이게 한다.
     }
 
     // 풀린 상태로 이미지를 바꿈
     public void SetUnLockState()
     {
-        currentStageNumber.SetActive(true); // 현재 스테이지의 번호를 보이게 한다.
-        backgroundUnLock.SetActive(true); // 스테이지가 풀린 이미지를 보이게 한다.
-        coinPresentImage.SetActive(false); // 선물박스 이미지를 안보이게 한다.
-        backgroundLock.SetActive(false); // 잠김 이미지를 안보이게 한다.
-        backgroundNext.SetActive(false); // 다음 스테이지 이미지를 안보이게 한다.
+        currentStageNumber.SetActive(true);     // 현재 스테이지의 번호를 보이게 한다.
+        backgroundUnLock.SetActive(true);       // 스테이지가 풀린 이미지를 보이게 한다.
+        coinPresentImage.SetActive(false);      // 선물박스 이미지를 안보이게 한다.
+        backgroundLock.SetActive(false);        // 잠김 이미지를 안보이게 한다.
+        backgroundNext.SetActive(false);        // 다음 스테이지 이미지를 안보이게 한다.
 
     }
 
     // 잠긴 상태로 이미지를 바꿈
     public void SetLockState()
     {
-        currentStageNumber.SetActive(true); // 현재 스테이지의 번호를 보이게 한다.
-        backgroundUnLock.SetActive(false); //스테이지가 풀린 이미지를 안보이게 한다.
-        if (myStage % presentStage == 0) //선물을 받을 수 있는 스테이지면
+        currentStageNumber.SetActive(true);     // 현재 스테이지의 번호를 보이게 한다.
+        backgroundUnLock.SetActive(false);      //스테이지가 풀린 이미지를 안보이게 한다.
+        if (myStage % presentStage == 0)        //선물을 받을 수 있는 스테이지면
         {
-            coinPresentImage.SetActive(true); // 선물 상자가 보임
+            coinPresentImage.SetActive(true);   // 선물 상자가 보임
         }
         else // 아니면
         {
-            coinPresentImage.SetActive(false); // 선물 상자가 안보임
+            coinPresentImage.SetActive(false);  // 선물 상자가 안보임
         }
-        backgroundLock.SetActive(true); //잠긴 이미지를 보이게 한다.
-        backgroundNext.SetActive(false); // 다음 스테이지 이미지를 안보이게 한다.
+        backgroundLock.SetActive(true);         //잠긴 이미지를 보이게 한다.
+        backgroundNext.SetActive(false);        // 다음 스테이지 이미지를 안보이게 한다.
     }
 
     // 이미지의 상태를 바꾼다.

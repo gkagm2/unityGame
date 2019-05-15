@@ -11,4 +11,9 @@ public class CurrentTotalStarScript : MonoBehaviour {
         // 현재까지 누적된 별의 개수 출력
         GetComponent<UILabel>().text = playerInfo.currentHaveStarsTotalNumber.ToString() + "/" + playerInfo.maxStars.ToString();
     }
+    void Update()
+    {
+        // 현재까지 누적된 별의 개수 출력
+        GetComponent<UILabel>().text = playerInfo.currentHaveStarsTotalNumber.ToString() + "/" + playerInfo.maxStars.ToString();
+    }
 }

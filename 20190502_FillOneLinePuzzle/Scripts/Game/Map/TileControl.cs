@@ -13,13 +13,15 @@ public class TileControl : MonoBehaviour {
 
     public bool[] initTile; // 초기화 하기위해 필요한 
 
-    Stack<Tile> tileStack; // 타일 컴포넌트를 저장하는 Stack을 생성한다.
+    public Stack<Tile> tileStack; // 타일 컴포넌트를 저장하는 Stack을 생성한다.
                            // Use this for initialization
+
+    public int firstStartTileIndex; // 초기에 시작되는 타일의 인덱스 번호
     void Awake() {
+        tileStack = new Stack<Tile>();
         mapInfo = GetComponent<MapInfo>();
 
-        Debug.Log("~~~mylevel : " + mapInfo.myLevel);
-        Debug.Log("~~~myStage: " + mapInfo.myStage);
+        //Debug.Log("TileControl.cs " + "~~~mylevel : " + mapInfo.myLevel + "~~~myStage: " + mapInfo.myStage);
 
         maxTileNumber = transform.childCount; //타일의 개수를 가져옴
         tile = new Tile[maxTileNumber]; // 초기 타일들의 인스턴스 생성
@@ -29,47 +31,22 @@ public class TileControl : MonoBehaviour {
             tile[i] = transform.GetChild(i).GetComponent<Tile>();
             initTile[i] = tile[i].check; // 초기화하기 위해 담는다
         }
-
-        for(int i=0;i < maxTileNumber; i++)
-        {
-            Debug.Log("Color  " + initTile[i] + " - " + i);
-        }
-
         InitTiles(); // 타일 초기화.
-
         tileHit = cameraObj.GetComponent<TileHit>(); //TileHit 컴포넌트를 가져온다.
-
-        //TODO : First 첫번째 타일이 체크된것인지 확인 후 그 정보를 가져와서 Stack에 넣어야 함.
-        //TEST
-        //GameObject[] tileTest = new GameObject[maxTileNumber];
-        //for (int i = 0; i < maxTileNumber; i++)
-        //{
-        //    tileTest[i] = transform.GetChild(i).gameObject;
-        //}
-        //for(int i = 0; i < maxTileNumber; i++)
-        //{
-        //    if (tileTest[i].GetComponent<Tile>().CheckTouched())
-        //    {
-        //        Debug.Log("첫번째 Tile을 Stack에 push 함 : " + tileTest[i].name);
-
-        //    }
-        //}
-
-
-        //for (int i = 0; i < maxTileNumber; i++) // 첫 번째 타일의 정보를 찾아서 스택에 Push한다.
-        //{
-        //    Debug.Log(" 찾는중 ");
-        //    if (tile[i]) //터치하면
-        //    {
-        //        Debug.Log("첫번째 Tile을 Stack에 push 함 : " + tile[i].name);
-        //        tileStack.Push(tile[i]); //그 타일의 정보를 스택에 넣고
-        //        break; //중지
-        //    }
-        //}
-        //Debug.Log(tileStack.Peek());
-
     }
-
+    private void Start()
+    {
+        firstStartTileIndex = GetStartTileIndex(); // 시작하는 타일의 index를 받아온다.
+        if (firstStartTileIndex < 0)
+        {
+            Debug.Log("타일 시작점 개수가 1개 이상임 Error");
+        }
+        else // 제대로 시작하는 타일의 index를 가져왔으면
+        {
+            //Debug.Log("level : " + gameObject.name + ", firstStartTileIndex : " + firstStartTileIndex + "tile name : " + tile[firstStartTileIndex].name);
+            tileStack.Push(tile[firstStartTileIndex]); //첫번째 타일을 스택에 Push.
+        }
+    }
     // Update is called once per frame
     void Update() {
         if (CheckAllTilesTouched()) //모든 타일들이 터치되면
@@ -84,12 +61,23 @@ public class TileControl : MonoBehaviour {
             //LevelStageInfo 에서 isSuccess 도 바꿔야 되겠군
             // TODO :  Show Success Pop up Screen
         }
+
+        if (TouchedTilesCount() >= 2) //체크된 개수가 2개 이상이면
+        {
+            for(int i=0; i < maxTileNumber; i++) //전체 타일을 검사하기 위해 돌림
+            {
+                //체크가 되어있는데 스텍에 안들어가 있으면
+                if (tile[i].CheckTouched() && !tileStack.Contains(tile[i])) 
+                {
+                    tileStack.Push(tile[i]); // 스텍에 푸쉬한다.
+                }
+            }
+        }
     }
 
     // 타일 초기화
     public void InitTiles()
     {
-        
         // 타일을 복사한다.
         // 각 타일의 정보를 가져옴.
         for (int i = 0; i < tile.Length; i++)
@@ -98,6 +86,15 @@ public class TileControl : MonoBehaviour {
                 tile[i].ChangeColor(); //색을 바꾼다.
             }
         }
+        TileStackInit(); //타일 스텍 초기화
+    }
+
+    // 타일을 담는 스택 초기화
+    public void TileStackInit()
+    {
+        
+        tileStack.Clear(); // 타일 스택을 모두 없애고
+        tileStack.Push(tile[firstStartTileIndex]); // 시작 타일을 스택에 집어넣는다.
     }
 
 
@@ -114,12 +111,39 @@ public class TileControl : MonoBehaviour {
         return touchCount == maxTileNumber; //터치한 개수와 최대 타일 개수와 같으면 true
     }
 
-    // 스택에 타일을 저장함.
-    public void PushTileInStack(Tile tile)
+    // 터치된 타일의 개수를 세줌.
+    public int TouchedTilesCount()
     {
-        tileStack.Push(tile);
+        int touchCount = 0;
+        for(int i = 0; i < maxTileNumber; i++)
+        {
+            if (tile[i].CheckTouched()) //터치되었으면
+            {
+                ++touchCount;
+            }
+        }
+        return touchCount;
+    }
+    
+    // 첫번 째 타일의 인덱스를 구하기
+    public int GetStartTileIndex()
+    {
+        int indexNumber = 0;
+        int touchedCount = 0;
+        for (int i = 0; i < maxTileNumber; i++)
+        {
+            if (tile[i].CheckTouched()) //터치되었으면
+            {
+                if(touchedCount >= 2) //2 이상이면
+                {
+                    return -1; //0을 리턴한다.
+                }
+                ++touchedCount; // 터치 카운터를 1 올림
+                indexNumber = i; // 인덱스를 집어넣는다.
+            }
+        }
+        return indexNumber;
     }
 
-
-
+   
 }

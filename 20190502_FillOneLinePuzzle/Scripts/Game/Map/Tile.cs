@@ -5,8 +5,12 @@ using UnityEngine;
 public class Tile : MonoBehaviour {
     public bool check;
     UISprite uiSprite;
+
+    public Stack<Tile> collisionTileStack;
     // Use this for initialization
     void Awake () {
+        collisionTileStack = new Stack<Tile>(); //스택 동적 할당
+
         uiSprite = GetComponent<UISprite>();
         check = CheckTouched();
 
@@ -20,7 +24,6 @@ public class Tile : MonoBehaviour {
     // TIle이 터치되었는지 체크한다.
     public bool CheckTouched()
     {
-        Debug.Log("Sprite Name : " + uiSprite.spriteName);
         return uiSprite.spriteName.Equals("tileColor2"); //tileColor2는 터치가 된 색.
     }
     public void ChangeColor()
@@ -39,7 +42,12 @@ public class Tile : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Tile")
         {
-            Debug.Log("Tile" + gameObject.transform.name +"은 Tile" + collision.gameObject.name + "와 닿아있다.");
+            //충돌하는 타일이 스택에 들어있지 않으면
+            if (!collisionTileStack.Contains(collision.gameObject.GetComponent<Tile>()))
+            {
+                //타일을 집어넣는다.
+                collisionTileStack.Push(collision.gameObject.GetComponent<Tile>());
+            }
         }
     }
 }

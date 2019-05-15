@@ -32,20 +32,34 @@ public class TileHit : MonoBehaviour {
                 {
                     GameObject tileObj = hit.collider.gameObject as GameObject; // tile의 Object를 obj로 옮김
                     UISprite tileSprite = tileObj.GetComponent<UISprite>(); // UISprate 컴포넌트를 가져옴.
-
-                    Tile tile = tileObj.GetComponent<Tile>(); //타일 컴포넌트를 가져옴.
                     
-                    if (!tile.CheckTouched()) //타일이 터치가 되어있지 않으면
-                    {
-                        // TODO : 여기부터 해야 함.
+                    Tile tile = tileObj.GetComponent<Tile>(); //타일 컴포넌트를 가져옴.
 
-                        tileSprite.spriteName = "tileColor2"; // 색상을 터치한 색으로 바꿈.
+                    TileControl tileControl = tileObj.transform.parent.GetComponent<TileControl>(); // 맞은 타일 오브젝트의 tileControl을 가져옴.
 
-                    }
-                    else //타일이 터치가 되어있으면
+                    if (tileControl.tileStack.Contains(tile)) // 누른 타일이 이미 stack에 존재하는 타일이면
                     {
-                        tileSprite.spriteName = "tileColor1"; // 색상을 터치안한 색으로 바꿈.
+                        // 눌렀던 타일 이후에 stack에 push된 타일은 stack에서 pop한다.
+                        while (tileControl.tileStack.Peek() != tile) // 타일이 누른 타일과 같지 않다면
+                        {//같을때까지 pop하라
+                            Tile tempT = tileControl.tileStack.Pop();
+                            tempT.ChangeColor();
+                            Debug.Log("pop한 타일 : " + tempT.name);
+                        }
                     }
+
+                    // 누른 타일이 현재 스택 맨 위에 있는 타일과 충돌하는 타일이면
+                    if (tileControl.tileStack.Peek().collisionTileStack.Contains(tile))
+                    {
+                        tile.ChangeColor(); //색을 바꾼다.
+                    }
+                    else
+                    {
+                        Debug.Log("멀리 떨어져있는 타일이여서 색 못바꿈");
+                    }
+
+                    
+
 
                 }
             }

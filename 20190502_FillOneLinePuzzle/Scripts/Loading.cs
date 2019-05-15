@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Loading : MonoBehaviour {
     public GameObject loadingScreen;
+    public GameObject stageScreen;
     public UILabel loadingText;
 	// Use this for initialization
 	void Awake () {
@@ -23,7 +24,8 @@ public class Loading : MonoBehaviour {
         yield return new WaitForSeconds(1.0f);
         loadingText.text = "Loading . .";
         yield return new WaitForSeconds(1.0f);
-        
+        stageScreen.SetActive(false);
+
         GameObject[] maps = GameObject.FindGameObjectsWithTag("Map");
         for (int i = 0; i < maps.Length; i++)
         {
