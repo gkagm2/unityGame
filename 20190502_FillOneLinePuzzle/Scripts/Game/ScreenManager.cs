@@ -73,7 +73,6 @@ public class ScreenManager : MonoBehaviour {
         GameObject levelsScreen = gameObject.transform.Find("LevelsScreen").gameObject; // levelsScreen을 찾아라
         if (levelsScreen) // levelsScreen이 존재하면
         {
-            Debug.Log("LevelsScreen이 SetActive true됨");
             ChangeScreen(levelsScreen); //화면에 보여주는 스크린을 바꿈
         }
     }
@@ -82,15 +81,11 @@ public class ScreenManager : MonoBehaviour {
         GameObject stageScreen = gameObject.transform.Find("StageScreen").gameObject; // stageScreen을 찾아라
         if (stageScreen) // stageScreen이 존재하면
         {
-            //TODO : 여기 해야 함
-            
-            Debug.Log("stageScreen이 SetActive true됨");
             ChangeScreen(stageScreen); //화면에 보여주는 스크린을 바꿈
 
             PlayerInfo playerInfo = GetComponent<PlayerInfo>(); // playerInfo 컴포넌트를 가져옴.
             if (playerInfo) // 가져오는데 성공하면
             {
-                Debug.Log("!!!!!!!!!!!currentLevel!: " + playerInfo.currentLevel);
                 GameObject[] stagesLevelObj = new GameObject[playerInfo.GetLevelCount()];
                 for (int i = 0; i < playerInfo.GetLevelCount(); i++) {
                     stagesLevelObj[i] = new GameObject();
@@ -107,7 +102,6 @@ public class ScreenManager : MonoBehaviour {
             }
         }
     }
-
 
     // 레벨 스크린에서 레벨 버튼을 눌렸을 경우
     public void LevelsScreen_LevelBtn(short level)
@@ -135,7 +129,6 @@ public class ScreenManager : MonoBehaviour {
     // 스테이지 스크린에서 클릭된 레벨의 Stage를 설정한다.
     public void StageScreen_LevelActive(short choicedStageLevel)
     {
-        Debug.Log("choiced Stage Level : " + choicedStageLevel);
         GameObject stageScreen_levelObj = GameObject.Find(MyPath.stageScreen_levels + choicedStageLevel);
         if (stageScreen_levelObj)
         {
@@ -158,9 +151,23 @@ public class ScreenManager : MonoBehaviour {
     // ShareScreen Buttons
     public void BackBtn() //뒤로 가는 버튼
     {
-        GameObject scene = screenStack.Pop(); //현재 스크린을 Pop하고
-        scene.SetActive(false); // 현재 스크린을 안보이게 한다.
-        screenStack.Peek().SetActive(true); // 이전 스크린을 보이게 한다.
+        PlayerInfo playerInfo = GetComponent<PlayerInfo>();
+        if (playerInfo) // 가져오면
+        {
+            // 퍼즐을 푸는 도중에 백 버튼을 눌렀으면
+            if (playerInfo.currentLevel != 0 && playerInfo.currentStage != 0)
+            {
+                GameObject scene = screenStack.Pop(); //현재 스크린을 Pop하고
+                scene.SetActive(false); // 현재 스크린을 안보이게 한다.
+            }
+            else // 아닐 경우
+            {
+                GameObject scene = screenStack.Pop(); //현재 스크린을 Pop하고
+                scene.SetActive(false); // 현재 스크린을 안보이게 한다.
+                screenStack.Peek().SetActive(true); // 이전 스크린을 보이게 한다.
+            }
+        }
+        
     }
 
 
@@ -192,13 +199,13 @@ public class ScreenManager : MonoBehaviour {
             // 현재 레벨에서 가지고 있는 별의 개수가 레벨의 최대 별의 개수보다 작으면
             if (playerInfo.currentHaveStarsPerLevel[playerInfo.currentLevel - 1] <= playerInfo.maxStarsPerLevel[playerInfo.currentLevel - 1])
             {
-                Debug.Log("현재 레벨에서의 별의 개수 : " + playerInfo.currentHaveStarsPerLevel[playerInfo.currentLevel - 1] + "현재 레벨에서의 Max별의 개수 : " + playerInfo.maxStarsPerLevel[playerInfo.currentLevel - 1]);
-                Debug.Log(playerInfo.currentLevel + "," + playerInfo.myProgressLevel + "," + playerInfo.currentStage + "," + playerInfo.myProgressStage);
+                //Debug.Log("현재 레벨에서의 별의 개수 : " + playerInfo.currentHaveStarsPerLevel[playerInfo.currentLevel - 1] + "현재 레벨에서의 Max별의 개수 : " + playerInfo.maxStarsPerLevel[playerInfo.currentLevel - 1]);
+                //Debug.Log(playerInfo.currentLevel + "," + playerInfo.myProgressLevel + "," + playerInfo.currentStage + "," + playerInfo.myProgressStage);
                 
                 // 진행중인 스테이지를 깬 것이였으면
                 if (playerInfo.currentLevel == playerInfo.myProgressLevel && playerInfo.currentStage == playerInfo.myProgressStage)
                 {
-                    Debug.Log("진행중인 스테이지를 깸!");
+                    //Debug.Log("진행중인 스테이지를 깸!");
                     
                     // 해당 레벨의 마지막 스테이지를 깬 것이였으면
                     if (playerInfo.maxStarsPerLevel[playerInfo.currentLevel - 1] == playerInfo.myProgressStage)
@@ -221,7 +228,7 @@ public class ScreenManager : MonoBehaviour {
             // 이번 스테이지의 정보를 성공으로 바꿈.
             playerInfo.SetLevelStageInfoObjSuccessValue(playerInfo.currentLevel, playerInfo.currentStage, true);
 
-            Debug.Log("successPopup이 뜬다.!");
+            //Debug.Log("successPopup이 뜬다.!");
             GameScreen_HideScreen(); // 게임 스크린을 숨긴다.
             OpenPopup(successPopup); // 팝업창을 띄운다.
         }
@@ -231,7 +238,7 @@ public class ScreenManager : MonoBehaviour {
     public void UnLockNextLevel()
     {
         PlayerInfo playerInfo = GetComponent<PlayerInfo>();
-        Debug.Log("Level" + playerInfo.myProgressLevel + "의 마지막 " + playerInfo.maxStarsPerLevel[playerInfo.myProgressLevel -1] + "스테이지를 깸");
+        //Debug.Log("Level" + playerInfo.myProgressLevel + "의 마지막 " + playerInfo.maxStarsPerLevel[playerInfo.myProgressLevel -1] + "스테이지를 깸");
 
         GameObject nextLevelObj = GameObject.Find(MyPath.levelScreen_Level + (playerInfo.myProgressLevel + 1) + "/Score/"); //다음 레벨 오브젝트들를 가져옴.
         if (nextLevelObj) { // 다음 레벨 오브젝트가 존재하면
@@ -256,7 +263,7 @@ public class ScreenManager : MonoBehaviour {
         GameObject successPopup = gameObject.transform.Find("SuccessPopup").gameObject; // successPopup을 찾아라
         if (successPopup) // successPopup이 존재하면
         {
-            Debug.Log("successPopup이 닫힌다.!");
+            //Debug.Log("successPopup이 닫힌다.!");
             ClosePopup(successPopup); // 팝업창을 없앤다.
         }
     }
@@ -298,7 +305,7 @@ public class ScreenManager : MonoBehaviour {
             playerInfo.currentStage += 1; // 현재 스테이지를 1 올림.
 
             SuccessPopup_ClosePopup(); //success 팝업 창을 종료시킨다.
-            Debug.Log("현재 stack 맨 위에 있는 것 : " + screenStack.Peek());
+            //Debug.Log("현재 stack 맨 위에 있는 것 : " + screenStack.Peek());
             //GameScreen_HideScreen();   // 숨겼다가 
             GameScreen_ShowScreen(playerInfo.currentLevel, playerInfo.currentStage); // 다음 레벨과 스테이지의 타일을 보여줌
 
@@ -318,8 +325,6 @@ public class ScreenManager : MonoBehaviour {
         GameObject menuPopup = gameObject.transform.Find("MenuPopup").gameObject; // menuPopup을 찾아라
         if (menuPopup) // menuPopup이 존재하면
         {
-            Debug.Log("menuPopup 이 뜬다.!");
-            
             OpenPopup(menuPopup); // 팝업창을 띄운다.
 
         }
@@ -345,15 +350,10 @@ public class ScreenManager : MonoBehaviour {
         {
             GameScreen_HideScreen(); // 게임 스크린을 숨김
             MenuPopup_OnClickResumeBtn(); // 메뉴 팝업창을 종료
-            foreach(GameObject n in screenStack)
-            {
-                Debug.Log("asfsdf: " + n.name);
-            }
             screenStack.Peek().SetActive(true); // stage 창을 보이게 한다.
 
             PlayerInfo playerInfo = GetComponent<PlayerInfo>();
             playerInfo.currentStage = 0; // 현재 스테이지 상태를 0으로 바꿈
-            //TODO : 스테이지 선택창.
         }
     }
 
@@ -391,16 +391,12 @@ public class ScreenManager : MonoBehaviour {
     {
         if (level == 0 || stage == 0) // 레벨과 스테이지가 제대로 입력이 안들어오면
         {
-            Debug.Log("레벨과 스테이지 입력 안함 Error");
+            //Debug.Log("레벨과 스테이지 입력 안함 Error");
             return; // 함수 종료
         }
         
 
         GameObject gameScreen = GameObject.Find(MyPath.gameScreen + "GameScreen/"); // GameScreen 오브젝트를 가져옴
-        foreach( GameObject name in screenStack)
-        {
-            Debug.Log("stack안에 들어있는 것 : " + name.name);
-        }
         screenStack.Peek().SetActive(false); // 현재 active되어있는 screen(stageScreen)을 false로 바꾼다. 
         
 

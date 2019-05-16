@@ -53,7 +53,7 @@ public class LevelsScreenLevelClickScript : MonoBehaviour {
         if (unLockObj) //오브젝트를 가져오는데 성공하면
         {
             unLockObj.SetActive(true); // 풀림 오브젝트를 보이게함
-            Debug.Log("Success Unlock 풀림 오브젝트 안보이게 함");
+            //Debug.Log("Success Unlock 풀림 오브젝트 안보이게 함");
         }
         else
         {
@@ -63,7 +63,7 @@ public class LevelsScreenLevelClickScript : MonoBehaviour {
         if (lockObj) //오브젝트를 가져오는데 성공하면
         {
             lockObj.SetActive(false); // 잠금 오브젝트를 안보이게 함
-            Debug.Log("Succress 잠금 오브젝트 안보이게함");
+            //Debug.Log("Succress 잠금 오브젝트 안보이게함");
         }
     }
 }

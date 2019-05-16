@@ -71,7 +71,7 @@ public class TileControl : MonoBehaviour {
 
         if (CheckAllTilesTouched()) //모든 타일들이 터치되면
         {
-            Debug.Log("All tiles Touched");
+            //Debug.Log("All tiles Touched");
             
             InitTiles(); //타일들을 초기화 한다.
             

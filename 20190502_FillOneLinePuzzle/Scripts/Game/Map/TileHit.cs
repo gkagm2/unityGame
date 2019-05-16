@@ -23,7 +23,6 @@ public class TileHit : MonoBehaviour {
             //GameObject map = GameObject.FindGameObjectWithTag("Map"); //Map이라는 Tag를 가진 GameObject를 가져온다.
             //Debug.Log("map name : " + map.name);
 
-
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
@@ -44,7 +43,7 @@ public class TileHit : MonoBehaviour {
                         {//같을때까지 pop하라
                             Tile tempT = tileControl.tileStack.Pop();
                             tempT.ChangeColor();
-                            Debug.Log("pop한 타일 : " + tempT.name);
+                            //Debug.Log("pop한 타일 : " + tempT.name);
                         }
                     }
 
@@ -57,10 +56,6 @@ public class TileHit : MonoBehaviour {
                     {
                         Debug.Log("멀리 떨어져있는 타일이여서 색 못바꿈");
                     }
-
-                    
-
-
                 }
             }
         }

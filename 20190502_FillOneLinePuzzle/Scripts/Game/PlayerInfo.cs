@@ -55,17 +55,7 @@ public class PlayerInfo : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
-        Debug.Log("진행 레벨:" + myProgressLevel + ", 진행 스테이지:"+ myProgressStage+"현재 레벨 : " + currentLevel + ", 현재 스테이지 : " + currentStage );
-        for (int i = 0; i < GetLevelCount(); i++)
-        {
-            for (int j = 0; j < maxStarsPerLevel[i]; j++)
-            {
-                Debug.Log("level : " + (i+1) + ", stage : " + (j+1) + GetLevelStageInfoObjSuccessValue((short)(i+1), (short)(j+1)));
-            }
-        }
         UpdateStars(); //별들의 개수를 업데이트.
-        //SettingStageSuccessState();
     }
 
 
@@ -110,7 +100,7 @@ public class PlayerInfo : MonoBehaviour {
             if (level == levelStageInfo[i].level && stage == levelStageInfo[i].stage)
             {
                 levelStageInfo[i].isSuccess = success;
-                Debug.Log("바꾸려는 플래그 :  " + success + "LevelStageInfo " + levelStageInfo[i].obj.name + "의 플레그를 : " + levelStageInfo[i].isSuccess + "로 바꿈");
+                //Debug.Log("바꾸려는 플래그 :  " + success + "LevelStageInfo " + levelStageInfo[i].obj.name + "의 플레그를 : " + levelStageInfo[i].isSuccess + "로 바꿈");
                 break;
             }
         }
@@ -124,13 +114,13 @@ public class PlayerInfo : MonoBehaviour {
         {
             if (level == levelStageInfo[i].level && stage == levelStageInfo[i].stage)
             {
-                Debug.Log("LevelStageInfo " + levelStageInfo[i].obj.name + "의 플레그를 : " + levelStageInfo[i].isSuccess + "로 바꿈");
+                //Debug.Log("LevelStageInfo " + levelStageInfo[i].obj.name + "의 플레그를 : " + levelStageInfo[i].isSuccess + "로 바꿈");
                 return levelStageInfo[i].isSuccess;
             }
         }
 
         
-        Debug.Log("Level의 개수");
+        //Debug.Log("Level의 개수");
         
         // 0보다 같거나 작고 가지고있는 레벨의 개수보다 크면
         if(level <= 0 || level > GetLevelCount())

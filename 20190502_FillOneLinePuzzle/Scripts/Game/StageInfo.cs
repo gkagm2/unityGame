@@ -39,7 +39,7 @@ public class StageInfo : MonoBehaviour {
     //Stage 버튼을 클릭 했을 때
     public void Click()
     {
-        Debug.Log("클릭했음" + myLevel + ", " + myStage);
+        //Debug.Log("클릭했음" + myLevel + ", " + myStage);
         if (backgroundLock.activeSelf == true) // 잠긴 상태이면
             return; //실행하지 않는다.
         // Screens 경로로 ScreenManager를 가져옴
@@ -55,7 +55,6 @@ public class StageInfo : MonoBehaviour {
     // 레벨과 스테이지를 체크한다.
     public void CheckLevelAndStage()
     {
-        
         // player 정보를 찾는다.
         for(int i=0; i< playerInfo.levelStageInfo.Length; i++)
         {
@@ -66,21 +65,16 @@ public class StageInfo : MonoBehaviour {
                 {
                     // Unlock 이미지로 바꿈
                     SetUnLockState();
-                    Debug.Log("진행레벨:" + playerInfo.myProgressLevel + ", 진행스테이지" + playerInfo.myProgressStage + ",내 레벨: " + myLevel + ", 내 스테이지: " + myStage +" SetUnlock");
                 }
                 else if (playerInfo.myProgressLevel == myLevel && playerInfo.myProgressStage == myStage) // 이 스테이지,레벨과 현재 스테이지, 레벨이 같다면
                 {   // Next이미지로 바꿈
                     SetNextState();
-                    Debug.Log("진행레벨:" + playerInfo.myProgressLevel + ", 진행스테이지" + playerInfo.myProgressStage + ",내 레벨: " + myLevel + ", 내 스테이지: " + myStage + " SetNext");
                 }
                 else if (playerInfo.levelStageInfo[i].isSuccess == false)
                 {   // Lock 이미지로 바꿈
                     SetLockState();
-                    Debug.Log("진행레벨:" + playerInfo.myProgressLevel + ", 진행스테이지" + playerInfo.myProgressStage + ",내 레벨: " + myLevel + ", 내 스테이지: " + myStage + " SetLock");
                 }
                 SettingLevelAndStageInfo(); // 레벨과 스테이지의 정보를 UI에 보여준다.
-                //ChangeUIImage(myLevelStageInfo); //이미지의 상태를 바꾼다.
-
             }
         }
     }
