@@ -49,17 +49,34 @@ public class TileControl : MonoBehaviour {
     }
     // Update is called once per frame
     void Update() {
+
+        Debug.Log("---------검증하지 못한 코드.(일단 사용함)--------");
+        //타일이 null일 경우
+        for(int i= 0; i < tile.Length; i++)
+        {
+            if(tile[i] == null)
+            {
+                Debug.Log("타일이 Null임!!!!!!!!!!!!!!!!!!!!!!!!");
+                initTile = new bool[maxTileNumber]; // 초기화하기위해 필요한 정보
+                for (int j = 0; j < maxTileNumber; j++) //각 타일들의 Tile 컴포넌트를 가져옴.
+                {
+                    tile[j] = transform.GetChild(j).GetComponent<Tile>();
+                    initTile[j] = tile[j].check; // 초기화하기 위해 담는다
+                }
+                InitTiles(); // 타일 초기화.
+            }
+
+        }
+
+
         if (CheckAllTilesTouched()) //모든 타일들이 터치되면
         {
             Debug.Log("All tiles Touched");
             
             InitTiles(); //타일들을 초기화 한다.
             
-            ScreenManager screenManager = GameObject.Find(Path.gameScreen).GetComponent<ScreenManager>();
+            ScreenManager screenManager = GameObject.Find(MyPath.gameScreen).GetComponent<ScreenManager>();
             screenManager.OpenSuccessPopup(); // 성공 팝업창이뜬다.
-            
-            //LevelStageInfo 에서 isSuccess 도 바꿔야 되겠군
-            // TODO :  Show Success Pop up Screen
         }
 
         if (TouchedTilesCount() >= 2) //체크된 개수가 2개 이상이면

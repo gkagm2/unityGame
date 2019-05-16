@@ -13,6 +13,7 @@ public class StageScreen_CurrentLevelScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        // 현재 레벨을 표시
+        GetComponent<UILabel>().text = "Level " + playerInfo.currentLevel.ToString();
+    }
 }

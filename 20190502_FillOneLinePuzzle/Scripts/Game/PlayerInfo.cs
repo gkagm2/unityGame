@@ -39,13 +39,13 @@ public class PlayerInfo : MonoBehaviour {
     public short currentStage = 1;
 
     // 현재까지 진행된 레벨과 스테이지
-    public short myProgressLevel = 1;
-    public short myProgressStage = 1;
+    public short myProgressLevel;
+    public short myProgressStage;
 
 
     // Use this for initialization
     void Start () {
-        CurrentProgressLevelAndStageSetting();  // 현재 진도 정보 세팅
+        
         LevelStageInfoSetting();                // 레벨과 스테이지의 정보를 세팅한다.
         InitStarSetting();                      //별의 개수 초기화.
     }
@@ -55,18 +55,25 @@ public class PlayerInfo : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log("현재 레벨 : " + currentLevel + ", 현재 스테이지 : " + currentStage);
-        Debug.Log("진행 레벨 : " + myProgressLevel + ", 진행 스테이지 : " + myProgressStage);
+        
+        Debug.Log("진행 레벨:" + myProgressLevel + ", 진행 스테이지:"+ myProgressStage+"현재 레벨 : " + currentLevel + ", 현재 스테이지 : " + currentStage );
+        for (int i = 0; i < GetLevelCount(); i++)
+        {
+            for (int j = 0; j < maxStarsPerLevel[i]; j++)
+            {
+                Debug.Log("level : " + (i+1) + ", stage : " + (j+1) + GetLevelStageInfoObjSuccessValue((short)(i+1), (short)(j+1)));
+            }
+        }
         UpdateStars(); //별들의 개수를 업데이트.
+        //SettingStageSuccessState();
     }
 
 
 
 
     // 현재 진도 레벨과 스테이지 세팅
-    public void CurrentProgressLevelAndStageSetting()
+    public void SettingPlayerInfo()
     {
-        
         if (myProgressLevel == 1 && myProgressStage == 1)// 처음(Level : 1, Stage : 1)이면 PlayerPrefabs에  저장
         {
             PlayerPrefs.SetInt("myProgressLevel", (int)myProgressLevel);
@@ -95,15 +102,16 @@ public class PlayerInfo : MonoBehaviour {
         return null;
     }
 
-    // 해당 레벨과 스테이지 값에 일치하는 레벨과 스테이지의 성공 플래그를 설정한다.
-    public void SetLeveStageInfoObjSuccessValue(short level, short stage,bool success)
+    // 해당 레벨과 스테이지 값에 일치하는 레벨과 스테이지에 성공 플래그를 설정한다.
+    public void SetLevelStageInfoObjSuccessValue(short level, short stage,bool success)
     {
         for (int i = 0; i < levelStageInfo.Length; i++)
         {
             if (level == levelStageInfo[i].level && stage == levelStageInfo[i].stage)
             {
                 levelStageInfo[i].isSuccess = success;
-                Debug.Log("LevelStageInfo " + levelStageInfo[i].obj.name + "의 플레그를 : " + levelStageInfo[i].isSuccess + "로 바꿈");
+                Debug.Log("바꾸려는 플래그 :  " + success + "LevelStageInfo " + levelStageInfo[i].obj.name + "의 플레그를 : " + levelStageInfo[i].isSuccess + "로 바꿈");
+                break;
             }
         }
     }
@@ -127,12 +135,13 @@ public class PlayerInfo : MonoBehaviour {
         // 0보다 같거나 작고 가지고있는 레벨의 개수보다 크면
         if(level <= 0 || level > GetLevelCount())
         {
-            Debug.Log("레벨의 개수 입력이 잘 못 되었습니다. Error");
+            
+            Debug.Log("레벨의 개수 입력이 잘 못 되었습니다. Error" + "  Level : " + level);
         }
         // 0보다 같거나 작고 가지고있는 스테이지의 개수보다 크면
         if(stage <= 0 || stage > maxStars)
         {
-            Debug.Log("스테이지의 개수 입력이 잘 못 되었습니다. Error");
+            Debug.Log("스테이지의 개수 입력이 잘 못 되었습니다. Error" + "  Stage : " + stage);
         }
         return false;
     }
@@ -148,7 +157,7 @@ public class PlayerInfo : MonoBehaviour {
     public void LevelStageInfoSetting()
     {
         // 스테이지의 개수를 가져온다. (자식 오브젝트들의 개수를 구함)
-        int childCount = GameObject.Find(Path.gameScreen_Maps).gameObject.transform.childCount; 
+        int childCount = GameObject.Find(MyPath.gameScreen_Maps).gameObject.transform.childCount; 
 
         GameObject[] maps = new GameObject[childCount]; 
         maps = GameObject.FindGameObjectsWithTag("Map"); // 존재 하고 있는 스테이지의 GameObject를 가져옴.
@@ -160,8 +169,6 @@ public class PlayerInfo : MonoBehaviour {
         levelStageInfo = new LevelStageInfo[maps.Length]; //존재하고 있는 스테이지의 개수만큼 동적으로 할당받는다.
         //Debug.Log("levelStageInfo 할당 개수 : " + levelStageInfo.Length);
 
-        // TODO : PlayPrefabs에서 Player의 currentLevel과 currentStage를 불러와야 함.
-
         //Test i는 0으로 바꾸셈
         for (int i=0; i < levelStageInfo.Length; i++)
         {
@@ -171,13 +178,31 @@ public class PlayerInfo : MonoBehaviour {
             levelStageInfo[i].level = maps[i].GetComponent<MapInfo>().myLevel;
             levelStageInfo[i].stage = maps[i].GetComponent<MapInfo>().myStage;
             levelStageInfo[i].obj = maps[i];
+        }
+        SettingStageSuccessState(); // 스테이지의 성공 플래그를 설정한다.
+    }
 
-            if (levelStageInfo[i].level <= currentLevel && levelStageInfo[i].stage <= currentStage) //현재 레벨보다 작거나 같고 현재 스테이지보다 작거나 같으면
+    // 스테이지의 성공 플래그를 설정한다.
+    public void SettingStageSuccessState()
+    {
+        //진행하고있는 레벨보다 작거나 같고, 진행하고 있는 스테이지-1 보다 작으면
+        for (short level = 1; level <= myProgressLevel; level++)
+        {
+            if(level < myProgressLevel) // 레벨이 진행중인 레벨보다 작으면
             {
-                levelStageInfo[i].isSuccess = true; //성공으로 바꾼다.
-
+                short stageMaxCount = GetLevelMaxStageNumber(level); // 해당 레벨의 스테이지 개수를 가져온다.
+                for (short stage = 1; stage <= stageMaxCount; stage++)
+                {
+                    SetLevelStageInfoObjSuccessValue(level, stage, true); // 스테이지를 모두 성공으로 바꿈.
+                }
             }
-            
+            if(level == myProgressLevel) // 레벨이 진행중인 레벨과 같다면
+            {
+                for(short stage =1; stage < myProgressStage; stage++)
+                {
+                    SetLevelStageInfoObjSuccessValue(level, stage, true); // 스테이지를 모두 성공으로 바꿈.
+                }
+            }
         }
     }
 
@@ -258,14 +283,20 @@ public class PlayerInfo : MonoBehaviour {
         }
         return count;
     }
-
-    // 레벨이 언락 될 경우 
-    public void LevelUnLockSetting()
+    // 다음 레벨에 대한 플레이어 정보 세팅하기
+    public void NextLevelSetting()
     {
-        //  현재까지 진행된 레벨과 스테이지를 바꿈
-        if(GetLevelCount() >= myProgressLevel+1)
-            ++myProgressLevel;
-        myProgressStage = 1;
-        Debug.Log("myProgressSage가 1로 바뀜 :  " + myProgressStage);
+        if(myProgressLevel == GetLevelCount() && myProgressStage == GetLevelMaxStageNumber(myProgressLevel))
+        {
+            Debug.Log("최대 레벨의 스테이지를 모두 다 깼습니다! ");
+
+        }
+        else
+        {
+            ++myProgressLevel; // 현재 진행 레벨을 1 추가한다.
+            myProgressStage = 1; // 현재 진행 스테이지를 1로 바꾼다.
+            Debug.Log("myProgressLevel이 1 추가됨");
+        }
+        
     }
 }

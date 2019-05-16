@@ -6,7 +6,7 @@ using UnityEngine;
 // 레벨과 스테이지의 정보를 담는 클래스
 public class LevelStageInfo {
     public GameObject obj;
-    public short level; // 레벨
-    public short stage;  // 스테이지
-    public bool isSuccess; // 깼는지 안깼는지
+    public short level = 1; // 레벨
+    public short stage = 1;  // 스테이지
+    public bool isSuccess = false; // 깼는지 안깼는지
 }

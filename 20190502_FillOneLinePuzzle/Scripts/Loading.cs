@@ -19,19 +19,18 @@ public class Loading : MonoBehaviour {
     IEnumerator InitSetting()
     {
         loadingText.text = "Loading";
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSecondsRealtime(0.5f);
         loadingText.text = "Loading . ";
-        yield return new WaitForSeconds(1.0f);
-        loadingText.text = "Loading . .";
-        yield return new WaitForSeconds(1.0f);
-        stageScreen.SetActive(false);
-
+        yield return new WaitForSecondsRealtime(0.5f);
         GameObject[] maps = GameObject.FindGameObjectsWithTag("Map");
         for (int i = 0; i < maps.Length; i++)
         {
             maps[i].SetActive(false);
         }
+        loadingText.text = "Loading . .";
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        stageScreen.SetActive(false);
         loadingScreen.SetActive(false);
-        
     }
 }
