@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
 
+
 public class CurrentLevelTotalStarScript : MonoBehaviour {
     [Tooltip("플레이어의 정보")]
     public PlayerInfo playerInfo;
@@ -20,6 +21,8 @@ public class CurrentLevelTotalStarScript : MonoBehaviour {
         
         // 레벨의 별의 개수와 레벨의 총 얻을 수 있는 별의 개수를 UILabel.text로 표시
         GetComponent<UILabel>().text = playerInfo.currentHaveStarsPerLevel[myLevelNumber-1].ToString() + "/" + playerInfo.maxStarsPerLevel[myLevelNumber-1].ToString();
+        GetComponent<UILabel>().text = playerInfo.currentHaveStarsPerLevel[myLevelNumber - 1].ToString() + "/" + playerInfo.maxStarsPerLevel[myLevelNumber - 1].ToString();
+
     }
     private void Update()
     {

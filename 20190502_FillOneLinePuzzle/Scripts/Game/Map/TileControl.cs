@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TileControl : MonoBehaviour {
+
+    PlayerInfo playerInfo;
+
     MapInfo mapInfo;
     public GameObject cameraObj; // 카메라 오브젝트를 가져옴 (TileHit때문임)
     TileHit tileHit; //TileHit
@@ -36,6 +39,7 @@ public class TileControl : MonoBehaviour {
     }
     private void Start()
     {
+        playerInfo = GameObject.Find(MyPath.gameScreen).GetComponent<PlayerInfo>();
         firstStartTileIndex = GetStartTileIndex(); // 시작하는 타일의 index를 받아온다.
         if (firstStartTileIndex < 0)
         {
@@ -71,15 +75,59 @@ public class TileControl : MonoBehaviour {
 
         if (CheckAllTilesTouched()) //모든 타일들이 터치되면
         {
-            //Debug.Log("All tiles Touched");
-            
+            Debug.Log("(1)All tiles Touched");
+
             InitTiles(); //타일들을 초기화 한다.
-            
+
             ScreenManager screenManager = GameObject.Find(MyPath.gameScreen).GetComponent<ScreenManager>();
-            screenManager.OpenSuccessPopup(); // 성공 팝업창이뜬다.
+
+            // 현재 레벨에서 가지고 있는 별의 개수가 레벨의 최대 별의 개수보다 작으면
+            if (playerInfo.currentHaveStarsPerLevel[playerInfo.currentLevel - 1] <= playerInfo.maxStarsPerLevel[playerInfo.currentLevel - 1])
+            {
+                // 현재 하고 있는 스테이지가 성공했던 스테이면
+                if(playerInfo.GetLevelStageInfoObjSuccessValue(playerInfo.currentLevel,playerInfo.currentStage))
+                {
+                    Debug.Log("(2)이미 한 스테이지임 성공 팝업창 뜸");
+                    screenManager.OpenSuccessPopup(); // 성공 팝업 창이 뜬다.
+                }
+                // 진행중인 스테이지를 깬 것이였으면
+                else if (playerInfo.currentLevel == playerInfo.myProgressLevel && playerInfo.currentStage == playerInfo.myProgressStage)
+                {
+                    // 해당 레벨의 마지막 스테이지를 깬 것이였으면
+                    if (playerInfo.GetLevelMaxStageNumber(playerInfo.currentLevel) == playerInfo.currentStage && playerInfo.GetLevelStageInfoObjSuccessValue(playerInfo.currentLevel, playerInfo.currentStage) == false) //해당 스테이지가 각 레벨의 마지막 스테이지이고  성공하지 않은 스테이지면
+                    {
+                        if (playerInfo.currentLevel < playerInfo.GetLevelCount()) //다음 레벨이 있을 경우
+                        {
+                            Debug.Log("(2)다음레벨 잠금 해제");
+                            playerInfo.NextLevelSetting(); // 다음 레벨에 대한 플레이어 정보 세팅하기
+                            
+                            screenManager.OpenAllStageSuccessPopup(); // 모든 스테이지를 성공했다는 팝업 창이 뜬다.
+                        }
+                        else // 다음 레벨이 없을 경우
+                        {
+                            Debug.Log("(2)모든 스테이지를 다 깼다.");
+                            // TODO : 팝업창 만들어야 함
+                        }
+                    }
+                    else //해당 레벨의 마지막이 아닌 스테이지를 깬 것이면
+                    {
+                        Debug.Log("(2)성공 팝업창 뜸");
+                        playerInfo.myProgressStage += 1; //스테이지 진행도를 1 올림.
+                        screenManager.OpenSuccessPopup(); // 성공 팝업창이뜬다.
+                    }
+                }
+            }
+            else // 진행 상태의  Stage의 번호가 각 레벨에 해당하는 별의 수가 넘어가면
+            {
+                Debug.Log("꽉 채웠음");
+            }
+            Debug.Log("(3) 이 부분 뜨나?");
+
+            // 이번 스테이지의 정보를 성공으로 바꿈.
+            playerInfo.SetLevelStageInfoObjSuccessValue(playerInfo.currentLevel, playerInfo.currentStage, true);
         }
 
-        if (TouchedTilesCount() >= 2) //체크된 개수가 2개 이상이면
+            if (TouchedTilesCount() >= 2) //체크된 개수가 2개 이상이면
         {
             for(int i=0; i < maxTileNumber; i++) //전체 타일을 검사하기 위해 돌림
             {

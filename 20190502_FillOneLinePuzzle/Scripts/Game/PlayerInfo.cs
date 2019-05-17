@@ -55,7 +55,12 @@ public class PlayerInfo : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        PlayerPrefs.SetInt("myProgressLevel", myProgressLevel);
+        PlayerPrefs.SetInt("myProgressStage", myProgressStage);
+
         UpdateStars(); //별들의 개수를 업데이트.
+        Debug.Log("진도 레벨 : " + myProgressLevel + ", 진도 스테이지 : " + myProgressStage + ", 현재 레벨 : " + currentLevel + ", 현재 스테이지 : " + currentStage);
     }
 
 
@@ -64,12 +69,14 @@ public class PlayerInfo : MonoBehaviour {
     // 현재 진도 레벨과 스테이지 세팅
     public void SettingPlayerInfo()
     {
-        if (myProgressLevel == 1 && myProgressStage == 1)// 처음(Level : 1, Stage : 1)이면 PlayerPrefabs에  저장
+        if (myProgressLevel == 0 && myProgressStage == 0) // 처음(Level : 0, Stage : 0)이면 1로 설정
         {
+            myProgressLevel = 1;
+            myProgressStage = 1;
             PlayerPrefs.SetInt("myProgressLevel", (int)myProgressLevel);
             PlayerPrefs.SetInt("myProgressStage", (int)myProgressStage);
         }
-        else // 처음이 아니면
+        else // 처음이 아니면 정보를 불러온다.
         {
             myProgressLevel = (short)PlayerPrefs.GetInt("myProgressLevel");
             myProgressStage = (short)PlayerPrefs.GetInt("myProgressStage");
@@ -158,6 +165,8 @@ public class PlayerInfo : MonoBehaviour {
         }
         levelStageInfo = new LevelStageInfo[maps.Length]; //존재하고 있는 스테이지의 개수만큼 동적으로 할당받는다.
         //Debug.Log("levelStageInfo 할당 개수 : " + levelStageInfo.Length);
+
+        SettingPlayerInfo();
 
         //Test i는 0으로 바꾸셈
         for (int i=0; i < levelStageInfo.Length; i++)
@@ -279,10 +288,10 @@ public class PlayerInfo : MonoBehaviour {
         if(myProgressLevel == GetLevelCount() && myProgressStage == GetLevelMaxStageNumber(myProgressLevel))
         {
             Debug.Log("최대 레벨의 스테이지를 모두 다 깼습니다! ");
-
         }
         else
         {
+            Debug.Log("myProgressLevel 호출");
             ++myProgressLevel; // 현재 진행 레벨을 1 추가한다.
             myProgressStage = 1; // 현재 진행 스테이지를 1로 바꾼다.
             Debug.Log("myProgressLevel이 1 추가됨");
