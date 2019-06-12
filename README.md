@@ -15,17 +15,6 @@
 + ### Scene
 - LifeCycle
 
-+ ### PlayerPrefs
-- Static functions
-
-+ ### UI
-- 토글
-- 슬라이더
-
-+ ### GUI
-- Input field
-
-
 + Rect Transform
 - UI 렉트 툴 조작
 - UI Rect Transform
