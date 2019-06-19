@@ -16,8 +16,6 @@
 - LifeCycle
 
 + Rect Transform
-- UI 렉트 툴 조작
-- UI Rect Transform
 - 피봇 포인트 (더)
 - 앵커 포인트 (더)
 - Mask
