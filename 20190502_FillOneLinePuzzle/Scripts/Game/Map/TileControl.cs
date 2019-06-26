@@ -54,6 +54,7 @@ public class TileControl : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
+        //TODO : 파일에서 받아와서 써야될 듯.
         Debug.Log("---------검증하지 못한 코드.(일단 사용함)--------");
         //타일이 null일 경우
         for(int i= 0; i < tile.Length; i++)
