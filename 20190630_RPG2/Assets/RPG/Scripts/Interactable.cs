@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour {
 
-    public float radius = 3f;
+    public float radius = 2f;
     public Transform interactionTransform;
 
 
@@ -26,6 +26,7 @@ public class Interactable : MonoBehaviour {
             if(distance <= radius)
             {
                 Debug.Log("INTERACT");
+                Interact();
                 hasInteracted = true;
             }
         }
@@ -48,6 +49,9 @@ public class Interactable : MonoBehaviour {
 
     private void OnDrawGizmosSelected()
     {
+        if (interactionTransform == null) {
+            interactionTransform = transform;
+        }
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(interactionTransform.position, radius);
 
