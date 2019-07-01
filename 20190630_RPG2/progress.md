@@ -13,4 +13,6 @@
 ### 20190701
 + Iventory UI 구현.
 + 아이템을 먹으면 inventory에 적재, item의 remove버튼을 누르면 제거되는 기능 구현
++ i와 b를 누르면 inventory가 꺼졌다 켰지는 기능 구현
++ inventory 클릭 시 캐릭터가 움직이지 않게 함. (inventory만 클릭하게 됨)
 
