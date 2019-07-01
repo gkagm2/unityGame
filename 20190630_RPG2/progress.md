@@ -18,3 +18,6 @@
 + 장비 슬롯 구현
 + 같은 부위에 있는 장비 착용 시 swap 기능 구현
 + player info UI 체력, 마나 바 업데이트
+
+### 20190702
++ Monster LayerMask 생성
