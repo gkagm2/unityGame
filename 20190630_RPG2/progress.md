@@ -10,5 +10,6 @@
 + item 리트스 구현
 + Inventory 구현
 
+### 20190701
++ Iventory UI 구현.
 
-## TODO
