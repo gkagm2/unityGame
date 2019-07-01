@@ -12,4 +12,5 @@
 
 ### 20190701
 + Iventory UI 구현.
++ 아이템을 먹으면 inventory에 적재, item의 remove버튼을 누르면 제거되는 기능 구현
 
