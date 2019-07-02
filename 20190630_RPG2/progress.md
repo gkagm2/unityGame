@@ -22,3 +22,4 @@
 ### 20190702
 + Monster LayerMask 생성
 + PlayerStats 만듬 장비 착용 시 데미지 방어구 연동
++ enemy에가 다가가면 player를 쫒아오는 기능 구현 (NavMashAgent)사용.
