@@ -23,3 +23,4 @@
 + Monster LayerMask 생성
 + PlayerStats 만듬 장비 착용 시 데미지 방어구 연동
 + enemy에가 다가가면 player를 쫒아오는 기능 구현 (NavMashAgent)사용.
++ Enemy 체력, 공격력, 방어력 설정. 및 플레이어가 가까이에 오면 멈춰서 방향만 바꿈.
