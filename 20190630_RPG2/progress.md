@@ -21,3 +21,4 @@
 
 ### 20190702
 + Monster LayerMask 생성
++ PlayerStats 만듬 장비 착용 시 데미지 방어구 연동
