@@ -13,7 +13,7 @@ public class UnityAdsHelper : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Advertisement.Show(); // 광고 호출.
+        //Advertisement.Show(); // 광고 호출.
     }
     private void Initialize()
     {

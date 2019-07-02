@@ -89,3 +89,4 @@
 사용자의 진도 정보를 저장한다. LevelStageInfo를 저장해야 할 듯 어떻게 할 지..
  isSuccess로 쉽게 볼 수 있을 듯.
 
+
