@@ -8,6 +8,8 @@ public class Item : ScriptableObject {
     public Sprite icon = null; // Item icon
     public bool isDefaultItem = false; // Is the item default wear?
 
+    public Mesh mesh;
+
     public virtual void Use()
     {
         // Use the item

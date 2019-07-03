@@ -28,3 +28,6 @@
 ### 20190703
 + enemy는 player에게 데미지 주기, player는 enemy를 클릭하면  데미지 주기 기능 추가
 + player animator를 위한 클래스 작성
+
+### 20190704
++ shield, sword, chest armor, legs armor, helmet 에셋 가져오고 ,이름, 설정 바꿈

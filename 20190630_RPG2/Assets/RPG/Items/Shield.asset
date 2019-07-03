@@ -8,9 +8,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb069ff9b1ddfe64ba805a461fd92524, type: 3}
+  m_Script: {fileID: 11500000, guid: f3f953e6330d0bd4d8ed1de6a2d0a606, type: 3}
   m_Name: Shield
   m_EditorClassIdentifier: 
-  name: Placeholder Shield
-  icon: {fileID: 21300000, guid: 56f4ffddcfa0d98439b45e44f6315e7d, type: 3}
+  name: Shield
+  icon: {fileID: 21300000, guid: 8ad1000154c6df4458c8fa37b63fc138, type: 3}
   isDefaultItem: 0
+  mesh: {fileID: 4300000, guid: fa0a723e3534aca47bcf60641f2f3a8d, type: 3}
+  equipSlot: 4
+  armorModifier: 3
+  damageModifier: 0
