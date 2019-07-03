@@ -16,7 +16,7 @@ public class Stat {
         return baseValue;
     }
 
-    public void AddMdifier(int modifier)
+    public void AddModifier(int modifier)
     {
         if(modifier != 0)
         {

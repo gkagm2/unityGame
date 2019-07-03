@@ -405,6 +405,7 @@ GameObject:
   - component: {fileID: 86900990}
   - component: {fileID: 86900989}
   - component: {fileID: 86900988}
+  - component: {fileID: 86900995}
   - component: {fileID: 86900994}
   - component: {fileID: 86900993}
   - component: {fileID: 86900992}
@@ -519,6 +520,19 @@ MonoBehaviour:
     baseValue: 5
   armor:
     baseValue: 3
+--- !u!114 &86900995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 86900987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b331da0990c76cc4e9777fd4248759dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSpeed: 1
+  attackDelay: 0.6
 --- !u!1 &96185738
 GameObject:
   m_ObjectHideFlags: 0
@@ -2074,8 +2088,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51133d78ba1105b46a02ea3f7d059605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 10
-  shield: 3
 --- !u!1 &404665592
 GameObject:
   m_ObjectHideFlags: 0
@@ -2520,6 +2532,7 @@ GameObject:
   - component: {fileID: 477148267}
   - component: {fileID: 477148268}
   - component: {fileID: 477148269}
+  - component: {fileID: 477148270}
   - component: {fileID: 477148264}
   m_Layer: 0
   m_Name: Player
@@ -2633,9 +2646,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   damage:
-    baseValue: 0
+    baseValue: 5
   armor:
-    baseValue: 0
+    baseValue: 2
 --- !u!114 &477148269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2649,9 +2662,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   damage:
-    baseValue: 5
+    baseValue: 0
   armor:
     baseValue: 0
+--- !u!114 &477148270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 477148261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b331da0990c76cc4e9777fd4248759dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSpeed: 1
+  attackDelay: 0.6
 --- !u!1 &483971457
 GameObject:
   m_ObjectHideFlags: 0

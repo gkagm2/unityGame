@@ -18,8 +18,8 @@ public class PlayerStats : CharacterStats{
     {
         if(newItem != null)
         {
-            armor.AddMdifier(newItem.armorModifier);
-            damage.AddMdifier(newItem.damageModifier);
+            armor.AddModifier(newItem.armorModifier);
+            damage.AddModifier(newItem.damageModifier);
         }
 
         if(oldItem != null)
@@ -29,4 +29,10 @@ public class PlayerStats : CharacterStats{
         }
     }
 
+    public override void Die()
+    {
+        base.Die();
+        // Kill the player
+        PlayerManager.instance.KillPlayer();
+    }
 }
