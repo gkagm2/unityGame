@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallMove : MonoBehaviour {
+public class BallMove : BallController {
 
     public float moveSpeed = 10.0f;
 
@@ -19,7 +19,7 @@ public class BallMove : MonoBehaviour {
         float dic_x = Input.GetAxis("Horizontal");
         dic_x = moveSpeed * Time.deltaTime * dic_x;
         print(dic_x);
-        transform.Rotate(new Vector3(0, 0, -dic_x));
+        transform.parent.Rotate(new Vector3(0, 0, -dic_x));
     }
 
 }
