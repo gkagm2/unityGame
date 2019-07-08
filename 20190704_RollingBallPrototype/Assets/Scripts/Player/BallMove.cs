@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BallMove : MonoBehaviour {
-    
+
     public float moveSpeed = 10.0f;
 
 
@@ -21,5 +21,5 @@ public class BallMove : MonoBehaviour {
         print(dic_x);
         transform.Rotate(new Vector3(0, 0, -dic_x));
     }
-    
+
 }

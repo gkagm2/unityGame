@@ -8,6 +8,7 @@ public static class Level
     public static LevelState currentLevel;
     // TODO : 여기서부터 한다.
     public static int levelCount = 7;
+    
 }
 
 public enum LevelState
