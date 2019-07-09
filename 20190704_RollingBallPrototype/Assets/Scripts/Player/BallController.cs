@@ -23,7 +23,4 @@ public class BallController : MonoBehaviour {
             Debug.Log("Hit!");
         }
     }
-
-
-
 }

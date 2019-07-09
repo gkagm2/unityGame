@@ -15,10 +15,8 @@ public class BallMove : BallController {
     // 양쪽을 움직이기
     public void SideMove()
     {
-
         float dic_x = Input.GetAxis("Horizontal");
         dic_x = moveSpeed * Time.deltaTime * dic_x;
-        print(dic_x);
         transform.parent.Rotate(new Vector3(0, 0, -dic_x));
     }
 
