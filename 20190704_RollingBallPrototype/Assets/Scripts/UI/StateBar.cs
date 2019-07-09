@@ -13,12 +13,8 @@ public class StateBar : MonoBehaviour {
     public void OnClick_OptionPopupBtn(bool openFlag) //true 열기, false 닫기
     {
         if (openFlag)
-        {
             optionPopup.SetActive(true);
-        }
         else
-        {
             optionPopup.SetActive(false);
-        }
     }
 }
