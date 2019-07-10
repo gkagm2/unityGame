@@ -3,9 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour {
 
-    [Header("Screen")]
+public partial class UIManager : MonoBehaviour
+{
+    [Header("UI")]
+    public GameObject menuUI;
+    public GameObject stateBarUI;
+    public GameObject gamePlayUI;
+}
+
+// MenuUI
+public partial class UIManager : MonoBehaviour {
+
+    
+
+
+    // -------- In Menu UI ----------
+    [Header("In Menu Screen")]
     // screen
     public GameObject meScreen;
     public GameObject shopScreen;
@@ -14,7 +28,7 @@ public class UIManager : MonoBehaviour {
     public GameObject ballItemScreen;
     public GameObject ballBtn;
 
-    [Header("In ShopScreen")]
+    [Header("In Shop Screen")]
     // shop screen
     public GameObject boostsScreen;
     public GameObject storeScreen;
@@ -27,16 +41,29 @@ public class UIManager : MonoBehaviour {
     public GameObject purchaseAlarmPopup;
 
 
+    
 
-
-
+    // ***********  FUNCTION  ***********
 
     // ----------- In menu screen ----------
+    // Tap to play 버튼을 누름.
+    public void OnClick_TapToPlay()
+    {
+        BallGameManager.instance.GameStart();
+
+        menuUI.SetActive(false);
+        stateBarUI.SetActive(false);
+        gamePlayUI.SetActive(true);
+    }
 
     // Rank 버튼을 누름.
-    public void OnClick_RankBtn()
+    public void OnClick_RankBtn(bool openFlag)
     {
         // TODO : 구글 리더보드.
+        if (openFlag)
+            Debug.Log("open Rank screen");
+        else
+            Debug.Log("close Rank screen");
     }
 
     // Me 버튼을 누름.
@@ -107,4 +134,30 @@ public class UIManager : MonoBehaviour {
 
 
     
+}
+
+// GamePlayUI
+public partial class UIManager
+{
+    // --------- In GamePlay UI --------
+    [Header("In Game Play Screen")]
+    // game play screen
+    public GameObject pauseScreen;
+    
+
+
+    // -------------- FUNCTION -----------
+    // Pause 버튼을 눌렀을 경우
+    public void OnClick_PauseBtn(bool openFlag)
+    {
+        if (openFlag)
+        {
+            pauseScreen.SetActive(true);
+            // TODO : puase game
+        }
+        else
+        {
+            pauseScreen.SetActive(false);
+        }
+    }
 }

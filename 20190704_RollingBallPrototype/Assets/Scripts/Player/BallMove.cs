@@ -9,6 +9,8 @@ public class BallMove : BallController {
 
     // Update is called once per frame
     void Update() {
+        if (BallGameManager.instance.isPlayerCatched)
+            return;
         SideMove();
     }
 

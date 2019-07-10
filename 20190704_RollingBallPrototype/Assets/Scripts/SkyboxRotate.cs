@@ -9,6 +9,9 @@ public class SkyboxRotate : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        if(BallGameManager.instance.isPlayerCatched)
+            return;
+
         RenderSettings.skybox.SetFloat("_Rotation", Time.time * RotateSpeed);
 	}
 }

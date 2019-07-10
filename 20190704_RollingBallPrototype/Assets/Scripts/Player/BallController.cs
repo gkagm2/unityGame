@@ -20,7 +20,7 @@ public class BallController : MonoBehaviour {
     {
         if(other.tag == "Wall")
         {
-            Debug.Log("Hit!");
+            BallGameManager.instance.isPlayerCatched = true;
             
         }
     }

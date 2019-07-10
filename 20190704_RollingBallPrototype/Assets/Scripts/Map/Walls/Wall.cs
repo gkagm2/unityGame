@@ -11,6 +11,9 @@ public class Wall : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if (BallGameManager.instance.isPlayerCatched)
+            return;
+
         Debug.DrawLine(transform.position, Vector3.zero, Color.red);
         
         // 끝까지 가면 없애기

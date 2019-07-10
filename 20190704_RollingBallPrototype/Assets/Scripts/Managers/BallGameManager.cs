@@ -3,13 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BallGameManager : MonoBehaviour {
-    [Header("Current Level")]
-    public LevelState currentLevel;
 
-    public bool isPlayerCatched;
+    public static BallGameManager instance;
+
+    public bool isPlayerCatched; // 게임도중 잡혔을 경우.
     public bool gameOver;
-	// Use this for initialization
-	void Start () {
+
+
+
+    #region Singleton
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+    }
+    #endregion
+
+    // Use this for initialization
+    void Start () {
         FirstGameStartSetting();
 	}
 	
@@ -19,11 +32,34 @@ public class BallGameManager : MonoBehaviour {
 	}
 
 
+    public void GamePause()
+    {
+
+        if (Time.timeScale == 1)
+        {
+            Time.timeScale = 0;
+        }
+        else if (Time.timeScale == 0)
+        {
+            Debug.Log("high");
+            Time.timeScale = 1;
+        }
+    }
+
+
+    public void GameStart()
+    {
+        gameOver = false;
+        isPlayerCatched = false;
+        Debug.Log("CLick start");
+    }
+
+
     // 게임이 처음으로 시작 할 경우 게임 세팅
     public void FirstGameStartSetting()
     {
-        isPlayerCatched = false;
-        gameOver = false;
+        isPlayerCatched = true;
+        gameOver = true;
     }
 
     // 현재 레벨 세팅
