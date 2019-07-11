@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wall : ObjectController {
-    
-    // Update is called once per frame
-    void Update () {
+public class Item : ObjectController {
+
+
+	// Update is called once per frame
+	void Update () {
         if (BallGameManager.instance.isPlayerFail)
             return;
-
-        Debug.DrawLine(transform.position, Vector3.zero, Color.red);
-
+        
         DestoryWhenArriveDestination();
         Move();
-	}
-    
-    // 움직임 변화.
+    }
+
     public override void SetMoveMent(LevelState currentLevel)
     {
         base.SetMoveMent(currentLevel);

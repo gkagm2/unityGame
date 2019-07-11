@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveByTouch : MonoBehaviour {
+    public GameObject targetObj;
+    public Camera camera;
 
-    
-	
-	// Update is called once per frame
-	void Update () {
-        //Touch3();
+
+    float b = 0;
+    float c = 0;
+    // Update is called once per frame
+    void Update () {
+        Touch3();
 	}
 
     // screen on mobile 
@@ -37,29 +40,49 @@ public class MoveByTouch : MonoBehaviour {
 
     public void Touch3()
     {
+        
+
         if (Input.touchCount > 0)
         {
             Vector2 pos = Input.GetTouch(0).position; // 터치한 위치
             Vector3 theTouch = new Vector3(pos.x, pos.y, 0f);
 
 
-            Ray ray = Camera.main.ScreenPointToRay(theTouch);
+            float sensitivity = 20f;
+
+            Ray ray = camera.ScreenPointToRay(theTouch);
             RaycastHit hit;
+
+            // TODO : 불안정 하다.
             if (Physics.Raycast(ray, out hit))
             {
                 if (Input.GetTouch(0).phase == TouchPhase.Began) // 처음 터치 할때 발생
                 {
-                    Debug.Log("처음 터치 " + hit.point);
+                    b = hit.point.x;
+                    //Debug.Log("처음 터치 " + hit.point);
                 }
                 else if (Input.GetTouch(0).phase == TouchPhase.Moved) // 터치하고 움직이면 발생
                 {
-                    Debug.Log("터치하고 움직임 " + hit.point);
+                    //Debug.Log("터치하고 움직임 " + hit.point);
                 }
                 else if (Input.GetTouch(0).phase == TouchPhase.Ended) // 터치를 떼면 발생
                 {
-                    Debug.Log("터치 뗌 " + hit.point);
+                    b = 0;
+                    //Debug.Log("터치 뗌 " + hit.point);
                 }
-
+                if (b > hit.point.x)
+                {
+                    sensitivity *= -1;
+                }
+                else
+                { 
+                    
+                }
+                Debug.Log("----------" + Mathf.Abs(hit.point.x - b));
+                
+                targetObj.transform.Rotate(0, 0, sensitivity * Mathf.Abs(hit.point.x - b));
+                b = hit.point.x;
+                Debug.Log("b : " + b);
             }
         }
     }

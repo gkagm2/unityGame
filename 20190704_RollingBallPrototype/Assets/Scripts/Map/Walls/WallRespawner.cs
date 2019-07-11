@@ -2,84 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallRespawner : MonoBehaviour {
-
-    public GameObject[] wall;
-
-    [Header("Wall Respawn Time")]
-    public float wallRespawnMaxTime = 5.0f;
-    float wallRespawnTimer = 0f; // first wall distance
+public class WallRespawner : RespawnController {
 
 
     public GameObject wallRespawnEffect; // 벽이 생성될 때 나오는 effect
+    public GameObject[] wallObj;
 
 
-    // Use this for initialization
-    void Start() {
+    private void Start()
+    {
+        
     }
 
     // Update is called once per frame
     void Update() {
-        RespawnWall(wallRespawnMaxTime); // 벽 생성
+        if (BallGameManager.instance.isPlayerFail)
+            return;
 
+
+        RespawnObjectAtRegularCycle(wallObj[Random.Range(0, wallObj.Length)], respawnMaxTime); // 일정 주기마다 벽 생성
 
     }
 
-    // 벽 생성
-    public void RespawnWall(float coolTime)
+    // 일정한 주기마다 오브젝트 생성
+    public override void RespawnObjectAtRegularCycle(GameObject targetObj, float coolTime)
     {
-        wallRespawnTimer += Time.deltaTime;
+        respawnTimer += Time.deltaTime;
 
-        if(wallRespawnTimer >= coolTime)
-        {
-            
-            // TODO : 레벨 별로 벽 움직임 제어.
-            Quaternion qRotation = Quaternion.Euler(90f, 0f, 0f);
-            GameObject newWall= Instantiate(wall[Random.Range(0,4)], transform.position, qRotation);
-            if (newWall) // 생성 될 시
-            {
-                ChangeLevel(Level.currentLevel);
-                newWall.GetComponent<Wall>().SetWallMoveMent(Level.currentLevel); // 현재 레벨 세팅해준다.
-                newWall.transform.Rotate(0, 0, Random.Range(0, 360), Space.World); // 생성 할 때의 각도 설정
-            }
-            wallRespawnTimer = 0;
+        if(respawnTimer >= coolTime){
+            CreateObject();
+            respawnTimer = 0;
         }
-
-    }
-
-    // 벽 패턴
-    public void RespawnWallPattern()
-    {
-
     }
 
 
-    // 레벨에 따른 설정값 변경
-    public void ChangeLevel(LevelState currentLevel)
+
+    public override void CreateObject()
     {
-        switch (currentLevel) // 변경 시 설정 값 변경
+        base.CreateObject();
+
+        // TODO : 레벨 별로 벽 움직임 제어.
+        Quaternion qRotation = Quaternion.Euler(90f, 0f, 0f);
+
+        GameObject respawnedWall = Instantiate(wallObj[Random.Range(0, wallObj.Length)], transform.position, qRotation);
+        if (respawnedWall) // 생성 될 시
         {
-            case LevelState.level1:
-                wallRespawnMaxTime = 5.0f; // 시간 변경 TODO : 변수로 받기.
-                break;
-            case LevelState.level2:
-                wallRespawnMaxTime = 3.0f; // 시간 변경 TODO : 변수로 받기.
-                break;
-            case LevelState.level3:
-                wallRespawnMaxTime = 2.0f; // 시간 변경 TODO : 변수로 받기.
-                break;
-            case LevelState.level4:
-                wallRespawnMaxTime = 1.8f;
-                break;
-            case LevelState.level5:
-                wallRespawnMaxTime = 1.6f;
-                break;
-            case LevelState.level6:
-                wallRespawnMaxTime = 1.4f;
-                break;
-            case LevelState.level7:
-                wallRespawnMaxTime = 1.2f;
-                break;
+            ChangeLevel(Level.currentLevel);
+            respawnedWall.GetComponent<Wall>().SetMoveMent(Level.currentLevel); // 현재 레벨 세팅해준다.
+            respawnedWall.transform.Rotate(0, 0, Random.Range(0, 360), Space.World); // 생성 할 때의 각도 설정
         }
     }
 }

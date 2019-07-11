@@ -14,4 +14,10 @@ public class UserInfo
         public int month;
         public int year;
     }
+
+    // TODO : 추가해봐.
+    // Item
+    public int revivalItem;
+    public int protectedItem;
+    
 }

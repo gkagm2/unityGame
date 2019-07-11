@@ -4,26 +4,34 @@ using UnityEngine;
 
 public class BallGameManager : MonoBehaviour {
 
+    #region Singleton
     public static BallGameManager instance;
 
-    public bool isPlayerCatched; // 게임도중 잡혔을 경우.
-    public bool gameOver;
-
-
-
-    #region Singleton
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
     }
     #endregion
 
+    public bool isPlayerFail; // 게임도중 잡혔을 경우.
+    public bool gameOver;
+
+
+    [Header("프레임 제한")]
+    public int gameFrame;
+
+
+
+    
+
     // Use this for initialization
     void Start () {
-        FirstGameStartSetting();
+        Application.targetFrameRate = gameFrame; //프레임 제한 
+
+        SetFirstGameStart();
 	}
 	
 	// Update is called once per frame
@@ -32,7 +40,7 @@ public class BallGameManager : MonoBehaviour {
 	}
 
 
-    public void GamePause()
+    public void PauseGame()
     {
 
         if (Time.timeScale == 1)
@@ -45,22 +53,33 @@ public class BallGameManager : MonoBehaviour {
             Time.timeScale = 1;
         }
     }
+    
 
 
-    public void GameStart()
+    public void StartGame()
     {
         gameOver = false;
-        isPlayerCatched = false;
+        isPlayerFail = false;
         Debug.Log("CLick start");
     }
 
 
     // 게임이 처음으로 시작 할 경우 게임 세팅
-    public void FirstGameStartSetting()
+    public void SetFirstGameStart()
     {
-        isPlayerCatched = true;
+        isPlayerFail = true;
         gameOver = true;
     }
+
+
+    // 게임 실패했을 경우.
+    public void FailGame()
+    {
+        isPlayerFail = true;
+        UIManager.instance.ContinuePopup(true); // 이어서 하기 팝업 띄우기.
+    }
+
+
 
     // 현재 레벨 세팅
     public void SetCurrentLevel(int level)

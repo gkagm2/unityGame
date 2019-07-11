@@ -20,8 +20,15 @@ public class BallController : MonoBehaviour {
     {
         if(other.tag == "Wall")
         {
-            BallGameManager.instance.isPlayerCatched = true;
-            
+            BallGameManager.instance.FailGame(); // 게임 실패
+        }
+        else if (other.tag == "BoostItem")
+        {
+
+        }
+        else if(other.tag == "Coin")
+        {
+
         }
     }
 }
