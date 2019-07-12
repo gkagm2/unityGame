@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
+
 public partial class UIManager : MonoBehaviour
 {
 
@@ -23,6 +24,15 @@ public partial class UIManager : MonoBehaviour
     public GameObject menuUI;
     public GameObject stateBarUI;
     public GameObject gamePlayUI;
+
+
+
+    
+
+
+
+
+
 }
 
 // MenuUI
@@ -33,7 +43,7 @@ public partial class UIManager : MonoBehaviour {
 
     // -------- In Menu UI ----------
     [Header("In Menu Screen")]
-    // screen
+    // menu screen
     public GameObject meScreen;
     public GameObject shopScreen;
 
@@ -49,14 +59,11 @@ public partial class UIManager : MonoBehaviour {
     public GameObject boostsBtn;
     public GameObject storeBtn;
 
-    // popup
-    [Header("Purchase Alarm Popup")]
-    public GameObject purchaseAlarmPopup;
 
-    [Header("Continue Popup")]
-    public GameObject continuePopup;
-    
-    
+    [Header("In Result Screen")]
+    // result screen
+    public GameObject resultScreen;
+
 
     // ***********  FUNCTION  ***********
 
@@ -64,7 +71,7 @@ public partial class UIManager : MonoBehaviour {
     // Tap to play 버튼을 누름.
     public void OnClick_TapToPlay()
     {
-        BallGameManager.instance.StartGame();
+        BallGameManager.instance.StartGame(BallGameManager.GameStartState.newStart);
 
         menuUI.SetActive(false);
         stateBarUI.SetActive(false);
@@ -134,46 +141,22 @@ public partial class UIManager : MonoBehaviour {
         boostsBtn.GetComponent<Image>().color = Color.white;
     }
 
-
-    // -----------------------------------------------
-    // ------------ Purchase alarm popup -------------
-
-    // 구매 알람 팝업
-    public void PurchaseAlarmPopup(bool openFlag)
+    // ------------- In Result Screen ---------------
+    // Home 버튼을 누름
+    public void OnClick_HomeBtn()
     {
-        if (openFlag)
-            purchaseAlarmPopup.SetActive(true);
-        else
-            purchaseAlarmPopup.SetActive(false);
+        resultScreen.SetActive(false);
+        BallGameManager.instance.ResetMap();
     }
 
-
-
-    // -----------------------------------------------
-    // --------------- Continue popup ----------------
-
-    // 게임 이어서 계속하기 팝업
-    public void ContinuePopup(bool openFlag)
+    // Play 버튼을 누름
+    public void OnClick_PlayBtn()
     {
-        Debug.Log("게임 이어서 계속하기 팝업 시작");
-        if (openFlag)
-            continuePopup.SetActive(true);
-        else
-            continuePopup.SetActive(false);
-    }
-
-    // -------------- In Continue popup ---------------
-    public void OnClick_UseRevivalBtn_InContinuePopup()
-    {
-        // TODO : ballgamemanager에 부활 사용 스크립 작성.
-        BallGameManager.instance.FailGame();
+        OnClick_TapToPlay();
+        BallGameManager.instance.ResetMap();
 
     }
-    public void OnClick_WatchAdvertismentBtn_InContinuePopup()
-    {
-        // TODO : 30초 광고영상 넣기
-    }
-
+    
 
 }
 
@@ -184,7 +167,7 @@ public partial class UIManager
     [Header("In Game Play Screen")]
     // game play screen
     public GameObject pauseScreen;
-
+   
 
 
     // ***********  FUNCTION  ***********
@@ -203,4 +186,87 @@ public partial class UIManager
         }
     }
 
+}
+
+// Popup
+public partial class UIManager
+{
+    // popup
+    [Header("Purchase Alarm Popup")]
+    public GameObject purchaseAlarmPopup;
+
+    [Header("Continue Popup")]
+    public GameObject continuePopup;
+
+
+
+
+
+    // ****************** FUNCTION *******************
+
+    // -----------------------------------------------
+    // ------------ Purchase alarm popup -------------
+
+    // 구매 알람 팝업
+    public void PurchaseAlarmPopup(bool openFlag)
+    {
+        if (openFlag)
+            purchaseAlarmPopup.SetActive(true);
+        else
+            purchaseAlarmPopup.SetActive(false);
+    }
+
+
+    // -----------------------------------------------
+    // --------------- Continue popup ----------------
+
+    // 게임 이어서 계속하기 팝업
+    public void ContinuePopup(bool openFlag)
+    {
+        Debug.Log("게임 이어서 계속하기 팝업 시작");
+        if (openFlag)
+        {
+            continuePopup.SetActive(true);
+            BallGameManager.instance.StartRevivalTimer(30); // 30초 정도 타이머 시작.
+            Debug.Log("팝업 시작!!");
+        }
+        else
+        {
+            // TODO : 데이터 베이스에 정보 저장 및 서버와 통신하기
+
+            BallGameManager.instance.StopRevivalTimer(); // 타이머 종료
+            Debug.Log("STop!!!!!!!!!!!");
+            continuePopup.SetActive(false);
+            menuUI.SetActive(true);
+            resultScreen.SetActive(true);
+        }
+    }
+
+    // -------------- In Continue popup ---------------
+    public void OnClick_UseRevivalBtn_InContinuePopup()
+    {
+
+        // 가지고 있는 부활 아이템의 개수가 부활 아이템 개수에 비해 모자를 경우
+        if (BallGameManager.instance.user.revivalItem < BallGameManager.instance.numNeededForRevivalItem)
+        {
+            purchaseAlarmPopup.SetActive(true); // 구입 불가 화면을 띄움.
+        }
+        else{
+            // 계속해서 게임 시작 
+            BallGameManager.instance.StartGame(BallGameManager.GameStartState.continueStart);
+
+            BallGameManager.instance.StopRevivalTimer(); //Timer 종료
+
+            // 화면 전환
+            continuePopup.SetActive(false);
+            menuUI.SetActive(true);
+            resultScreen.SetActive(true);
+        }
+    }
+
+
+    public void OnClick_WatchAdvertismentBtn_InContinuePopup()
+    {
+        // TODO : 30초 광고영상 넣기
+    }
 }

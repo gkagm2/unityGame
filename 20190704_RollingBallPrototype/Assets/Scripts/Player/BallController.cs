@@ -5,15 +5,26 @@ using UnityEngine;
 public class BallController : MonoBehaviour {
 
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public float moveSpeed = 10.0f;
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (BallGameManager.instance.isPlayerFail)
+            return;
+        SideMove();
+    }
+
+    // 양쪽을 움직이기
+    public void SideMove()
+    {
+        float dic_x = Input.GetAxis("Horizontal");
+        dic_x = moveSpeed * Time.deltaTime * dic_x;
+        transform.parent.Rotate(new Vector3(0, 0, -dic_x));
+    }
+
+
 
     // 벽에 부딪히면
     private void OnTriggerEnter(Collider other)

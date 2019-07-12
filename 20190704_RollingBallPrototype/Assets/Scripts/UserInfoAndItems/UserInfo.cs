@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class UserInfo
 {
-    public string userId;
-    public int userScore;
-    public int userCoin;
+    public string id = "jang";
+    public int score = 0;
+    public int topScore = 0;
+    public int coin = 0;
 
     public struct UserDate
     {
@@ -17,7 +18,7 @@ public class UserInfo
 
     // TODO : 추가해봐.
     // Item
-    public int revivalItem;
-    public int protectedItem;
-    
+    public int revivalItem = 0;
+    public int protectedItem = 0;
+
 }
