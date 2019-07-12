@@ -1007,7 +1007,7 @@ GameObject:
   - component: {fileID: 96338997}
   - component: {fileID: 96338996}
   m_Layer: 5
-  m_Name: RevivalItemCount
+  m_Name: RevivalItemCountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8211,7 +8211,7 @@ GameObject:
   - component: {fileID: 599007091}
   - component: {fileID: 599007090}
   m_Layer: 5
-  m_Name: Text
+  m_Name: ProtectedItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9171,9 +9171,6 @@ MonoBehaviour:
   isPlayerFail: 0
   gameOver: 0
   gameFrame: 0
-  revivalCount: 0
-  numNeededForRevivalItem: 0
-  revivalTimerImg: {fileID: 1331481530}
 --- !u!114 &670764624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9197,9 +9194,20 @@ MonoBehaviour:
   boostsBtn: {fileID: 1613564257}
   storeBtn: {fileID: 772539416}
   resultScreen: {fileID: 1402664760}
+  result_NewHightScoreObj: {fileID: 1794154979}
+  result_ScoreText: {fileID: 1727234829}
+  result_CoinText: {fileID: 531736847}
   pauseScreen: {fileID: 282493971}
   purchaseAlarmPopup: {fileID: 1733760153}
   continuePopup: {fileID: 1857301706}
+  continue_revivalTimerImg: {fileID: 129648649}
+  continue_TimerText: {fileID: 1926258173}
+  continue_RevivalCountText: {fileID: 96338996}
+  continue_NeededForRevivalItemCountText: {fileID: 1595062108}
+  stateBar_ScoreText: {fileID: 997899223}
+  stateBar_ProtectedItemText: {fileID: 599007090}
+  stateBar_RevivalItemText: {fileID: 1071197170}
+  stateBar_CoinText: {fileID: 1461150779}
 --- !u!1 &670861003
 GameObject:
   m_ObjectHideFlags: 0
@@ -9342,7 +9350,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Revival
+  m_Text: Watch Ad
 --- !u!222 &671649412
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12616,7 +12624,7 @@ GameObject:
   - component: {fileID: 997899224}
   - component: {fileID: 997899223}
   m_Layer: 5
-  m_Name: Text
+  m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13481,7 +13489,7 @@ GameObject:
   - component: {fileID: 1071197171}
   - component: {fileID: 1071197170}
   m_Layer: 5
-  m_Name: Text
+  m_Name: RevivalItemText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17150,7 +17158,7 @@ GameObject:
   - component: {fileID: 1415294519}
   - component: {fileID: 1415294518}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17444,7 +17452,7 @@ GameObject:
   - component: {fileID: 1461150780}
   - component: {fileID: 1461150779}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: CoinText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18299,7 +18307,7 @@ GameObject:
   - component: {fileID: 1595062109}
   - component: {fileID: 1595062108}
   m_Layer: 5
-  m_Name: RevivalCountText
+  m_Name: NeededRevivalItemCountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18320,8 +18328,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -171.45001, y: 0.000045776367}
-  m_SizeDelta: {x: -628.9, y: 0}
+  m_AnchoredPosition: {x: -258.2, y: 0.000045776367}
+  m_SizeDelta: {x: -642.4, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1595062108
 MonoBehaviour:
@@ -20786,7 +20794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1794154980
 RectTransform:
   m_ObjectHideFlags: 0

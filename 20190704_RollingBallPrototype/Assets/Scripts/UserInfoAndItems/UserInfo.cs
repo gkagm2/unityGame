@@ -5,9 +5,10 @@ using UnityEngine;
 public class UserInfo
 {
     public string id = "jang";
-    public int score = 0;
+    public int scoreFromTheGame = 0;
     public int topScore = 0;
     public int coin = 0;
+    public int coinFromTheGame;
 
     public struct UserDate
     {
@@ -15,6 +16,9 @@ public class UserInfo
         public int month;
         public int year;
     }
+
+    public int revivalCount = 0; // 부활한 횟수
+    public int numNeededForRevivalItem; // 부활에 필요한 아이템 개수
 
     // TODO : 추가해봐.
     // Item

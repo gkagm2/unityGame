@@ -16,36 +16,24 @@ public class BallGameManager : MonoBehaviour {
         }
     }
     #endregion
+    [SerializeField] public UserInfo user;
 
-    public UserInfo user;
-    
+
 
     public bool isPlayerFail; // 게임도중 잡혔을 경우.
     public bool gameOver;
 
 
     [Header("프레임 제한")]
-    public int gameFrame;
+    public int gameFrame;    
 
     public enum GameStartState
     {
         newStart,
         continueStart
     };
-
-
     
-    public int revivalCount = 0; // 부활한 횟수
-    public int numNeededForRevivalItem; // 부활에 필요한 아이템 개수
-
-    public Image revivalTimerImg;
-    Coroutine co_revivalTimer;
-
-
-
-    
-
-
+    Coroutine co_revivalTimer; // Timer 제어를 위한 코루틴
 
     // Use this for initialization
     void Start () {
@@ -69,7 +57,7 @@ public class BallGameManager : MonoBehaviour {
     {
         StopCoroutine(co_revivalTimer);
     }
-
+    // 부활 타이머 코루틴
     IEnumerator IRevialTimerOn(int timer)
     {
         if(timer <= 0)
@@ -81,13 +69,14 @@ public class BallGameManager : MonoBehaviour {
         while(timer > 0)
         {
             // TODO : 이미지가 바뀌지 않는 이유는?
-            revivalTimerImg.fillAmount = timer / maxTime;
-            Debug.Log("ddddddddddd" + timer / maxTime);
+            UIManager.instance.continue_revivalTimerImg.fillAmount = timer / maxTime;
+            UIManager.instance.continue_TimerText.text = timer.ToString(); // UI에 뿌려주기
+            
             Debug.Log("Timer : " + timer);
             yield return new WaitForSeconds(1);
             --timer; 
         }
-        //UIManager.instance.
+        UIManager.instance.ContinuePopup(false); // popup창 종료
     }
     // 게임 일시정지
     public void PauseGame()
@@ -133,9 +122,10 @@ public class BallGameManager : MonoBehaviour {
 
         user = new UserInfo();
         user.id = "jang";
-        user.score = 0;
+        user.scoreFromTheGame = 0;
         user.topScore = 0;
         user.coin = 0;
+        user.coinFromTheGame = 0;
         user.revivalItem = 0;
         user.protectedItem = 0;
         
@@ -187,13 +177,25 @@ public class BallGameManager : MonoBehaviour {
         }
     }
 
+    // 게임이 끝난 후 정보 결과 업데이트
+    public void UpdateUserInfoAfterGameOver()
+    {
+        user.coin += user.coinFromTheGame;
+        if(user.topScore < user.scoreFromTheGame)
+            user.topScore = user.scoreFromTheGame;
+        
+        user.scoreFromTheGame = 0;
+        user.coinFromTheGame = 0;
+    }
+
+
     // 게임이 처음으로 시작 할 경우 게임 세팅
     public void SetFirstGameStart()
     {
         isPlayerFail = true;
         gameOver = true;
 
-        user.score = 0; // 0으로 초기화
+        user.scoreFromTheGame = 0; // 0으로 초기화
     }
 
 
@@ -203,6 +205,8 @@ public class BallGameManager : MonoBehaviour {
         isPlayerFail = true;
         UIManager.instance.ContinuePopup(true); // 이어서 하기 팝업 띄우기.
     }
+
+
 
 
 
@@ -241,4 +245,5 @@ public class BallGameManager : MonoBehaviour {
         }
         Debug.Log("현재 레벨을 " + level + "로 변경함.");
     }
+
 }

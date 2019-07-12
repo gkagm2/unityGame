@@ -20,10 +20,17 @@ public partial class UIManager : MonoBehaviour
     }
     #endregion
 
+
+
+
+
+
     [Header("UI")]
     public GameObject menuUI;
     public GameObject stateBarUI;
     public GameObject gamePlayUI;
+
+    
 
 
 
@@ -63,6 +70,10 @@ public partial class UIManager : MonoBehaviour {
     [Header("In Result Screen")]
     // result screen
     public GameObject resultScreen;
+    public GameObject result_NewHightScoreObj;
+    public Text result_ScoreText;
+    public Text result_CoinText;
+    
 
 
     // ***********  FUNCTION  ***********
@@ -141,6 +152,29 @@ public partial class UIManager : MonoBehaviour {
         boostsBtn.GetComponent<Image>().color = Color.white;
     }
 
+
+    public void ResultScreen(bool openFlag)
+    {
+        if (openFlag)
+        {
+            resultScreen.SetActive(true);
+            // 스코어 최고기록을 갱신하면
+            if (BallGameManager.instance.user.scoreFromTheGame > BallGameManager.instance.user.topScore)
+                result_NewHightScoreObj.SetActive(true); // 최고기록 갱신 화면을 UI에 보여준다.
+            else // 최고기록 갱신하지 못하면
+                result_NewHightScoreObj.SetActive(false); // 최고기록 갱신 화면을 숨긴다.
+
+            result_ScoreText.text = BallGameManager.instance.user.scoreFromTheGame.ToString(); // 현재 기록을 UI에 보여줌.
+            result_CoinText.text = BallGameManager.instance.user.coinFromTheGame.ToString(); // 현재 얻은 코인을 UI에 보여줌.
+            BallGameManager.instance.UpdateUserInfoAfterGameOver(); // 게임이 끝난 후 정보 업데이트
+            UpdateStateBar(); // 상태 바 업데이트
+        }
+        else
+        {
+            resultScreen.SetActive(false);
+        }
+    }
+
     // ------------- In Result Screen ---------------
     // Home 버튼을 누름
     public void OnClick_HomeBtn()
@@ -197,7 +231,10 @@ public partial class UIManager
 
     [Header("Continue Popup")]
     public GameObject continuePopup;
-
+    public Image continue_revivalTimerImg;
+    public Text continue_TimerText;
+    public Text continue_RevivalCountText;
+    public Text continue_NeededForRevivalItemCountText;
 
 
 
@@ -223,44 +260,43 @@ public partial class UIManager
     // 게임 이어서 계속하기 팝업
     public void ContinuePopup(bool openFlag)
     {
-        Debug.Log("게임 이어서 계속하기 팝업 시작");
         if (openFlag)
         {
             continuePopup.SetActive(true);
             BallGameManager.instance.StartRevivalTimer(30); // 30초 정도 타이머 시작.
-            Debug.Log("팝업 시작!!");
+            continue_NeededForRevivalItemCountText.text = BallGameManager.instance.user.numNeededForRevivalItem.ToString();  // 부활에 필요한 부활 아이템 개수를 UI에 보이기
         }
         else
         {
-            // TODO : 데이터 베이스에 정보 저장 및 서버와 통신하기
-
+            
+            BallGameManager.instance.SaveUserInfoToDB(); // 데이터 베이스에 정보 저장 및 서버와 통신하기
             BallGameManager.instance.StopRevivalTimer(); // 타이머 종료
-            Debug.Log("STop!!!!!!!!!!!");
             continuePopup.SetActive(false);
             menuUI.SetActive(true);
-            resultScreen.SetActive(true);
+            ResultScreen(true);
         }
     }
 
     // -------------- In Continue popup ---------------
     public void OnClick_UseRevivalBtn_InContinuePopup()
     {
+        continue_RevivalCountText.text = BallGameManager.instance.user.revivalItem.ToString(); // revival item 개수 화면에 보여줌.
 
         // 가지고 있는 부활 아이템의 개수가 부활 아이템 개수에 비해 모자를 경우
-        if (BallGameManager.instance.user.revivalItem < BallGameManager.instance.numNeededForRevivalItem)
+        if (BallGameManager.instance.user.revivalItem < BallGameManager.instance.user.numNeededForRevivalItem)
         {
             purchaseAlarmPopup.SetActive(true); // 구입 불가 화면을 띄움.
         }
         else{
             // 계속해서 게임 시작 
-            BallGameManager.instance.StartGame(BallGameManager.GameStartState.continueStart);
-
+            BallGameManager.instance.user.revivalItem -= BallGameManager.instance.user.numNeededForRevivalItem;
+            BallGameManager.instance.StartGame(BallGameManager.GameStartState.continueStart); // 이어서 게임 시작
             BallGameManager.instance.StopRevivalTimer(); //Timer 종료
 
             // 화면 전환
             continuePopup.SetActive(false);
             menuUI.SetActive(true);
-            resultScreen.SetActive(true);
+            ResultScreen(true);
         }
     }
 
@@ -269,4 +305,28 @@ public partial class UIManager
     {
         // TODO : 30초 광고영상 넣기
     }
+}
+
+// State Bar UI
+public partial class UIManager
+{
+    [Header("State Bar")]
+    public Text stateBar_ScoreText;
+    public Text stateBar_ProtectedItemText;
+    public Text stateBar_RevivalItemText;
+    public Text stateBar_CoinText;
+
+
+    // **************** FUNCTION ****************
+    // ------------- In the State Bar -------------
+    // 상태 바 업데이트
+    public void UpdateStateBar()
+    {
+        stateBar_ScoreText.text = BallGameManager.instance.user.topScore.ToString();
+        stateBar_ProtectedItemText.text = BallGameManager.instance.user.protectedItem.ToString();
+        stateBar_RevivalItemText.text = BallGameManager.instance.user.revivalItem.ToString();
+        stateBar_CoinText.text = BallGameManager.instance.user.coin.ToString();
+    }
+
+
 }
