@@ -180,6 +180,8 @@ public partial class UIManager : MonoBehaviour {
     public void OnClick_HomeBtn()
     {
         resultScreen.SetActive(false);
+        gamePlayUI.SetActive(false);
+        stateBarUI.SetActive(true);
         BallGameManager.instance.ResetMap();
     }
 
@@ -201,6 +203,9 @@ public partial class UIManager
     [Header("In Game Play Screen")]
     // game play screen
     public GameObject pauseScreen;
+
+    public Text gamePlay_scoreText;
+    public Text gamePlay_coinText;
    
 
 
@@ -263,14 +268,14 @@ public partial class UIManager
         if (openFlag)
         {
             continuePopup.SetActive(true);
-            BallGameManager.instance.StartRevivalTimer(30); // 30초 정도 타이머 시작.
+            BallGameManager.instance.ActivateRevivalTimer(ActivateState.Start, BallGameManager.instance.revivalTimer); // 30초 정도 타이머 시작.
             continue_NeededForRevivalItemCountText.text = BallGameManager.instance.user.numNeededForRevivalItem.ToString();  // 부활에 필요한 부활 아이템 개수를 UI에 보이기
         }
         else
         {
             
             BallGameManager.instance.SaveUserInfoToDB(); // 데이터 베이스에 정보 저장 및 서버와 통신하기
-            BallGameManager.instance.StopRevivalTimer(); // 타이머 종료
+            BallGameManager.instance.ActivateRevivalTimer(ActivateState.Stop); // 타이머 종료
             continuePopup.SetActive(false);
             menuUI.SetActive(true);
             ResultScreen(true);
@@ -278,6 +283,7 @@ public partial class UIManager
     }
 
     // -------------- In Continue popup ---------------
+    // 부활 아이템 버튼 클릭 시
     public void OnClick_UseRevivalBtn_InContinuePopup()
     {
         continue_RevivalCountText.text = BallGameManager.instance.user.revivalItem.ToString(); // revival item 개수 화면에 보여줌.
@@ -289,9 +295,8 @@ public partial class UIManager
         }
         else{
             // 계속해서 게임 시작 
-            BallGameManager.instance.user.revivalItem -= BallGameManager.instance.user.numNeededForRevivalItem;
             BallGameManager.instance.StartGame(BallGameManager.GameStartState.continueStart); // 이어서 게임 시작
-            BallGameManager.instance.StopRevivalTimer(); //Timer 종료
+            BallGameManager.instance.ActivateRevivalTimer(ActivateState.Stop); //Timer 종료
 
             // 화면 전환
             continuePopup.SetActive(false);

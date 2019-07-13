@@ -17,9 +17,7 @@ public class BallGameManager : MonoBehaviour {
     }
     #endregion
     [SerializeField] public UserInfo user;
-
-
-
+    
     public bool isPlayerFail; // 게임도중 잡혔을 경우.
     public bool gameOver;
 
@@ -27,13 +25,24 @@ public class BallGameManager : MonoBehaviour {
     [Header("프레임 제한")]
     public int gameFrame;    
 
+    
+
+
     public enum GameStartState
     {
         newStart,
         continueStart
     };
     
-    Coroutine co_revivalTimer; // Timer 제어를 위한 코루틴
+
+
+    Coroutine co_RevivalTimer; // Timer 제어를 위한 코루틴
+    Coroutine co_IncreaseScore; // 게임 시작시 오름.
+
+    public int revivalTimer = 30; // 부활 타이머
+
+    public int increasingScore = 1; // 게임에서 더하는 점수.
+
 
     // Use this for initialization
     void Start () {
@@ -44,18 +53,39 @@ public class BallGameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        
 
     }
 
-    // 부활 타이머 시작
-    public void StartRevivalTimer(int timer)
+    // 점수 올라가기 활성화
+    public void ActivateRaiseUpScore(ActivateState activateState)
     {
-        co_revivalTimer = StartCoroutine(IRevialTimerOn(timer));
+        if (activateState == ActivateState.Start)
+            co_IncreaseScore = StartCoroutine(IIncreaseScore());
+        else
+            StopCoroutine(co_IncreaseScore);
+
     }
-    // 부활 타이머 종료
-    public void StopRevivalTimer()
+    // 점수 올리기 코루틴
+    IEnumerator IIncreaseScore()
     {
-        StopCoroutine(co_revivalTimer);
+        while (true)
+        {
+            user.scoreFromTheGame += increasingScore;
+            UIManager.instance.gamePlay_scoreText.text = user.scoreFromTheGame.ToString();
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+
+
+
+    // 부활 타이머 활성화
+    public void ActivateRevivalTimer(ActivateState activateState, int timer = 10)
+    {
+        if(activateState == ActivateState.Start) //시작 시 코루틴 시작
+            co_RevivalTimer = StartCoroutine(IRevialTimerOn(timer));
+        else // 타이머 멈춤
+            StopCoroutine(co_RevivalTimer);
     }
     // 부활 타이머 코루틴
     IEnumerator IRevialTimerOn(int timer)
@@ -68,7 +98,6 @@ public class BallGameManager : MonoBehaviour {
         float maxTime = (float)timer;
         while(timer > 0)
         {
-            // TODO : 이미지가 바뀌지 않는 이유는?
             UIManager.instance.continue_revivalTimerImg.fillAmount = timer / maxTime;
             UIManager.instance.continue_TimerText.text = timer.ToString(); // UI에 뿌려주기
             
@@ -105,13 +134,23 @@ public class BallGameManager : MonoBehaviour {
                 break;
 
             case GameStartState.continueStart:
-
+                user.revivalItem -= user.numNeededForRevivalItem; //아이템 깎음.
+                ActivateRaiseUpScore(ActivateState.Start); // 점수 올라감
                 break;
 
         }
         gameOver = false;
         isPlayerFail = false;
         Debug.Log("CLick start");
+    }
+
+    // 게임이 처음으로 시작 할 경우 게임 세팅
+    public void SetFirstGameStart()
+    {
+        isPlayerFail = true;
+        gameOver = true;
+        ActivateRaiseUpScore(ActivateState.Start); // 점수 올라가기 활성화 됨
+        user.scoreFromTheGame = 0; // 0으로 초기화
     }
 
     // 게임 초기 세팅
@@ -189,20 +228,13 @@ public class BallGameManager : MonoBehaviour {
     }
 
 
-    // 게임이 처음으로 시작 할 경우 게임 세팅
-    public void SetFirstGameStart()
-    {
-        isPlayerFail = true;
-        gameOver = true;
-
-        user.scoreFromTheGame = 0; // 0으로 초기화
-    }
 
 
     // 게임 실패했을 경우.
     public void FailGame()
     {
         isPlayerFail = true;
+        ActivateRaiseUpScore(ActivateState.Stop);
         UIManager.instance.ContinuePopup(true); // 이어서 하기 팝업 띄우기.
     }
 

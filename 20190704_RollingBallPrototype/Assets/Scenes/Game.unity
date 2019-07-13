@@ -9171,6 +9171,8 @@ MonoBehaviour:
   isPlayerFail: 0
   gameOver: 0
   gameFrame: 0
+  revivalTimer: 30
+  increasingScore: 1
 --- !u!114 &670764624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9198,6 +9200,8 @@ MonoBehaviour:
   result_ScoreText: {fileID: 1727234829}
   result_CoinText: {fileID: 531736847}
   pauseScreen: {fileID: 282493971}
+  gamePlay_scoreText: {fileID: 145341483}
+  gamePlay_coinText: {fileID: 1136391481}
   purchaseAlarmPopup: {fileID: 1733760153}
   continuePopup: {fileID: 1857301706}
   continue_revivalTimerImg: {fileID: 129648649}
