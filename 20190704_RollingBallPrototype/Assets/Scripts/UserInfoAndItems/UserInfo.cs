@@ -8,11 +8,9 @@ public class UserInfo
     public int scoreFromTheGame = 0;
     public int topScore = 0;
     public int coin = 0;
-<<<<<<< HEAD
     public int coinFromTheGame = 0;
-=======
-    public int coinFromTheGame;
->>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
+
+    public int failCount = 0;
 
     public struct UserDate
     {

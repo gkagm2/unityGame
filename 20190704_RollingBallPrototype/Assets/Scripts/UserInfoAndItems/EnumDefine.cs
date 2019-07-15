@@ -6,11 +6,7 @@ public class EnumDefine{
 
 }
 
-<<<<<<< HEAD
 public enum LevelStatus
-=======
-public enum LevelState
->>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
 {
     level1,
     level2,
@@ -21,7 +17,6 @@ public enum LevelState
     level7
 };
 
-<<<<<<< HEAD
 public enum ActivateStatus
 {
     Start,
@@ -42,10 +37,4 @@ public enum WhereGetCoinStatus
 {
     InTheGame,
     InTheStore
-=======
-public enum ActivateState
-{
-    Start,
-    Stop
->>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
 }

@@ -5197,7 +5197,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &365895208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5268,7 +5268,6 @@ RectTransform:
   - {fileID: 74018915}
   - {fileID: 1709192930}
   - {fileID: 557867216}
-  - {fileID: 1733760156}
   - {fileID: 1402664761}
   m_Father: {fileID: 0}
   m_RootOrder: 7
@@ -5371,7 +5370,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &388098087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9325,31 +9324,21 @@ MonoBehaviour:
   pauseScreen: {fileID: 282493971}
   gamePlay_scoreText: {fileID: 145341483}
   gamePlay_coinText: {fileID: 1136391481}
-<<<<<<< HEAD
   gamePlay_itemPanel:
   - itemPanel: {fileID: 1470910445}
     gageImage: {fileID: 1310844263}
   - itemPanel: {fileID: 1825391902}
     gageImage: {fileID: 786088708}
-=======
->>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
   purchaseAlarmPopup: {fileID: 1733760153}
   continuePopup: {fileID: 1857301706}
   continue_revivalTimerImg: {fileID: 129648649}
   continue_TimerText: {fileID: 1926258173}
   continue_RevivalCountText: {fileID: 96338996}
   continue_NeededForRevivalItemCountText: {fileID: 1595062108}
-<<<<<<< HEAD
   statusBar_ScoreText: {fileID: 997899223}
   statusBar_ProtectedItemText: {fileID: 599007090}
   statusBar_RevivalItemText: {fileID: 1071197170}
   statusBar_CoinText: {fileID: 1461150779}
-=======
-  stateBar_ScoreText: {fileID: 997899223}
-  stateBar_ProtectedItemText: {fileID: 599007090}
-  stateBar_RevivalItemText: {fileID: 1071197170}
-  stateBar_CoinText: {fileID: 1461150779}
->>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
 --- !u!1 &670861003
 GameObject:
   m_ObjectHideFlags: 0
@@ -10827,6 +10816,46 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 779252559}
   m_CullTransparentMesh: 0
+--- !u!1 &785430565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 785430567}
+  - component: {fileID: 785430566}
+  m_Layer: 0
+  m_Name: AdManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &785430566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 785430565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de10dd19454d5e4db29c0ec6f7a17fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &785430567
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 785430565}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 315.3532, y: 597.8058, z: -12.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &786088706
 GameObject:
   m_ObjectHideFlags: 0
@@ -10838,11 +10867,7 @@ GameObject:
   - component: {fileID: 786088709}
   - component: {fileID: 786088708}
   m_Layer: 5
-<<<<<<< HEAD
   m_Name: RightGageImg
-=======
-  m_Name: GageImg
->>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13395,7 +13420,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1014024329}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 670764624}
+        m_MethodName: OnClick_UseRevivalBtn_InContinuePopup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1014024329
@@ -13795,7 +13831,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1055636830}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 670764624}
+        m_MethodName: OnClick_WatchAdvertismentBtn_InContinuePopup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1055636830
@@ -16251,11 +16298,7 @@ GameObject:
   - component: {fileID: 1310844264}
   - component: {fileID: 1310844263}
   m_Layer: 5
-<<<<<<< HEAD
   m_Name: LeftGageImg
-=======
-  m_Name: GageImg
->>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17422,7 +17465,7 @@ RectTransform:
   - {fileID: 1895742275}
   - {fileID: 455328152}
   m_Father: {fileID: 365895211}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -17954,20 +17997,12 @@ GameObject:
   - component: {fileID: 1470910448}
   - component: {fileID: 1470910447}
   m_Layer: 5
-<<<<<<< HEAD
   m_Name: ItemUILeft
-=======
-  m_Name: ItemUI
->>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-<<<<<<< HEAD
   m_IsActive: 0
-=======
-  m_IsActive: 1
->>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
 --- !u!224 &1470910446
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20829,19 +20864,19 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1733760153}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 40114364}
   - {fileID: 364790337}
-  m_Father: {fileID: 365895211}
-  m_RootOrder: 3
+  m_Father: {fileID: 2092003914}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0024414062}
-  m_SizeDelta: {x: 0, y: 0.005127}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1280, y: 2275.5608}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1755204375
 GameObject:
@@ -21710,20 +21745,12 @@ GameObject:
   - component: {fileID: 1825391905}
   - component: {fileID: 1825391904}
   m_Layer: 5
-<<<<<<< HEAD
   m_Name: ItemUIRight
-=======
-  m_Name: Image (1)
->>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-<<<<<<< HEAD
   m_IsActive: 0
-=======
-  m_IsActive: 1
->>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
 --- !u!224 &1825391903
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24293,7 +24320,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2092003911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24366,6 +24393,7 @@ RectTransform:
   - {fileID: 1857301707}
   - {fileID: 1470910446}
   - {fileID: 1825391903}
+  - {fileID: 1733760156}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
