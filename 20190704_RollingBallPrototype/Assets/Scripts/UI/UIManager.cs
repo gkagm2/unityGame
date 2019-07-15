@@ -167,7 +167,11 @@ public partial class UIManager : MonoBehaviour {
             result_ScoreText.text = BallGameManager.instance.user.scoreFromTheGame.ToString(); // 현재 기록을 UI에 보여줌.
             result_CoinText.text = BallGameManager.instance.user.coinFromTheGame.ToString(); // 현재 얻은 코인을 UI에 보여줌.
             BallGameManager.instance.UpdateUserInfoAfterGameOver(); // 게임이 끝난 후 정보 업데이트
+<<<<<<< HEAD
             UpdateStatusBar(); // 상태 바 업데이트
+=======
+            UpdateStateBar(); // 상태 바 업데이트
+>>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
         }
         else
         {
@@ -181,8 +185,13 @@ public partial class UIManager : MonoBehaviour {
     {
         resultScreen.SetActive(false);
         gamePlayUI.SetActive(false);
+<<<<<<< HEAD
         statusBarUI.SetActive(true);
         BallGameManager.instance.ResetMap(); // 맵 리셋
+=======
+        stateBarUI.SetActive(true);
+        BallGameManager.instance.ResetMap();
+>>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
     }
 
     // Play 버튼을 누름
@@ -203,6 +212,13 @@ public partial class UIManager
     [Header("In Game Play Screen")]
     // game play screen
     public GameObject pauseScreen;
+<<<<<<< HEAD
+=======
+
+    public Text gamePlay_scoreText;
+    public Text gamePlay_coinText;
+   
+>>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
 
     public Text gamePlay_scoreText;
     public Text gamePlay_coinText;
@@ -295,14 +311,22 @@ public partial class UIManager
         if (openFlag)
         {
             continuePopup.SetActive(true);
+<<<<<<< HEAD
             BallGameManager.instance.ActivateRevivalTimer(ActivateStatus.Start, BallGameManager.instance.revivalTimer); // 30초 정도 타이머 시작.
+=======
+            BallGameManager.instance.ActivateRevivalTimer(ActivateState.Start, BallGameManager.instance.revivalTimer); // 30초 정도 타이머 시작.
+>>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
             continue_NeededForRevivalItemCountText.text = BallGameManager.instance.user.numNeededForRevivalItem.ToString();  // 부활에 필요한 부활 아이템 개수를 UI에 보이기
         }
         else
         {
             
             BallGameManager.instance.SaveUserInfoToDB(); // 데이터 베이스에 정보 저장 및 서버와 통신하기
+<<<<<<< HEAD
             BallGameManager.instance.ActivateRevivalTimer(ActivateStatus.Stop); // 타이머 종료
+=======
+            BallGameManager.instance.ActivateRevivalTimer(ActivateState.Stop); // 타이머 종료
+>>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
             continuePopup.SetActive(false);
             menuUI.SetActive(true);
             ResultScreen(true);
@@ -322,8 +346,13 @@ public partial class UIManager
         }
         else{
             // 계속해서 게임 시작 
+<<<<<<< HEAD
             BallGameManager.instance.StartGame(BallGameManager.GameStartStatus.continueStart); // 이어서 게임 시작
             BallGameManager.instance.ActivateRevivalTimer(ActivateStatus.Stop); //Timer 종료
+=======
+            BallGameManager.instance.StartGame(BallGameManager.GameStartState.continueStart); // 이어서 게임 시작
+            BallGameManager.instance.ActivateRevivalTimer(ActivateState.Stop); //Timer 종료
+>>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
 
             // 화면 전환
             continuePopup.SetActive(false);
@@ -339,6 +368,7 @@ public partial class UIManager
     }
 }
 
+<<<<<<< HEAD
 // Status Bar UI
 public partial class UIManager
 {
@@ -358,6 +388,27 @@ public partial class UIManager
         statusBar_ProtectedItemText.text = BallGameManager.instance.user.protectedItem.ToString();
         statusBar_RevivalItemText.text = BallGameManager.instance.user.revivalItem.ToString();
         statusBar_CoinText.text = BallGameManager.instance.user.coin.ToString();
+=======
+// State Bar UI
+public partial class UIManager
+{
+    [Header("State Bar")]
+    public Text stateBar_ScoreText;
+    public Text stateBar_ProtectedItemText;
+    public Text stateBar_RevivalItemText;
+    public Text stateBar_CoinText;
+
+
+    // **************** FUNCTION ****************
+    // ------------- In the State Bar -------------
+    // 상태 바 업데이트
+    public void UpdateStateBar()
+    {
+        stateBar_ScoreText.text = BallGameManager.instance.user.topScore.ToString();
+        stateBar_ProtectedItemText.text = BallGameManager.instance.user.protectedItem.ToString();
+        stateBar_RevivalItemText.text = BallGameManager.instance.user.revivalItem.ToString();
+        stateBar_CoinText.text = BallGameManager.instance.user.coin.ToString();
+>>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
     }
 
 

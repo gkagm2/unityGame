@@ -5197,7 +5197,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &365895208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5371,7 +5371,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &388098087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9325,21 +9325,31 @@ MonoBehaviour:
   pauseScreen: {fileID: 282493971}
   gamePlay_scoreText: {fileID: 145341483}
   gamePlay_coinText: {fileID: 1136391481}
+<<<<<<< HEAD
   gamePlay_itemPanel:
   - itemPanel: {fileID: 1470910445}
     gageImage: {fileID: 1310844263}
   - itemPanel: {fileID: 1825391902}
     gageImage: {fileID: 786088708}
+=======
+>>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
   purchaseAlarmPopup: {fileID: 1733760153}
   continuePopup: {fileID: 1857301706}
   continue_revivalTimerImg: {fileID: 129648649}
   continue_TimerText: {fileID: 1926258173}
   continue_RevivalCountText: {fileID: 96338996}
   continue_NeededForRevivalItemCountText: {fileID: 1595062108}
+<<<<<<< HEAD
   statusBar_ScoreText: {fileID: 997899223}
   statusBar_ProtectedItemText: {fileID: 599007090}
   statusBar_RevivalItemText: {fileID: 1071197170}
   statusBar_CoinText: {fileID: 1461150779}
+=======
+  stateBar_ScoreText: {fileID: 997899223}
+  stateBar_ProtectedItemText: {fileID: 599007090}
+  stateBar_RevivalItemText: {fileID: 1071197170}
+  stateBar_CoinText: {fileID: 1461150779}
+>>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
 --- !u!1 &670861003
 GameObject:
   m_ObjectHideFlags: 0
@@ -10828,7 +10838,11 @@ GameObject:
   - component: {fileID: 786088709}
   - component: {fileID: 786088708}
   m_Layer: 5
+<<<<<<< HEAD
   m_Name: RightGageImg
+=======
+  m_Name: GageImg
+>>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16237,7 +16251,11 @@ GameObject:
   - component: {fileID: 1310844264}
   - component: {fileID: 1310844263}
   m_Layer: 5
+<<<<<<< HEAD
   m_Name: LeftGageImg
+=======
+  m_Name: GageImg
+>>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17936,12 +17954,20 @@ GameObject:
   - component: {fileID: 1470910448}
   - component: {fileID: 1470910447}
   m_Layer: 5
+<<<<<<< HEAD
   m_Name: ItemUILeft
+=======
+  m_Name: ItemUI
+>>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
+<<<<<<< HEAD
   m_IsActive: 0
+=======
+  m_IsActive: 1
+>>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
 --- !u!224 &1470910446
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21684,12 +21710,20 @@ GameObject:
   - component: {fileID: 1825391905}
   - component: {fileID: 1825391904}
   m_Layer: 5
+<<<<<<< HEAD
   m_Name: ItemUIRight
+=======
+  m_Name: Image (1)
+>>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
+<<<<<<< HEAD
   m_IsActive: 0
+=======
+  m_IsActive: 1
+>>>>>>> 59503538d7d101cd2babf6c84eba28dbf1c4b6f5
 --- !u!224 &1825391903
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24259,7 +24293,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2092003911
 MonoBehaviour:
   m_ObjectHideFlags: 0
