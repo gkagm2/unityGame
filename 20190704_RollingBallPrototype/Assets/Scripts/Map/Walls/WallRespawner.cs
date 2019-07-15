@@ -20,12 +20,12 @@ public class WallRespawner : RespawnController {
             return;
 
 
-        RespawnObjectAtRegularCycle(wallObj[Random.Range(0, wallObj.Length)], respawnMaxTime); // 일정 주기마다 벽 생성
+        RespawnObjectAtRegularCycle(respawnMaxTime); // 일정 주기마다 벽 생성
 
     }
 
     // 일정한 주기마다 오브젝트 생성
-    public override void RespawnObjectAtRegularCycle(GameObject targetObj, float coolTime)
+    public override void RespawnObjectAtRegularCycle(float coolTime)
     {
         respawnTimer += Time.deltaTime;
 

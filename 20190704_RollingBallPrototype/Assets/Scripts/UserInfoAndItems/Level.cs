@@ -5,20 +5,8 @@ using UnityEngine;
 
 public static class Level
 {
-    public static LevelState currentLevel = LevelState.level1; // level1로 초기화.
+    public static LevelStatus currentLevel = LevelStatus.level1; // level1로 초기화.
     // TODO : 여기서부터 한다.
     public static int levelCount = 7;
     
 }
-
-public enum LevelState
-{
-    level1,
-    level2,
-    level3,
-    level4,
-    level5,
-    level6,
-    level7
-};
-

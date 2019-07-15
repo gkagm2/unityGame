@@ -36,10 +36,14 @@ public class BallController : MonoBehaviour {
         else if (other.tag == "BoostItem")
         {
 
+            Destroy(other.gameObject);
+            Debug.Log("Get Boolst Item ");
         }
         else if(other.tag == "Coin")
         {
-
+            BallGameManager.instance.GetCoin(WhereGetCoinStatus.InTheGame); // 코인 획득
+            Destroy(other.gameObject);
+            Debug.Log("Get Coin ");
         }
     }
 }

@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : MonoBehaviour {
+public class Coin : ObjectController {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (BallGameManager.instance.isPlayerFail)
+            return;
+
+        DestroyWhenArriveDestination();
+        Move();
 	}
+
 }

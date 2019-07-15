@@ -5,10 +5,15 @@ using UnityEngine;
 public class ObjectController : MonoBehaviour {
     public float speed = 10.0f; // object speed
     public float fallingAcceleration = 0.05f; // 가속도
-    public float rotationSpeedZ = 0f;
+    protected float rotationSpeedZ = 0f;
+
+    void Start()
+    {
+        SetMoveMent(Level.currentLevel);
+    }
 
     // 끝까지 가면 없애기
-    public void DestoryWhenArriveDestination()
+    public void DestroyWhenArriveDestination()
     {
         if (transform.position.z < -10)
             Destroy(gameObject);
@@ -23,37 +28,37 @@ public class ObjectController : MonoBehaviour {
         transform.Rotate(0, 0, rotationSpeedZ, Space.World);
     }
 
-    // 떨어지다
-    public void Fall(LevelState currentLevel)
+    // 레벨에 따른 속도 변경
+    public void Fall(LevelStatus currentLevel)
     {
         switch (currentLevel)
         {
-            case LevelState.level1:
+            case LevelStatus.level1:
                 speed = 20.0f;
                 break;
-            case LevelState.level2:
+            case LevelStatus.level2:
                 speed = 25.0f;
                 break;
-            case LevelState.level3:
+            case LevelStatus.level3:
                 speed = 30.0f;
                 break;
-            case LevelState.level4:
+            case LevelStatus.level4:
                 speed = 35.0f;
                 break;
-            case LevelState.level5:
+            case LevelStatus.level5:
                 speed = 40.0f;
                 break;
-            case LevelState.level6:
+            case LevelStatus.level6:
                 speed = 45.0f;
                 break;
-            case LevelState.level7:
+            case LevelStatus.level7:
                 speed = 50.0f;
                 break;
         }
     }
 
     // 움직임 변화.
-    public virtual void SetMoveMent(LevelState currrentLevel)
+    public virtual void SetMoveMent(LevelStatus currrentLevel)
     {
 
     }

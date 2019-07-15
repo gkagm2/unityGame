@@ -13,8 +13,23 @@ public class ItemsRespawner : RespawnController {
         if (BallGameManager.instance.isPlayerFail)
             return;
 
-        RespawnObjectAtRegularCycle(itemObj[Random.Range(0,itemObj.Length)], 1);
+        RespawnObjectAtRegularCycle(respawnMaxTime);
     }
+
+    // 일정한 주기마다 오브젝트 생성
+    public override void RespawnObjectAtRegularCycle(float coolTime)
+    {
+        respawnTimer += Time.deltaTime;
+
+        if(respawnTimer >= coolTime)
+        {
+            CreateObject();
+            respawnTimer = 0;
+        }
+    }
+    
+
+
     // 아이템 생성
 
     public override void CreateObject()
@@ -22,7 +37,7 @@ public class ItemsRespawner : RespawnController {
         base.CreateObject();
 
         // TODO : 레벨 별로 아이템 움직임 제어.
-
+        
         GameObject respawnedItem = Instantiate(itemObj[Random.Range(0, itemObj.Length)], respawnPosition.position, respawnPosition.rotation);
         if (respawnedItem) // 생성 될 시
         {

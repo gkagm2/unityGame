@@ -11,36 +11,36 @@ public class Wall : ObjectController {
 
         Debug.DrawLine(transform.position, Vector3.zero, Color.red);
 
-        DestoryWhenArriveDestination();
+        DestroyWhenArriveDestination();
         Move();
 	}
     
     // 움직임 변화.
-    public override void SetMoveMent(LevelState currentLevel)
+    public override void SetMoveMent(LevelStatus currentLevel)
     {
         base.SetMoveMent(currentLevel);
 
         switch (currentLevel)
         {
-            case LevelState.level1:
+            case LevelStatus.level1:
                 rotationSpeedZ = 0;
                 break;
-            case LevelState.level2:
+            case LevelStatus.level2:
                 rotationSpeedZ = 50f * Random.Range(-1, 2) * Time.deltaTime; // 1, 0, -1값으로 회전, 회전 방향 주기
                 break;
-            case LevelState.level3:
+            case LevelStatus.level3:
                 rotationSpeedZ = 60f * Random.Range(-1, 2) * Time.deltaTime;
                 break;
-            case LevelState.level4:
+            case LevelStatus.level4:
                 rotationSpeedZ = 70f * Random.Range(-1, 2) * Time.deltaTime;
                 break;
-            case LevelState.level5:
+            case LevelStatus.level5:
                 rotationSpeedZ = 80f * Random.Range(-1, 2) * Time.deltaTime;
                 break;
-            case LevelState.level6:
+            case LevelStatus.level6:
                 rotationSpeedZ = 90f * Random.Range(-1, 2) * Time.deltaTime;
                 break;
-            case LevelState.level7:
+            case LevelStatus.level7:
                 rotationSpeedZ = 100f * Random.Range(-1, 2) * Time.deltaTime;
                 break;
         }
