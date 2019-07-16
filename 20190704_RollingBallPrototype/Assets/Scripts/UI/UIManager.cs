@@ -280,9 +280,18 @@ public partial class UIManager
     public void PurchaseAlarmPopup(bool openFlag)
     {
         if (openFlag)
+        {
             purchaseAlarmPopup.SetActive(true);
+            Debug.Log("멈춤");
+            BallGameManager.instance.PauseGame();
+        }
+
         else
+        { 
             purchaseAlarmPopup.SetActive(false);
+            Debug.Log("재시작");
+            BallGameManager.instance.PauseGame();
+        }
     }
 
 
@@ -294,16 +303,17 @@ public partial class UIManager
     {
         if (openFlag)
         {
-            ++BallGameManager.instance.user.failCount; // 실패 카운터 증가.
+            continue_RevivalCountText.text = BallGameManager.instance.user.revivalItem.ToString(); // revival item 개수 화면에 보여줌.
 
             continuePopup.SetActive(true);
-            BallGameManager.instance.ActivateRevivalTimer(ActivateStatus.Start, BallGameManager.instance.revivalTimer); // 30초 정도 타이머 시작.
+            BallGameManager.instance.ActivateRevivalTimer(ActivateStatus.Start, BallGameManager.instance.revivalTimer); // 팝업 창 타이머 시작.
             continue_NeededForRevivalItemCountText.text = BallGameManager.instance.user.numNeededForRevivalItem.ToString();  // 부활에 필요한 부활 아이템 개수를 UI에 보이기
         }
         else
         {
             BallGameManager.instance.SaveUserInfoToDB(); // 데이터 베이스에 정보 저장 및 서버와 통신하기
-            BallGameManager.instance.ActivateRevivalTimer(ActivateStatus.Stop); // 타이머 종료
+
+            BallGameManager.instance.ActivateRevivalTimer(ActivateStatus.Stop); // 팝업 창 타이머 종료
             continuePopup.SetActive(false);
             menuUI.SetActive(true);
             ResultScreen(true);
@@ -314,20 +324,18 @@ public partial class UIManager
     // 부활 아이템 버튼 클릭 시
     public void OnClick_UseRevivalBtn_InContinuePopup()
     {
-        continue_RevivalCountText.text = BallGameManager.instance.user.revivalItem.ToString(); // revival item 개수 화면에 보여줌.
-
-
+        
         Debug.Log(".." + BallGameManager.instance.user.revivalItem + ",, " + BallGameManager.instance.user.numNeededForRevivalItem);
 
         
-        BallGameManager.instance.user.numNeededForRevivalItem = (int)Mathf.Pow(2, BallGameManager.instance.user.failCount - 1); // 부활에 필요한 아이템 개수 계산
+        
 
         // 가지고 있는 부활 아이템의 개수가 부활 아이템 개수에 비해 모자를 경우
         if (BallGameManager.instance.user.revivalItem < BallGameManager.instance.user.numNeededForRevivalItem)
         {
             Debug.Log("구매불가!");
             // TODO : 화면을 띄으면 덮어쒸워져서 안보임 어떻게 해결하지..
-            purchaseAlarmPopup.SetActive(true); // 구입 불가 화면을 띄움.
+            PurchaseAlarmPopup(true); // 구입 불가 화면을 띄움.
         }
         else{
             Debug.Log("구매 가능!");
@@ -342,13 +350,27 @@ public partial class UIManager
         }
     }
 
-
+    // 광고보기 버튼 클릭 시
     public void OnClick_WatchAdvertismentBtn_InContinuePopup()
     {
-        AdManager.instance.PlayRevivalVideo(); //광고 본다.
-        BallGameManager.instance.ActivateRevivalTimer(ActivateStatus.Stop); //Timer 종료
+        BallGameManager.instance.ActivateRevivalTimer(ActivateStatus.Stop); // 팝업 창 Timer 종료
+
+        // TODO : 여기서부터 해야 함.
+        //AdManager.instance.PlayRevivalVideo(); //광고 본다.
+
+
         // TODO : 광고를 볼 때 시작하면 안됨.  광고 보고나서 사작해야 되는데;
+        //StartCoroutine(IAdEvent());
         BallGameManager.instance.StartGame(BallGameManager.GameStartStatus.continueStart); // 이어서 게임 시작
+        continuePopup.SetActive(false);
+    }
+
+    IEnumerator IAdEvent()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }
 

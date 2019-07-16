@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: 504fb7070f85d5b40af1121a7648779b
+folderAsset: yes
+PluginImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  iconMap: {}
+  executionOrder: {}
+  isPreloaded: 0
+  isOverridable: 1
+  platformData:
+  - first:
+      Editor: Editor
+    second:
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
+  - first:
+      iPhone: iOS
+    second:
+      enabled: 1
+      settings:
+        FrameworkDependencies: AdSupport;CoreTelephony;StoreKit;
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

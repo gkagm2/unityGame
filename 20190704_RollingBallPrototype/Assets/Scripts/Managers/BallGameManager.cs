@@ -82,10 +82,10 @@ public class BallGameManager : MonoBehaviour {
     {
         if (activateStatus == ActivateStatus.Start)
             co_IncreaseScore = StartCoroutine(IIncreaseScore());
-        else
+        else if (activateStatus == ActivateStatus.Stop)
             StopCoroutine(co_IncreaseScore);
-
     }
+
     // 점수 올리기 코루틴
     IEnumerator IIncreaseScore()
     {
@@ -97,14 +97,12 @@ public class BallGameManager : MonoBehaviour {
         }
     }
 
-
-
     // 부활 타이머 활성화
     public void ActivateRevivalTimer(ActivateStatus activateStatus, int timer = 10)
     {
-        if(activateStatus == ActivateStatus.Start) //시작 시 코루틴 시작
+        if (activateStatus == ActivateStatus.Start) //시작 시 코루틴 시작
             co_RevivalTimer = StartCoroutine(IRevialTimerOn(timer));
-        else // 타이머 멈춤
+        else if (activateStatus == ActivateStatus.Stop) // 타이머 멈춤
             StopCoroutine(co_RevivalTimer);
     }
     // 부활 타이머 코루틴
@@ -120,29 +118,28 @@ public class BallGameManager : MonoBehaviour {
         {
             UIManager.instance.continue_revivalTimerImg.fillAmount = timer / maxTime;
             UIManager.instance.continue_TimerText.text = timer.ToString(); // UI에 뿌려주기
-            
-            Debug.Log("Timer : " + timer);
+
             yield return new WaitForSeconds(1);
             --timer; 
         }
         UIManager.instance.ContinuePopup(false); // popup창 종료
     }
+
     // 게임 일시정지
     public void PauseGame()
     {
         if (Time.timeScale == 1)
         {
+            Debug.Log("Pause!");
             Time.timeScale = 0;
         }
         else if (Time.timeScale == 0)
         {
-            Debug.Log("high");
+            Debug.Log("Un Pause!");
             Time.timeScale = 1;
         }
     }
     
-    
-
     // 게임 시작
     public void StartGame(GameStartStatus status)
     {
@@ -168,10 +165,12 @@ public class BallGameManager : MonoBehaviour {
     {
         isPlayerFail = true;
         gameOver = true;
-        ActivateRaiseUpScore(ActivateStatus.Start); // 점수 올라가기 활성화 됨
-        user.failCount = 0; // 실패한 카운터 0으로 초기화
         user.scoreFromTheGame = 0; // 0으로 초기화
         user.coinFromTheGame = 0;
+        user.failCount = 0; // 실패한 카운터 0으로 초기화
+
+        ActivateRaiseUpScore(ActivateStatus.Start); // 점수 올라가기 활성화 됨
+        
         UIManager.instance.UpdateGameUI_InGamePlayScreen(GameEventOccurStatus.UpdateUI); // 게임 화면 업데이트
     }
 
@@ -226,7 +225,6 @@ public class BallGameManager : MonoBehaviour {
         AllDestroyObjectWithTag("Coin");
     }
     
-
     // 해당 태그의 모든 객체 파괴.
     private void AllDestroyObjectWithTag(string tagName)
     {
@@ -249,21 +247,19 @@ public class BallGameManager : MonoBehaviour {
         user.coinFromTheGame = 0;
     }
 
-
-
-
     // 게임 실패했을 경우.
     public void FailGame()
     {
         isPlayerFail = true;
         ActivateRaiseUpScore(ActivateStatus.Stop);
+        
+        ++user.failCount; // 실패 카운터 증가
+        user.numNeededForRevivalItem = (int)Mathf.Pow(2, user.failCount - 1); // 부활에 필요한 아이템 개수 계산
+
+
         UIManager.instance.ContinuePopup(true); // 이어서 하기 팝업 띄우기.
     }
-
-
-
-
-
+    
     // 현재 레벨 세팅
     public void SetCurrentLevel(int level)
     {

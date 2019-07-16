@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Monetization;
-public class AdManager : MonoBehaviour {
+using UnityEngine.UI;
+public class AdManager : MonoBehaviour
+{
 
     #region Singleton
 
@@ -20,18 +22,79 @@ public class AdManager : MonoBehaviour {
 
     #endregion
 
+#if UNITY_IOS
+    private const string store_id = "3222258"; // store (Apple)
+    private const string gameId = "3222258"; // store (Apple)
+
+#elif UNITY_ANDROID
     private const string store_id = "3222259"; // store (Android)
+    private const string gameId = "3222259"; // store (Android)
+#endif
+
     private string video_ad = "video";
     private string rewarded_video_ad = "rewardedVideo";
     private string banner_ad = "GetRevivalItem";
-    // Use this for initialization
-    void Start() {
-        Monetization.Initialize(store_id, true); //gameId, testMode
+
+
+
+    public string placementId = "rewardedVideo";
+    private Button adButton;
+
+    void Start()
+    {
+        adButton = GetComponent<Button>();
+        if (adButton)
+        {
+            adButton.onClick.AddListener(ShowAd);
+        }
+
+        if (Monetization.isSupported)
+        {
+            Monetization.Initialize(gameId, true);
+        }
     }
 
-    // Update is called once per frame
-    void Update() {
+    void Update()
+    {
+        if (adButton)
+        {
+            adButton.interactable = Monetization.IsReady(placementId);
+        }
     }
+
+    void ShowAd()
+    {
+        ShowAdCallbacks options = new ShowAdCallbacks();
+        options.finishCallback = HandleShowResult;
+        ShowAdPlacementContent ad = Monetization.GetPlacementContent(placementId) as ShowAdPlacementContent;
+        ad.Show(options);
+    }
+
+    void HandleShowResult(ShowResult result)
+    {
+        if (result == ShowResult.Finished)
+        {
+            Debug.Log("Finished Ad");
+            // Reward the player
+        }
+        else if (result == ShowResult.Skipped)
+        {
+            Debug.LogWarning("The player skipped the video - DO NOT REWARD!");
+        }
+        else if (result == ShowResult.Failed)
+        {
+            Debug.LogError("Video failed to show");
+        }
+    }
+
+
+
+    
+    /// ///////////////////////////////////////////////
+
+
+
+
 
     public void ShowVideoInterstitialAD()
     {
@@ -61,7 +124,7 @@ public class AdManager : MonoBehaviour {
                 ad.Show();
             }
         }
-        
+
     }
     public void BannerVideo()
     {
@@ -74,9 +137,31 @@ public class AdManager : MonoBehaviour {
             if (ad != null)
             {
                 ad.Show();
+
             }
         }
     }
+
+    //public int HandleShowResult(ShowResult result)
+    //{
+    //    if (result == ShowResult.Finished)
+    //    {
+    //        Debug.Log("finish reward");
+    //        return 1;
+    //        // Reward the player
+    //    }
+    //    else if (result == ShowResult.Skipped)
+    //    {
+    //        Debug.LogWarning("The player skipped the video - DO NOT REWARD!");
+    //        return 0;
+    //    }
+    //    else if (result == ShowResult.Failed)
+    //    {
+    //        Debug.LogError("Video failed to show");
+    //        return -1;
+    //    }
+    //    return 2;
+    //}
 
 
 }

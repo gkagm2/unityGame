@@ -35,7 +35,7 @@ public class BallController : MonoBehaviour {
         }
         else if (other.tag == "BoostItem")
         {
-
+            // TODO :  전송(item종류 ) -> string형식으로
             Destroy(other.gameObject);
             Debug.Log("Get Boolst Item ");
         }
