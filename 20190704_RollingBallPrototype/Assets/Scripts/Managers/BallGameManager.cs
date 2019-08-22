@@ -180,6 +180,10 @@ public class BallGameManager : MonoBehaviour {
         // 게임 세팅
         SetCurrentLevel(1); // level1로 세팅
 
+        // TODO : 로그인 아이디가 내부에 저장되어 있으면 
+        // TODO : 록
+        AutoLogin(); 
+
         user = new UserInfo();
         user.id = "jang";
         user.scoreFromTheGame = 0;
@@ -235,6 +239,16 @@ public class BallGameManager : MonoBehaviour {
             Destroy(objs[i]);
         }
     }
+
+    // 자동로그인
+    public void AutoLogin()
+    {
+
+    }
+
+
+
+
 
     // 게임이 끝난 후 정보 결과 업데이트
     public void UpdateUserInfoAfterGameOver()

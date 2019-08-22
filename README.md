@@ -13,20 +13,6 @@
 
 ## 해야 할 일
 
-+ ### EditorWindow
-
-+ ### Scene
-- LifeCycle
-
-+ Rect Transform
-- 피봇 포인트 (더)
-- 앵커 포인트 (더)
-- Mask
-
-+ ### Animation
-- Legacy Animation
-- Mecanim Animation
-- TitleScreen
 - Keyframe Animation
 - Joystick
 

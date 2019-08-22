@@ -19,40 +19,52 @@ public partial class UIManager : MonoBehaviour
         }
     }
     #endregion
-
-
-
-
-
-
+    
     [Header("UI")]
     public GameObject menuUI;
     public GameObject statusBarUI;
     public GameObject gamePlayUI;
 
     
+}
 
-
-
+public partial class UIManager : MonoBehaviour
+{
+    // ----------- In Login UI -----------
+    [Header("In Login Screen")]
+    // login screen
+    public GameObject loginScreen;
+    public InputField idInputField;
+    public InputField pwInputField;
     
 
+    // ****************** FUNCTION ******************
+    // login 버튼을 눌렀을 경우    
+    public void OnClick_LoginBtn_InLoginScreen()
+    {
+        string id = idInputField.text;
+        string password = pwInputField.text;
 
-
-
+        // TODO : 로그인 제어
+    }
+    
 
 }
 
+
+
+
+
 // MenuUI
 public partial class UIManager : MonoBehaviour {
-
     
-
 
     // -------- In Menu UI ----------
     [Header("In Menu Screen")]
     // menu screen
     public GameObject meScreen;
     public GameObject shopScreen;
+    
 
     [Header("In Me Screen")]
     public GameObject ballItemScreen;
@@ -92,9 +104,13 @@ public partial class UIManager : MonoBehaviour {
     // Rank 버튼을 누름.
     public void OnClick_RankBtn(bool openFlag)
     {
-        // TODO : 구글 리더보드.
+        // TODO : 구글 리더보드.    
         if (openFlag)
+        {
             Debug.Log("open Rank screen");
+            GpgsManager.instance.ShowBoard();
+        }
+
         else
             Debug.Log("close Rank screen");
     }
@@ -356,22 +372,15 @@ public partial class UIManager
         BallGameManager.instance.ActivateRevivalTimer(ActivateStatus.Stop); // 팝업 창 Timer 종료
 
         // TODO : 여기서부터 해야 함.
-        //AdManager.instance.PlayRevivalVideo(); //광고 본다.
+        AdManager.instance.ShowAd(); //광고 본다.
 
 
         // TODO : 광고를 볼 때 시작하면 안됨.  광고 보고나서 사작해야 되는데;
-        //StartCoroutine(IAdEvent());
-        BallGameManager.instance.StartGame(BallGameManager.GameStartStatus.continueStart); // 이어서 게임 시작
+        
+        
         continuePopup.SetActive(false);
     }
 
-    IEnumerator IAdEvent()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
 }
 
 // Status Bar UI

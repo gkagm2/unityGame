@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "937816774284",
+    "firebase_url": "https://run-ball-64490951.firebaseio.com",
+    "project_id": "run-ball-64490951",
+    "storage_bucket": "run-ball-64490951.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937816774284:android:b4fa05ce8de8291f",
+        "android_client_info": {
+          "package_name": "com.Beuron.RunBall"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937816774284-dpfk1mkavlhlv0r1dhsrgnfhggjcagpj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2t304aDAFLr4-cWFvS1ANK0lh4T4Nwtg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937816774284-dpfk1mkavlhlv0r1dhsrgnfhggjcagpj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
