@@ -14,6 +14,5 @@
 ## 해야 할 일
 
 - Keyframe Animation
-- Joystick
 
 
