@@ -1,7 +1,7 @@
 + 제목 : 롤링볼 게임
 + 개발 기간 : 20190704 ~ 20190801(프로젝트 잠시 정지)
 + 설명 : 마우스를 드래그하여 내려오는 벽을 피하는 롤링볼 게임
-+ ![동영상](https://www.youtube.com/watch?v=6vymnWaqL1c&t=13s)
++ [동영상](https://www.youtube.com/watch?v=6vymnWaqL1c&t=13s)
 ## 
 
 ![실행화면](./1.PNG)
