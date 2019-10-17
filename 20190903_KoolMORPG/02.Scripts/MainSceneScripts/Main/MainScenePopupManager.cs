@@ -43,7 +43,6 @@ public class MainScenePopupManager : MonoBehaviour
         switchMenuPopup.SetActive(false);
     }
 
-    
     ///////////////// Panel ///////////////
     
     /// <summary>

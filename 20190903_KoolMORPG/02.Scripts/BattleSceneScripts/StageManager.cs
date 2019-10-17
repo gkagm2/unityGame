@@ -217,36 +217,6 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    //public void MonsterEnable()
-    //{
-    //    string stageNum = "Stage" + stageIdx;                                                                                                                           
-    //    string stageAreaNum = "stageinfo" + areaIdx;
-
-    //    for (int i = 0; i < json[stageNum][stageAreaNum].Count; i++)                                                                                                
-    //    {
-    //        monsters[(int)json[stageNum][stageAreaNum][i]].monsterPool[0].transform.position = enemySpawnPoint[i].position;                                         
-    //        monsters[(int)json[stageNum][stageAreaNum][i]].monsterPool[0].SetActive(true);                                                                                      
-
-    //        monsterCount++;                                                                                                                        
-
-    //        GameObject temp = monsters[(int)json[stageNum][stageAreaNum][i]].monsterPool[(int)json[stageNum][stageAreaNum][0]];                                                  
-    //        monsters[(int)json[stageNum][stageAreaNum][i]].monsterPool.Remove(temp);
-    //        monsters[(int)json[stageNum][stageAreaNum][i]].monsterPool.Remove(monsters[(int)json[stageNum][stageAreaNum][i]].monsterPool[(int)json[stageNum][stageAreaNum][0]]); 
-    //        monsters[(int)json[stageNum][stageAreaNum][i]].monsterPool.Add(temp);                                                                                                
-    //    }
-    //}
-
-    //for (int i = 0; i < json["Stage" + stageIdx]["stageinfo" + areaIdx].Count; i++)
-    //{
-    //    monsters[(int)json["Stage" + stageIdx]["stageinfo" + areaIdx][i]].monsterPool[0].transform.position = enemySpawnPoint[i].position;
-    //    monsters[(int)json["Stage" + stageIdx]["stageinfo" + areaIdx][i]].monsterPool[0].SetActive(true);
-
-    //    monsterCount++;
-
-    //    GameObject temp = monsters[(int)json["Stage" + stageIdx]["stageinfo" + areaIdx][i]].monsterPool[(int)json["Stage" + stageIdx]["stageinfo" + areaIdx][0]];
-    //    monsters[(int)json["Stage" + stageIdx]["stageinfo" + areaIdx][i]].monsterPool.Remove(monsters[(int)json["Stage" + stageIdx]["stageinfo" + areaIdx][i]].monsterPool[(int)json["Stage" + stageIdx]["stageinfo" + areaIdx][0]]);
-    //    monsters[(int)json["Stage" + stageIdx]["stageinfo" + areaIdx][i]].monsterPool.Add(temp);
-    //}
 
     public void GetStageLengthInfo()
     {

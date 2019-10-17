@@ -23,11 +23,27 @@ public class AdventurePopupManager : MonoBehaviour
     ////////////////////// Popup ///////////////////
 
     /// <summary>
-    /// 탐험 버튼을 누를때 호출
+    /// 탐험 버튼을 누를 때 호출
     /// </summary>
     public void OnClick_ExploreBtn()
     {
         exploreStagePanel.SetActive(true);
         exploreStagePanel.GetComponent<ExploreStageManager>().InitUI();
+    }
+
+    /// <summary>
+    /// RPG 버튼을 누를 때 호출 
+    /// </summary>
+    public void OnClick_MoRpgBtn()
+    {
+        SceneMoveManager.LoadScene("MORPGScene");
+    }
+
+    /// <summary>
+    /// 몬스터 헌터 버튼을 누를 때 호출
+    /// </summary>
+    public void OnClick_MonsterHunterBtn()
+    {
+        SceneMoveManager.LoadScene("MonsterHunterScene");
     }
 }

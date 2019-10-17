@@ -16,15 +16,14 @@ public class MonsterInitTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if(other.CompareTag("Player"))                              //플레이어와 충돌시
         {
-            stageManager.MonsterEnable();
-            sphereCollider.enabled = false;
-            if (stageManager.areaIdx < stageManager.area.Length)
+            stageManager.MonsterEnable();                           //스테이지 매니저 클래스에서 몬스터 활성화 함수 실행
+            sphereCollider.enabled = false;                         //콜라이더 비활성화
+            if (stageManager.areaIdx < stageManager.area.Length)    //스테이지가 끝이 아닐 경우
             {
-                //stageManager.areaIdx++;
-                stageManager.areaIdx++;
-                stageManager.NextArea();
+                stageManager.areaIdx++;                             //스테이지 매니저 클래스의 구역 번호 ++;
+                stageManager.NextArea();                            //스테이지 매니저 클래스에서 다음 구역 초기화
             }
         }
        
