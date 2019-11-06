@@ -51,6 +51,7 @@ public class NetworkManager : MonoBehaviour
     public readonly string DELETE_EQUIPPED_ITEM_URL = "https://kool-player-crud.run.goorm.io/deleteEquippedItem";
     public readonly string DELETE_CONSUMABLE_ITEM_URL = "https://kool-player-crud.run.goorm.io/deleteConsumableItemOfUser";
     public readonly string SET_STAGE_NUMBER_URL = "https://kool-player-crud.run.goorm.io/SetExploreStage";
+    public readonly string UPDATE_STAGE_NUMBER_URL = "https://kool-player-crud.run.goorm.io/UpdateExploreStage";
     public readonly string GET_STAGES_INFORMATION_URL = "https://kool-player-crud.run.goorm.io/loadExploreStagesInformation";
 
 
@@ -701,14 +702,25 @@ public class NetworkManager : MonoBehaviour
         form.AddField("Character_Type", (int)PlayerInformation.userData.characterType);
         form.AddField("Stage_Number", stageNumber);
         form.AddField("Star_Count", starCount);
-
-        UnityWebRequest www = UnityWebRequest.Post(SET_STAGE_NUMBER_URL, form);
-
-        yield return www.SendWebRequest();
-
-        if (www.isDone)
+        if(starCount <= 0) // 초기화 설정
         {
-            Debug.Log("Success" + www.downloadHandler.text);
+            UnityWebRequest www = UnityWebRequest.Post(SET_STAGE_NUMBER_URL, form);
+            yield return www.SendWebRequest();
+
+            if (www.isDone)
+            {
+                Debug.Log("스테이지의 별 개수를 0으로 초기화 성공" + www.downloadHandler.text);
+            }
+        }
+        else // 업데이트
+        {
+            UnityWebRequest www = UnityWebRequest.Post(UPDATE_STAGE_NUMBER_URL, form);
+            yield return www.SendWebRequest();
+
+            if (www.isDone)
+            {
+                Debug.Log("스테이지의 별 개수 설정 성공" + www.downloadHandler.text);
+            }
         }
     }
 
@@ -728,7 +740,14 @@ public class NetworkManager : MonoBehaviour
 
         if (www.isDone)
         {
-            Debug.Log("가져온 스테이지의 정보 : " + www.downloadHandler.text);
+            //Debug.Log("가져온 스테이지의 정보 : " + www.downloadHandler.text);
+            JSONArray jsonArray = (JSONArray)JSON.Parse(www.downloadHandler.text);
+
+            for (int i = 0; i < jsonArray.Count; ++i)
+            {
+                PlayerInformation.stageData.stagesStarCount[i] = jsonArray[i]["Star_Count"];
+                //Debug.Log((i + 1) + "번째 스테이지에 : " + PlayerInformation.stageData.stagesStarCount[i]);
+            }
         }
     }
 }

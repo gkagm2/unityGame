@@ -13,4 +13,9 @@
     public static readonly string helmetImages = "Images/Equipments/Helmet/";
     public static readonly string shoesImages = "Images/Equipments/Shoes/";
     public static readonly string consumableImages = "Images/ConsumableItem/";
+
+
+    // MORPG
+    public static readonly string morpg_PlayerWarrior = "Player/MORPG_Player/Warrior";
+    public static readonly string morpg_PlayerArcher = "Player/MORPG_Player/Archer";
 }

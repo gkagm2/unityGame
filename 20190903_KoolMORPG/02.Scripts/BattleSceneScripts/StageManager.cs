@@ -246,7 +246,16 @@ public class StageManager : MonoBehaviour
             SetStarCountImage(starNumber); // 별 개수를 설정해서 UI로 보여준다.
             PlayerInformation.stageData.currentStageStarCount = starNumber;
             Debug.Log("성공한 별의 개수 : " + PlayerInformation.stageData.currentStageStarCount);
-            // TODO (장현명) : 스테이지의 정보를 저장하는 부분을 작성해야 한다.
+
+            // 성공하여 받은 스테이지의 별을 서버로 저장한다.
+            if(NetworkManager.instance != null)
+            {
+                yield return StartCoroutine(NetworkManager.instance.ISetStageInformationToServer(PlayerInformation.stageData.stageNumber, starNumber));
+            }
+            else
+            {
+                Debug.LogWarning("NetworkManager가 없습니다.");
+            }
 
 
             // TODO (장현명) : 보상 타입 나중에 고치기 ()
@@ -271,7 +280,6 @@ public class StageManager : MonoBehaviour
                 default:
                     Debug.Assert(false, "보상 타입 범위 초과");
                     break;
-
             }
             rewardText.text = "보상 : " + rewardMessage;
             ////////////////////////////////// End /////////////////////////////
@@ -365,5 +373,3 @@ public class StageManager : MonoBehaviour
         }
     }
 }
-
-

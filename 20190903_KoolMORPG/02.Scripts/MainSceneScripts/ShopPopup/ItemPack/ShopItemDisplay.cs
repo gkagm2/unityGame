@@ -20,7 +20,7 @@ public class ShopItemDisplay : MonoBehaviour
         UpdateUI();
     }
     
-    /// <summary>
+    /// <summary>   
     /// 카드의 UI를 업데이트한다.
     /// </summary>
     public void UpdateUI()

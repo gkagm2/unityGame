@@ -174,17 +174,60 @@ public class ShopPopupManager : MonoBehaviour
     /// </summary>
     public void PurchaseItem()
     {
-        PlayerInformation.userData.crystal -= currentChoicedItem.cost;
-        StartCoroutine(ISaveCharacterData());
+        
         switch (currentChoicedItem.shopItemType)
         {
             case EShopItemType.weapon:
+                if (PlayerInformation.inventory.weaponItemCount < PlayerInformation.inventory.maxSlotSpace)
+                {
+                    PlayerInformation.userData.crystal -= currentChoicedItem.cost;
+                    StartCoroutine(ISaveCharacterData());
+                    PurchaseEquipmentItem();
+                }
+                else
+                {
+                    PopupManager.instance.OpenAlarmPopup("아이템 공간이 꽉찼습니다.");
+                    return;
+                }
+                break;
             case EShopItemType.defence:
-                PurchaseEquipmentItem();
+                if (PlayerInformation.inventory.defenceItemCount < PlayerInformation.inventory.maxSlotSpace)
+                {
+                    PlayerInformation.userData.crystal -= currentChoicedItem.cost;
+                    StartCoroutine(ISaveCharacterData());
+                    PurchaseEquipmentItem();
+                }
+                else
+                {
+                    PopupManager.instance.OpenAlarmPopup("아이템 공간이 꽉찼습니다.");
+                    return;
+                }
                 break;
             case EShopItemType.weaponPackage:
+                if (PlayerInformation.inventory.weaponItemCount + currentChoicedItem.purchaseCount < PlayerInformation.inventory.maxSlotSpace)
+                {
+                    PlayerInformation.userData.crystal -= currentChoicedItem.cost;
+                    StartCoroutine(ISaveCharacterData());
+                    PurchaseEquipmentItemPack();
+                }
+                else
+                {
+                    PopupManager.instance.OpenAlarmPopup("아이템 공간이 꽉찼습니다.");
+                    return;
+                }
+                break;
             case EShopItemType.defencePackage:
-                PurchaseEquipmentItemPack();
+                if (PlayerInformation.inventory.defenceItemCount + currentChoicedItem.purchaseCount < PlayerInformation.inventory.maxSlotSpace)
+                {
+                    PlayerInformation.userData.crystal -= currentChoicedItem.cost;
+                    StartCoroutine(ISaveCharacterData());
+                    PurchaseEquipmentItemPack();
+                }
+                else
+                {
+                    PopupManager.instance.OpenAlarmPopup("아이템 공간이 꽉찼습니다.");
+                    return;
+                }
                 break;
             case EShopItemType.hpPotion:
                 PurchaseHpPotion();

@@ -13,7 +13,39 @@ public class UserInventory
     public List<ConsumableItem> consumableItemDataList;      // 현재 가지고 있는 소비 아이템들의 데이터
     public List<EquipmentItem> equipmentItemDataList;        // 현재 가지고 있는 장비 아이템들의 데이터
 
-    public int maxSlotSpace;   // 인벤토리의 최대 슬롯 공간 (무기 = maxSlotSpace, 방어구 = maxSlotSpace)
+    public int maxSlotSpace;            // 인벤토리의 최대 슬롯 공간 (무기 = maxSlotSpace, 방어구 = maxSlotSpace)
+    public int defenceItemCount
+    {
+        get
+        {
+            int itemCount = 0;
+            for (int i = 0; i < equipmentItemDataList.Count; ++i)
+            {
+                if(equipmentItemDataList[i].type == EEquipmentItemType.armor ||
+                   equipmentItemDataList[i].type == EEquipmentItemType.helmet ||
+                   equipmentItemDataList[i].type == EEquipmentItemType.shoes)
+                {
+                    ++itemCount;
+                }
+            }
+            return itemCount;
+        }
+    }      // 방어구 아이템 개수
+    public int weaponItemCount
+    {
+        get
+        {
+            int itemCount = 0;
+            for(int i=0;i < equipmentItemDataList.Count; ++i)
+            {
+                if(equipmentItemDataList[i].type == EEquipmentItemType.weapon)
+                {
+                    ++itemCount;
+                }
+            }
+            return itemCount;
+        }
+    }       // 무기 아이템 개수
 
     public UserInventory()
     {

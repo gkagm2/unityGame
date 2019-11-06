@@ -250,4 +250,21 @@ public class ExploreStageManager : MonoBehaviour
         Debug.Log("모든 스테이지가 클리어 됨.");
         return true; // 모두 클리어 시  true 리턴
     }
+
+    private void OnEnable()
+    {
+        StartCoroutine(IGetStagesInformation());
+    }
+    IEnumerator IGetStagesInformation()
+    {
+        if(NetworkManager.instance != null)
+        {
+            yield return StartCoroutine(NetworkManager.instance.IGetStagesInformation());
+        }
+        else
+        {
+            Debug.LogWarning("NetworkManager가 없습니다.");
+        }
+        InitUI();
+    }
 }

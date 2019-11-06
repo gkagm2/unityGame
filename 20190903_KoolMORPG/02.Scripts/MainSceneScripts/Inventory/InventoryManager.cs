@@ -77,8 +77,13 @@ public class InventoryManager : MonoBehaviour
         
         hpPotionImage.sprite = Resources.Load<Sprite>(PathOfResources.consumableImages + "hpPotion");   // 포션의 이미지를 업데이트한다.
         hpPotionCountText.text = PlayerInformation.inventory.GetHpPotionCount().ToString();             // 포션의 개수를 보여준다.
-        currentSlotSpaceText.text = PlayerInformation.inventory.equipmentItemDataList.Count.ToString() + "/" + PlayerInformation.inventory.maxSlotSpace.ToString(); // 슬롯의 공간 상태를 보여준다.
-
+        if(eCurrentTapMenu == ETapMenu.defence)
+        {
+            currentSlotSpaceText.text = PlayerInformation.inventory.defenceItemCount.ToString() + "/" + PlayerInformation.inventory.maxSlotSpace.ToString(); // 슬롯의 공간 상태를 보여준다.
+        } else if(eCurrentTapMenu == ETapMenu.weapon)
+        {
+            currentSlotSpaceText.text = PlayerInformation.inventory.weaponItemCount.ToString() + "/" + PlayerInformation.inventory.maxSlotSpace.ToString(); // 슬롯의 공간 상태를 보여준다.
+        }
         hpText.text = PlayerInformation.userData.hp.ToString();                       // 체력 텍스트
         totalAttackPowerText.text = PlayerInformation.userData.TotalAtk.ToString();   // 총공격력 텍스트
         totalDefencePowerText.text = PlayerInformation.userData.TotalDef.ToString();  // 총방어력 텍스트
@@ -150,6 +155,7 @@ public class InventoryManager : MonoBehaviour
         eCurrentTapMenu = ETapMenu.weapon;
         ChangeTap(eCurrentTapMenu);
         ShowItemCardInContent(eCurrentTapMenu); // 아이템 카드들을 content에 보여준다.
+        currentSlotSpaceText.text = PlayerInformation.inventory.weaponItemCount.ToString() + "/" + PlayerInformation.inventory.maxSlotSpace.ToString(); // 슬롯의 공간 상태를 보여준다.
         Debug.Log("무기 탭 버튼을 눌렀습니다.");
     }
 
@@ -161,6 +167,7 @@ public class InventoryManager : MonoBehaviour
         eCurrentTapMenu = ETapMenu.defence;
         ChangeTap(eCurrentTapMenu);
         ShowItemCardInContent(eCurrentTapMenu); // 아이템 카드들을 content에 보여준다.
+        currentSlotSpaceText.text = PlayerInformation.inventory.defenceItemCount.ToString() + "/" + PlayerInformation.inventory.maxSlotSpace.ToString(); // 슬롯의 공간 상태를 보여준다.
         Debug.Log("방어구 탭 버튼을 눌렀습니다.");
     }
 

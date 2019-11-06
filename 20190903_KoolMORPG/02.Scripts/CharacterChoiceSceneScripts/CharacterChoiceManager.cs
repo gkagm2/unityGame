@@ -304,29 +304,38 @@ public class CharacterChoiceManager : MonoBehaviour
         {
             createCharacterButton.GetComponent<Button>().interactable = false;
             characterChoiceButton.GetComponent<Button>().interactable= false;
+            SetButtonProperty();
         }
         else // 캐릭터 타입이 이미 설정이 안되어있으면
         {
             createCharacterButton.GetComponent<Button>().interactable = true;
             characterChoiceButton.GetComponent<Button>().interactable = true;
-            if (NetworkManager.instance != null)
+            SetButtonProperty();
+        }
+    }
+
+    /// <summary>
+    /// 선택 혹은 생성 버튼으로 설정한다. 
+    /// </summary>
+    private void SetButtonProperty()
+    {
+        if (NetworkManager.instance != null)
+        {
+            // 선택 버튼
+            if (NetworkManager.instance.isExistCharacter[characterIndex]) // 캐릭터가 존재하면
             {
-                // 선택 버튼
-                if (NetworkManager.instance.isExistCharacter[characterIndex]) // 캐릭터가 존재하면
-                {
-                    createCharacterButton.SetActive(false);
-                    characterChoiceButton.SetActive(true);
-                }
-                else
-                {
-                    createCharacterButton.SetActive(true);
-                    characterChoiceButton.SetActive(false);
-                }
+                createCharacterButton.SetActive(false);
+                characterChoiceButton.SetActive(true);
             }
             else
             {
-                Debug.LogWarning("NetworkManager가 없음.");
+                createCharacterButton.SetActive(true);
+                characterChoiceButton.SetActive(false);
             }
+        }
+        else
+        {
+            Debug.LogWarning("NetworkManager가 없음.");
         }
     }
 }
