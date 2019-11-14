@@ -31,11 +31,10 @@ public class MORPG_PlayerMotor : MonoBehaviour
                 characterModelObject = Resources.Load<GameObject>(PathOfResources.morpg_PlayerWarrior);
                 break;
         }
-        GameObject characterModel = Instantiate(characterModelObject, transform) as GameObject;
+        GameObject characterModel = Instantiate(characterModelObject, transform.position, transform.rotation, transform) as GameObject;
         if (characterModel)
         {
             Debug.Log("찾았다능~");
-            characterModel.transform.position = Vector3.zero;
             anim = GetComponentInChildren<Animator>();
         }
         else

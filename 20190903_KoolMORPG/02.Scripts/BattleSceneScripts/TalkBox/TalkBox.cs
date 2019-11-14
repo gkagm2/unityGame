@@ -3,12 +3,17 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 /// <summary>
 /// 대화 박스
 /// </summary>
 public class TalkBox : MonoBehaviour
 {
+
+    public List<string> firstContentList;    // 첫번째 대화 내용
+    public List<string> secondContentList;   // 두번째 대화 내용
+
     [Header("대화 내용")]
     public Text talkText;           // 대화 텍스트
 
@@ -50,7 +55,17 @@ public class TalkBox : MonoBehaviour
         }
         talkText.text = speak;
     }
+
+    /// <summary>
+    /// 다음 대화하기
+    /// </summary>
+    /// <param name="flowCount">대화 흐름</param>
+    public void NextTalk(int flowCount)
+    {
+        
+    }
 }
+
 public enum ETalker // 왼쪽, 오른쪽의 대화하는 캐릭터 구분용도
 {
     leftTalker,

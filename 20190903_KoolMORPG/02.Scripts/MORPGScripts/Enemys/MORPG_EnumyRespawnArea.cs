@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class MORPG_EnumyRespawnArea : MonoBehaviour
 {
-    private Transform[] areaTransform;
+    [Header("속성값")]
+    [Tooltip("생성 범위")]
+    [Range(0,999)]
+    public float maxRespawnRange = 20.0f;
 
+    [Header("적 오브젝트")]
     public GameObject[] enemys;
-
-    private float maxRespawnRange =20.0f;
+    private Transform[] areaTransform;
 
     private void Start()
     {

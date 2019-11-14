@@ -13,6 +13,9 @@ public class MORPG_CharacterHUD : MonoBehaviour
     {
         mainCameraTransform = GameObject.FindWithTag("MainCamera").GetComponent<Transform>();
         nameText.text = PlayerInformation.userData.name;
+        if (nameText.text.Equals("")){
+            nameText.text = "Default Name";
+        }
     }
 
     // Update is called once per frame

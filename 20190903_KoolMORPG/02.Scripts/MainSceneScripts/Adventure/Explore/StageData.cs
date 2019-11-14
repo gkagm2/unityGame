@@ -97,7 +97,6 @@ public class StageData
         }
     }
 
-
     // TODO (장현명) : 공식화 하던가 아니면 임의로 넣어주던가 해야 할 듯.
     public int currentStageStarCount;           // 게임 클리어 시 스테이지의 별 개수 범위는 (1 ~ 3)
     public ERewardType rewardType;// 게임 클리어 시 보상 타입.

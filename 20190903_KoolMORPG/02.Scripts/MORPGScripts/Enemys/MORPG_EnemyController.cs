@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 public class MORPG_EnemyController : MORPG_Interactable
 {
+    [Tooltip("순찰 쿨타임 범위")]
+    public float patrolMinCoolTime = 4.0f;
     public float patrolMaxCoolTime = 5.0f;
     private float patrolCoolTime = 0f;
 
@@ -72,7 +74,7 @@ public class MORPG_EnemyController : MORPG_Interactable
     {
         patrolCoolTime += Time.deltaTime;
 
-        if (patrolCoolTime >= patrolMaxCoolTime)
+        if (patrolCoolTime >= Random.Range(patrolMinCoolTime, patrolMaxCoolTime + 1))
         {
             float _patrolAreaX = Random.Range(-patrolArea, patrolArea);
             float _patrolAreaY = Random.Range(-patrolArea, patrolArea);

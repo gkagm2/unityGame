@@ -11,6 +11,7 @@ public class MORPG_Interactable : MonoBehaviour
     private Transform player;
     private bool hasInteracted = false;
 
+    
     public virtual void Interact()
     {
         Debug.Log("Interacting with " + transform.name);
@@ -26,6 +27,7 @@ public class MORPG_Interactable : MonoBehaviour
                 Debug.Log("INTERACT");
                 Interact();
                 hasInteracted = true;
+
             }
         }
     }
