@@ -41,13 +41,11 @@ public class MORPG_PlayerMotor : MonoBehaviour
         {
             Debug.Assert(false, "캐릭터를 가져오지 못했습니다.");
         }
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (targetTransform != null)
         {
             Debug.Log("move");
@@ -82,7 +80,7 @@ public class MORPG_PlayerMotor : MonoBehaviour
     {
         agent.stoppingDistance = 0f;
         targetTransform = null;
-        Debug.Log("agent.updatePosition!");
+        //Debug.Log("agent.updatePosition!");
         agent.updateRotation = true;
     }
 
@@ -91,7 +89,7 @@ public class MORPG_PlayerMotor : MonoBehaviour
     /// </summary>
     public void LookAtTarget()
     {
-        Debug.Log("targetTransform.position : " + targetTransform.position);
+        //Debug.Log("targetTransform.position : " + targetTransform.position);
         Vector3 direction = (targetTransform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);

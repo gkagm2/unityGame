@@ -13,6 +13,10 @@ public class MORPG_PlayerController : MonoBehaviour
     public ObjectPool mouseClickParticle;
     private MORPG_PlayerMotor motor;
     private MORPG_Interactable focus;
+    private Animator anim;
+    private MORPG_CharacterCombat combat;
+    //private MORPG_CharacterStats stats;
+    private MORPG_CharacterStats stats;
 
     [Header("LayerMask")]
     public LayerMask movementMask;
@@ -23,6 +27,15 @@ public class MORPG_PlayerController : MonoBehaviour
     void Start()
     {
         motor = GetComponent<MORPG_PlayerMotor>();
+        anim = GetComponent<Animator>();
+        combat = GetComponent<MORPG_CharacterCombat>();
+        stats = GetComponent<MORPG_CharacterStats>();
+
+
+        // 플레이어 스텟 설정하기
+        stats.damage = PlayerInformation.userData.TotalAtk;
+        stats.maxDefence = stats.currentDefence = PlayerInformation.userData.def;
+        stats.maxHealth = stats.currentHealth = PlayerInformation.userData.hp;
     }
 
     // Update is called once per frame
@@ -61,7 +74,7 @@ public class MORPG_PlayerController : MonoBehaviour
                 }
                 if (hit.transform.CompareTag("MORPG_Ground"))
                 {
-                    Debug.Log("Ground");
+                    //Debug.Log("Ground");
                     mouseClickParticle.UseObject(hit.point);
                     motor.MoveToPoint(hit.point);
                     RemoveFocus();
@@ -71,18 +84,24 @@ public class MORPG_PlayerController : MonoBehaviour
                     motor.MoveToPoint(hit.point);
 
                     MORPG_Interactable interactable = hit.collider.GetComponent<MORPG_Interactable>();
-                    if(interactable != null)
+                    MORPG_EnemyController enemyController = hit.collider.GetComponent<MORPG_EnemyController>();
+                    MORPG_CharacterStats enemyStats = hit.collider.GetComponent<MORPG_CharacterStats>();
+                    if (interactable != null)
                     {
                         SetFocus(interactable);
+                        combat.Attack(enemyStats, stats.damage);
                     }
+
                     else
                     {
                         RemoveFocus();
                     }
-
                     Debug.Log("Monster");
                 }
             }
+
+
+            // LayerMask를 이용한 코드
 
             //// Click ground
             //if (Physics.Raycast(ray, out hit, movementMask))
@@ -137,7 +156,7 @@ public class MORPG_PlayerController : MonoBehaviour
     private void RemoveFocus()
     {
         if(focus != null)
-        {
+        {   
             Debug.Log("focus는 null이 아니다.");
             focus.OnDefocused();
         }

@@ -10,33 +10,24 @@ public class MORPG_CharacterCombat : MonoBehaviour
     public float attackCooldown;
     public float attackDelay = 1f;
 
-    private MORPG_CharacterStats myStats;
-    private Animator anim;
-
-    private void Start()
-    {
-        myStats = GetComponent<MORPG_CharacterStats>();
-        anim = GetComponentInChildren<Animator>();
-    }
-
     private void Update()
     {
         attackCooldown -= Time.deltaTime;
     }
 
-    public void Attack(MORPG_CharacterStats targetStats)
+    public void Attack(MORPG_CharacterStats targetStats, float damage)
     {
         if(attackCooldown <= 0)
         {
-            StartCoroutine(IDoDamage(targetStats, attackDelay));
+            StartCoroutine(IDoDamage(targetStats, damage, attackDelay));
 
             attackCooldown = 1f / attackSpeed;
         }
     }
 
-    private IEnumerator IDoDamage(MORPG_CharacterStats stats, float delay)
+    private IEnumerator IDoDamage(MORPG_CharacterStats stats, float damage, float delay)
     {
         yield return new WaitForSeconds(delay);
-        stats.TakeDamage(myStats.damage);
+        stats.TakeDamage(damage);
     }
 }

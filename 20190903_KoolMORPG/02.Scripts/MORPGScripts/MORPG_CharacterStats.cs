@@ -5,29 +5,12 @@ using UnityEngine;
 public class MORPG_CharacterStats : MonoBehaviour
 {
     public float maxHealth = 100f;
-    public float currentHealth
-    {
-        get;
-        private set;
-    }
-    public float maxDefence;
-    public float currentDefence
-    {
-        get;
-        private set;
-    }
+    public float currentHealth = 100f;
 
-    public float damage
-    {
-        get;
-        private set;
-    }
+    public float maxDefence = 100f;
+    public float currentDefence = 100f;
 
-    // TODO (장현명) : 수치 넣어야 한다.
-   
-    private void Start()
-    {
-    }
+    public float damage = 10;
 
     public void TakeDamage(float damage)
     {
@@ -42,5 +25,8 @@ public class MORPG_CharacterStats : MonoBehaviour
     public virtual void Die()
     {
         Debug.Log(transform.name + "die");
+
+        // 임시로 삭제한다. 나중에 메모리풀로 만들어서 하기
+        Destroy(gameObject);
     }
 }
