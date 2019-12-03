@@ -76,7 +76,6 @@ public partial class PopupManager : MonoBehaviour
             standByPopup.SetActive(false);
         }
     }
-
 }
 
 /// <summary>

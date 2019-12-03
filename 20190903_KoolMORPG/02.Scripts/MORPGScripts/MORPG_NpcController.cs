@@ -18,6 +18,7 @@ public class MORPG_NpcController : MORPG_Interactable
     {
         base.Interact();
         Debug.Log("Interacted with " + gameObject.name + " override yeah!");
-        talkBoxController.talkbox.gameObject.SetActive(true);
+        //talkBoxController.talkbox.gameObject.SetActive(true);
+        talkBoxController.Action(gameObject);
     }
 }

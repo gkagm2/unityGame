@@ -81,14 +81,12 @@ public class MainScenePopupManager : MonoBehaviour
         equipmentButtonClick = !equipmentButtonClick;
         if (equipmentButtonClick)
         {
-            Debug.Log("EquipmentButtonClick true");
             equipmentMenuPopup.SetActive(true);
             switchButtonClick = false;
             switchMenuPopup.SetActive(false);
         }
         else
         {
-            Debug.Log("EquipmentButtonClick false");
             equipmentMenuPopup.SetActive(false);
         }
     }
@@ -102,14 +100,12 @@ public class MainScenePopupManager : MonoBehaviour
         switchButtonClick = !switchButtonClick;
         if (switchButtonClick)
         {
-            Debug.Log("SwitchButtonClick true");
             switchMenuPopup.SetActive(true);
             equipmentButtonClick = false;
             equipmentMenuPopup.SetActive(false);
         }
         else
         {
-            Debug.Log("SwitchButtonClick false");
             switchMenuPopup.SetActive(false);
         }
     }
@@ -119,7 +115,6 @@ public class MainScenePopupManager : MonoBehaviour
     /// </summary>
     public void OnClick_CharacterChoiceBtn()
     {
-        // TODO : 현 정보를 모두 세이브 한 후에 다른 캐릭터로 넘어가게 한다.
         SceneMoveManager.LoadScene("CharacterChoiceScene");
     }
 
@@ -132,7 +127,6 @@ public class MainScenePopupManager : MonoBehaviour
        shopButtonClick = !shopButtonClick;
         if (shopButtonClick)
         {
-            Debug.Log("ShopButtonClick true");
             shopMenuPopup.SetActive(true);
 
             equipmentButtonClick = false;
@@ -142,7 +136,6 @@ public class MainScenePopupManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("ShopButtonClick false");
             shopMenuPopup.SetActive(false);
         }
     }
