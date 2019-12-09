@@ -85,3 +85,35 @@ public enum EUserCreateMode
     withGPGSId,
     withoutGPGSId
 }
+
+// MORPG
+public enum EQuest
+{
+    none,
+    
+}
+
+public struct tagQuestInfo
+{
+    public string questName;
+    public string questDesc;
+    public bool isSuccess;
+    public uint progress;
+
+    public void SetQuest(string _questName ="", string _questDesc = "", bool _isSuccess = false, uint _progress = 0)
+    {
+        questName = _questName;
+        questDesc = _questDesc;
+        isSuccess = _isSuccess;
+        progress = _progress;
+    }
+}
+
+public enum EMon_CharacterState
+{
+    idle,
+    move,
+    dash,
+    defaultAttack,
+    aimAttack
+}

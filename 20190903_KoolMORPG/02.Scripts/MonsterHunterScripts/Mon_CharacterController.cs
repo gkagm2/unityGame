@@ -136,12 +136,3 @@ public class Mon_CharacterController : MonoBehaviour
     }
 
 }
-
-public enum EMon_CharacterState
-{
-    idle,
-    move,
-    dash,
-    defaultAttack,
-    aimAttack
-}

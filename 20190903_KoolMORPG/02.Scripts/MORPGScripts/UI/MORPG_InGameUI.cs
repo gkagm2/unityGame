@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MORPG_InGameUI : MonoBehaviour
 {
-    private void Start()
-    { 
+    public Text questText;
 
+
+    private void Start()
+    {
+        
     }
 }
