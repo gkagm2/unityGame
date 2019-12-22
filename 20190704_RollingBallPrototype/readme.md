@@ -2,6 +2,7 @@
 + 개발 기간 : 20190704 ~ 20190801(프로젝트 잠시 정지)
 + 설명 : 마우스를 드래그하여 내려오는 벽을 피하는 롤링볼 게임
 + [동영상](https://www.youtube.com/watch?v=6vymnWaqL1c&t=13s)
++ [이외 기술 설명 PPT](https://drive.google.com/open?id=1ZVw3IqR6Z6e47kupBI6U8gR1In_9G0no)
 ## 
 
 ![실행화면](./1.PNG)
