@@ -6,6 +6,6 @@
 + [동영상](https://www.youtube.com/watch?v=97Is86wai30)
 + [게임 설명](https://drive.google.com/open?id=1wWEQF_Xh8-CU0tCtg3R7pjgMeD4wdOKJ)
 + [기술 설명](https://sagacityjang.tistory.com/54)
-+ [지도 클릭 시 클릭된 위치로 캐릭토 이동 설명](https://sagacityjang.tistory.com/53)
++ [지도 클릭 시 클릭된 위치로 캐릭터 이동 설명](https://sagacityjang.tistory.com/53)
 
 ![실행화면](./1.PNG)
