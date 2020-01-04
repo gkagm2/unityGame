@@ -14,4 +14,4 @@
 ## 해야 할 일
 
 - Keyframe Animation
-
+- 2D Jump game 만드는중
