@@ -64,11 +64,19 @@ public class MORPG_PlayerMotor : MonoBehaviour
         }   
     }
 
+    /// <summary>
+    /// 목표 위치로 움직인다.
+    /// </summary>
+    /// <param name="point">목표 위치</param>
     public void MoveToPoint(Vector3 point)
     {
         agent.SetDestination(point);
     }
 
+    /// <summary>
+    /// 타겟을 따라다닌다.
+    /// </summary>
+    /// <param name="newTarget">새로운 타겟</param>
     public void FollowTarget(MORPG_Interactable newTarget)
     {
         agent.stoppingDistance = newTarget.radius * 0.8f;
@@ -76,6 +84,9 @@ public class MORPG_PlayerMotor : MonoBehaviour
         targetTransform = newTarget.interactionTransform;
     }
 
+    /// <summary>
+    /// 타겟을 따라다니는 것을 멈춘다.
+    /// </summary>
     public void StopFollowingTarget()
     {
         agent.stoppingDistance = 0f;

@@ -12,7 +12,6 @@ public class MORPG_EnemyController : MORPG_Interactable
     public float lookRadius = 10f;
     public float patrolPositionChangeTime = 3.0f;
     public float patrolArea;
-    private float _patrolArea;
 
     private Vector3 respawnPosition;
     private Transform target;
@@ -43,6 +42,7 @@ public class MORPG_EnemyController : MORPG_Interactable
 
     private void Update()
     {
+        // TODO (장현명) : Test 후 리펙토링
         float distance;
 
         if (target != null)
@@ -106,5 +106,4 @@ public class MORPG_EnemyController : MORPG_Interactable
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(respawnPosition, patrolArea);
     }
-
 }

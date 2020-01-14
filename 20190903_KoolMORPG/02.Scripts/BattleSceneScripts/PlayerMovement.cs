@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Vector3 moveDir; //이동방향
-    public Vector3 avoidanceDir; //회피 방향
+    public Vector3 moveDir;                 //이동방향
+    public Vector3 avoidanceDir;            //회피 방향
     public List<GameObject> target;
 
-    public float moveSpeed = 5f; //이동속도
-    public float avoidanceSpeed = 10f; //회피속도
-    public float avoidanceTime = 0.5f; //회피시간
-    public float attackSpeed; //공격속도
+    public float moveSpeed = 5f;            //이동속도
+    public float avoidanceSpeed = 10f;      //회피속도
+    public float avoidanceTime = 0.5f;      //회피시간
+    public float attackSpeed;               //공격속도
     public float meleeAttackRange = 2.5f;
     public float damagedTime = 0.2f;
     public float hp;

@@ -29,6 +29,10 @@ public class MRPG_CharacterCombat : MonoBehaviour
         attackCooldown -= Time.deltaTime;
     }
 
+    /// <summary>
+    /// 데미지를 준다
+    /// </summary>
+    /// <param name="targetStats">타겟 상태</param>
     public void Attack(MORPG_CharacterStats targetStats)
     {
         if(attackCooldown <= 0)

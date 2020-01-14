@@ -70,6 +70,8 @@ public class MORPG_MapEditor : EditorWindow
         //}
     }
 
+    /// <param name="enemyRespawnArea"></param>
+    /// <param name="maxCount"></param>
     private static void CreateObject(GameObject enemyRespawnArea, int maxCount)
     {
         for (int i = 0; i < maxCount; ++i)
@@ -77,5 +79,4 @@ public class MORPG_MapEditor : EditorWindow
             Instantiate(enemyRespawnArea, new Vector3(0f, 0f, 0f), Quaternion.identity);
         }
     }
-    
 }

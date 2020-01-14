@@ -26,13 +26,13 @@ public class ReconfirmPopup : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// 재확인 버튼 클릭 시 호출
     /// </summary>
     public void OnClick_ConfirmBtn()
     {
         if (shopPopupManager.currentChoicedItem.shopItemType == EShopItemType.crystal) // 현금으로 결제하는 용도면
         {
-            // TODO : GPGS 처리해줘야 함
+            // TODO (장현명) : GPGS 처리해줘야 함
             shopPopupManager.PurchaseCrystal();
         }
         else // crystal로 결제하는 용도면

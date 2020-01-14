@@ -15,7 +15,7 @@ public class MORPG_PlayerViewColliderArea : MonoBehaviour
     {
         
     }
-
+    // TODO (장현명) : 총돌 테스트용
     private void OnTriggerStay(Collider other)
     {
         Debug.Log("충돌 발생 : " + other.name);

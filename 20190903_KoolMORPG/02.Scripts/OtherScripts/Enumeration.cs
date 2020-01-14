@@ -1,4 +1,8 @@
-﻿public enum ETierType
+﻿////////////// <summary>
+////////////// 열거형 모음
+////////////// </summary>
+
+public enum ETierType
 {
     old = 1,
     normal,

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Mon_CharacterController : MonoBehaviour
 {
     [Header("Character GameObject")]
-    public Mon_CharacterAnimation characterAnim;             // Character animation
+    public Mon_CharacterAnimation characterAnim;    // Character animation
     public CharacterController characterController; // Character controller
     public Mon_CharacterCamera characterCamera;
     public GameObject characterModelObject;
@@ -30,7 +30,7 @@ public class Mon_CharacterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // TODO (SagacityJang) : delete this default state
+        // TODO (장현명) : delete this default state
         state.SetDefaultState(); // set default character stat (also can be set in the Inspector screen)
         eCharacterState = EMon_CharacterState.idle;
     }

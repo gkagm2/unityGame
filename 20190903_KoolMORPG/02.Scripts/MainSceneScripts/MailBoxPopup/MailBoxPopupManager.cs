@@ -29,6 +29,10 @@ public class MailBoxPopupManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// TODO (장현명) : 완성 후에 지운다.
+    /// </summary>
+    /// <param name="type"></param>
     public void TestReceive(int type)
     {
         if(type == 1)

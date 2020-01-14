@@ -41,6 +41,7 @@ public class MORPG_PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // TODO (장현명) : Test 후 리펙토링
         if (EventSystem.current.IsPointerOverGameObject())
         {
             return;
@@ -136,6 +137,10 @@ public class MORPG_PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Focus를 설정한다.
+    /// </summary>
+    /// <param name="newFocus">Focus 대상</param>
     private void SetFocus(MORPG_Interactable newFocus)
     {
         if (newFocus != focus)
@@ -153,6 +158,9 @@ public class MORPG_PlayerController : MonoBehaviour
         motor.FollowTarget(newFocus);
     }
 
+    /// <summary>
+    /// Focus를 해제한다.
+    /// </summary>
     private void RemoveFocus()
     {
         if(focus != null)

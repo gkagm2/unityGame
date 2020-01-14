@@ -35,7 +35,7 @@ public class TopPopupManager : MonoBehaviour
     /// <summary>
     /// MailBox 팝업 On/Off
     /// </summary>
-    /// <param name="isOpen"></param>
+    /// <param name="isOpen">on off flag</param>
     public void OpenMailBoxPopup(bool isOpen)
     {
         if (isOpen)
@@ -53,7 +53,6 @@ public class TopPopupManager : MonoBehaviour
     /// <summary>
     /// 옵션 팝업 On/Off
     /// </summary>
-    // TODO (신민승) : 옵션 팝업 연동하기
     public void OpenOptionPopup(bool isOpen)
     {
         if (isOpen)

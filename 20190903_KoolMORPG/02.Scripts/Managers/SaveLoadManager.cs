@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-
+/// <summary>
+/// 저장 불러오기 매니저 클래스
+/// </summary>
 public class SaveLoadManager : MonoBehaviour
 {
     public enum EPathOfFile
@@ -23,6 +25,10 @@ public class SaveLoadManager : MonoBehaviour
         SetPath(EPathOfFile.persistentDataPath); // 초기화
     }
     
+    /// <summary>
+    /// 저장 할 경로를 설정한다.
+    /// </summary>
+    /// <param name="_ePathOfFile">파일 경로</param>
     public void SetPath(EPathOfFile _ePathOfFile)
     {
         switch (_ePathOfFile)
@@ -36,6 +42,11 @@ public class SaveLoadManager : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// 디렉토리를 생성한다.
+    /// </summary>
+    /// <param name="directoryName">생할 할 디렉토리 이름</param>
+    /// <returns></returns>
     public bool CreateDirectory(string directoryName)
     {
         DirectoryInfo diPath = new DirectoryInfo(path + "/" + directoryName);
@@ -52,6 +63,11 @@ public class SaveLoadManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 데이터를 불러온다.
+    /// </summary>
+    /// <param name="directoryName">디렉토리 이름</param>
+    /// <param name="fileName">파일 이름</param>
     public void Load(string directoryName, string fileName)
     {
         string loadPath = path + "/" + directoryName + "/" + fileName;
@@ -66,6 +82,13 @@ public class SaveLoadManager : MonoBehaviour
         }
     }
 
+    // TODO (장현명) : 테스트 후 쓸모없는 데이터 지우기
+
+    /// <summary>
+    /// 데이터를 불러온다.
+    /// </summary>
+    /// <param name="directoryName">디렉토리 이름</param>
+    /// <param name="fileName">파일 이름</param>
     public void Save(string directoryName, string fileName)
     {
         string savePath = path + "/" + directoryName + "/" + fileName;

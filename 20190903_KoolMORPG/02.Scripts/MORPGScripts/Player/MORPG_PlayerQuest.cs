@@ -14,6 +14,7 @@ public class MORPG_PlayerQuest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // TODO (장현명) : 퀘스트 구상 후 리펙토링 및 데이터 파일 형태로 저장.
         questList = new List<tagQuestInfo>();
 
         questInfo.SetQuest("늑대 퇴치", "늑대 10마리를 퇴치해주세요", false, 0);

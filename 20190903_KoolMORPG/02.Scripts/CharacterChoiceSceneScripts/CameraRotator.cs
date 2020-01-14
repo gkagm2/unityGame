@@ -22,12 +22,17 @@ public class CameraRotator : MonoBehaviour
 
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, currentRotationAngle, transform.eulerAngles.z);
     }
-    // 왼쪽으로 회전
+
+    /// <summary>
+    /// 왼쪽으로 회전한다.
+    /// </summary>
     public void RotateLeft()
     {
         wantedRotationAngle = transform.eulerAngles.y + angle;
     }
-    // 오른쪽으로 회전
+    /// <summary>
+    /// 오른쪽으로 회전한다.
+    /// </summary>
     public void RotateRight()
     {
         wantedRotationAngle = transform.eulerAngles.y - angle;

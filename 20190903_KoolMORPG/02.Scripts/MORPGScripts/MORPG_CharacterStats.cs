@@ -12,6 +12,10 @@ public class MORPG_CharacterStats : MonoBehaviour
 
     public float damage = 10;
 
+    /// <summary>
+    /// 데미지를 받는다.
+    /// </summary>
+    /// <param name="damage">데미지 값</param>
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
@@ -22,6 +26,9 @@ public class MORPG_CharacterStats : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 죽는다
+    /// </summary>
     public virtual void Die()
     {
         Debug.Log(transform.name + "die");

@@ -11,7 +11,6 @@ public class MORPG_Interactable : MonoBehaviour
     private Transform player;
     private bool hasInteracted = false;
 
-    
     public virtual void Interact()
     {
         Debug.Log("Interacting with " + transform.name);
@@ -32,6 +31,10 @@ public class MORPG_Interactable : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 플레이어의 위치쪽으로 포커스한다.
+    /// </summary>
+    /// <param name="playerTransform">플레이어의 Transform</param>
     public void OnFocused(Transform playerTransform)
     {
         isFocus = true;
@@ -39,6 +42,9 @@ public class MORPG_Interactable : MonoBehaviour
         hasInteracted = false;
     }
 
+    /// <summary>
+    /// 포커스가 풀린다.
+    /// </summary>
     public void OnDefocused()
     {
         isFocus = false;

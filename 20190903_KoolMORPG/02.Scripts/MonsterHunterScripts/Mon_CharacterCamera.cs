@@ -35,6 +35,9 @@ public class Mon_CharacterCamera : MonoBehaviour
         TouchMobileScreen();
     }
 
+    /// <summary>
+    /// 마우스를 이용한 조작
+    /// </summary>
     private void Mouse()    
     {
         yaw += speedH * Input.GetAxis("Mouse X");
@@ -52,8 +55,13 @@ public class Mon_CharacterCamera : MonoBehaviour
         targetObject.transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
     }
 
+    /// <summary>
+    /// 터치를 이용한 조작
+    /// </summary>
     public void TouchMobileScreen()
     {
+        // FIXED (장현명) : 나중에 주석 제거
+
         // 터치 작동
         if (Input.touchCount >= 1)
         {
@@ -80,7 +88,6 @@ public class Mon_CharacterCamera : MonoBehaviour
                 }
             }
             Debug.Log("오른쪽 화면 영역을 클릭하고 있음. : " + tpos.x + ", " + tpos.y);
-            
         }
     }
 }
