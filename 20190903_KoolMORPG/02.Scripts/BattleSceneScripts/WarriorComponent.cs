@@ -39,12 +39,7 @@ public class WarriorComponent : PlayerMovement
     public EWarriorState eWarriorState = EWarriorState.idle;
 
     private Animator am;
-
-    private void Awake()
-    {
-        
-    }
-
+    
     void Start()
     {
         am = GetComponent<Animator>();

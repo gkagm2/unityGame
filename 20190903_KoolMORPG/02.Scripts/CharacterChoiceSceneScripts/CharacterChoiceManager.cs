@@ -146,7 +146,6 @@ public class CharacterChoiceManager : MonoBehaviour
         {
             // 새로운 캐릭터 유저인가?
             bool isExistUser = false;
-
             
             if (NetworkManager.instance.isExistCharacter[(int)currentCharacterType - 1] == true)
             {
@@ -210,7 +209,6 @@ public class CharacterChoiceManager : MonoBehaviour
         SceneMoveManager.LoadScene("MainScene", "Map_MainScene");
     }
 
-
     /// <summary>
     /// MainScene으로 돌아간다.
     /// </summary>
@@ -241,27 +239,27 @@ public class CharacterChoiceManager : MonoBehaviour
     /// <param name="characterType">선택 할 캐릭터 타입</param>
     private void UpdateCharacterDescription(EPlayerCharacterType characterType)
     {
+        CharacterData characterData = null;
         // 캐릭터 설명 창 업데이트
-        switch (characterType)
+        if (characterType == EPlayerCharacterType.warrior)
         {
-            case EPlayerCharacterType.warrior:
-                characterTypeText.text = "전사";
-                characterDescriptionText.text = "칼을 휘두른다.";
-                characterImage.sprite = Resources.Load<Sprite>(PathOfResources.warriorFaceImage) ;
-                break;
-            case EPlayerCharacterType.archer:
-                characterTypeText.text = "궁수";
-                characterDescriptionText.text = "활을 잘 쏜다.";
-                characterImage.sprite = Resources.Load<Sprite>(PathOfResources.archarFaceImage);
-                break;
-            case EPlayerCharacterType.none:
-                characterTypeText.text = "";
-                characterDescriptionText.text = "";
-                break;
-            default:
-                Debug.Assert(false);
-                break;
+            characterData = Resources.Load<CharacterData>(PathOfResources.warriorData);
+            characterImage.sprite = Resources.Load<Sprite>(PathOfResources.warriorFaceImage);
         }
+        else if(characterType == EPlayerCharacterType.archer)
+        {
+            characterData = Resources.Load<CharacterData>(PathOfResources.archarData);
+            characterImage.sprite = Resources.Load<Sprite>(PathOfResources.archarFaceImage);
+        }
+        else
+        {
+            characterTypeText.text = "";
+            characterDescriptionText.text = "";
+        }
+
+        characterTypeText.text = characterData.characterType;
+        characterDescriptionText.text = characterData.characterDescription;
+
         PlayerInformation.userData.ChangeFaceImage(characterType); // 캐릭터 얼굴 이미지 바꾸기
 
         // 캐릭터 스텟 창 UI 업데이트
